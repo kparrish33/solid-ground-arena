@@ -4,12 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solid Ground Arena - Roller Sports & More</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <meta name="description" content="Solid Ground Arena is Arizona's premier indoor roller sports arena featuring hockey, roller derby, skating, parties, and more." />
+<!-- Social / Open Graph -->
+<meta property="og:title" content="Solid Ground Arena – Roller Sports & Community" />
+<meta property="og:description" content="Arizona's premier indoor roller sports arena featuring hockey, roller derby, skating, parties, and more." />
+<meta property="og:image" content="https://portal.solidgroundarena.com/images/rink-preview.jpg" />
+<meta property="og:url" content="https://portal.solidgroundarena.com" />
+<meta property="og:type" content="website" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Solid Ground Arena – Roller Sports & Community" />
+<meta name="twitter:description" content="Arizona's premier indoor roller sports arena featuring hockey, roller derby, skating, parties, and more." />
+<meta name="twitter:image" content="https://portal.solidgroundarena.com/images/rink-preview.jpg" />
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap');
-        
+    <style>        
         body {
             font-family: 'Montserrat', sans-serif;
             scroll-behavior: smooth;
@@ -226,7 +240,7 @@
             </div>
             
             <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
-                <p>&copy; 2023 Solid Ground Arena. All rights reserved.</p>
+                <p>&copy; <span id="year"></span> Solid Ground Arena. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -257,6 +271,36 @@ const menuBtn = document.getElementById('menu-btn');
                 feather.replace();
             }
         });
-    </script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    // Render the initial feather icon
+    feather.replace();
+
+    // Function to swap icons
+    function setIcon(isOpen) {
+      menuBtn.innerHTML = isOpen
+        ? '<i data-feather="x"></i>'
+        : '<i data-feather="menu"></i>';
+      feather.replace();
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+    }
+
+    // Start with menu closed
+    setIcon(false);
+
+    // On button click → toggle menu
+    menuBtn.addEventListener('click', () => {
+      const isNowHidden = mobileMenu.classList.toggle('hidden');
+      setIcon(!isNowHidden);
+    });
+  
+    
+    // Auto-update footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  });
+</script>
 </body>
 </html>
