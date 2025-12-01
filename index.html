@@ -87,6 +87,7 @@
     </style>
   </head>
   <body class="bg-white text-gray-800">
+
     <!-- Navigation -->
     <nav class="bg-white shadow-md sticky top-0 z-50">
       <div class="container mx-auto px-6 py-4">
@@ -162,122 +163,92 @@
       </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="relative w-full h-screen md:h-[60vh] overflow-hidden"
-      style="height: 70vh;"
-      >
-      <img
-        src="images/rink-preview.png"
-        alt="Solid Ground Arena"
-        class="absolute inset-0 w-full h-full object-cover brightness-[0.4]"
-      />
-      <div
-        class="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-6"
-      >
-        <h1 class="font-bebas text-5xl md:text-7xl mb-4">
-          WELCOME TO <br /><span class="text-yellow-400">SOLID GROUND</span>
-        </h1>
-        <p class="text-xl mb-6">
-          Arizona's premier indoor roller sports arena featuring hockey, derby,
-          skating and more!
-        </p>
-        <a
-          href="skate-now.html"
-          class="skate-now-btn px-8 py-4 rounded-full text-white text-xl font-bold transition-all duration-300 inline-block"
-        >
-          SKATE NOW <i data-feather="arrow-right" class="inline ml-2"></i>
-        </a>
-      </div>
-    </header>
-
-
-    <!-- Features Section -->
-    <section id="sports" class="py-16 bg-gray-50">
-      <div class="container mx-auto px-6">
+   <!-- Features Section -->
+    <section id="features" class="py-16 bg-gray-50">
+      <div class="w-full px-4 max-w-screen-xl mx-auto">
         <h2 class="font-bebas text-4xl md:text-5xl text-center mb-16">
+          EXPLORE SOLID GROUND
         </h2>
 
-        <div class="grid md:grid-cols-3 gap-8">
-          <!-- Feature 1 -->
-          <div
-            class="feature-card bg-white p-8 rounded-xl transition-all duration-300"
-          >
-            <div class="flex justify-center">
-              <img
-                src="images/cat-03.png"
-                alt="Inline Sports"
-                class="h-64 mb-6"
-              />
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Feature 1 - Sports -->
+          <div class="transform skew-y-[-3deg] hover:scale-105 transition duration-300">
+            <div class="feature-card bg-white p-6 rounded-xl transform skew-y-[3deg] shadow-md h-full flex flex-col justify-between">
+              <div class="flex justify-center">
+                <img src="images/cat-03.png" alt="Inline Sports" class="h-48 mb-4" />
+              </div>
+              <h3 class="font-bold text-xl mb-2"> ROLLER SPORTS</h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Join an inline hockey league, watch roller derby matches, or play in an upcoming tournament. Check out our league signups, coaching opportunities, and program schedules.
+              </p>
+              <p class="font-semibold text-yellow-600 text-sm mb-3">
+                Hockey • Derby • Coaching
+              </p>
+              <a href="roller-sports.html" class="text-[#5fbcff] font-semibold text-sm flex items-center">
+                Learn more
+                <i data-feather="arrow-right" class="ml-2 text-[#5fbcff]"></i>
+              </a>
             </div>
-            <h3 class="font-bold text-2xl mb-4">SPORTS</h3>
-            <p class="text-gray-600 mb-6">
-              Join an inline hockey league, watch roller derby matches, or
-              play at our volleyball courts. Check out our league signups, coaching
-              opportunities, and program schedules.
-            </p>
-            <p class="font-semibold text-yellow-600 mb-4">
-              Hockey • Derby • Volleyball
-            </p>
-            <a
-              href="roller-sports.html"
-              class="text-[#5fbcff] font-semibold flex items-center"
-            >
-              Learn more
-              <i data-feather="arrow-right" class="ml-2 text-[#5fbcff]"></i>
-            </a>
           </div>
 
-          <!-- Feature 2 -->
-          <div
-            class="feature-card bg-white p-8 rounded-xl transition-all duration-300"
-          >
-            <div class="flex justify-center">
-              <img src="images/cat-02.png" alt="Open Skate" class="h-64 mb-6" />
+          <!-- Feature 2 - Skate Night -->
+          <div class="transform skew-y-[-3deg] hover:scale-105 transition duration-300">
+            <div class="feature-card bg-white p-6 rounded-xl transform skew-y-[3deg] shadow-md h-full flex flex-col justify-between">
+              <div class="flex justify-center">
+                <img src="images/cat-02.png" alt="Open Skate" class="h-48 mb-4" />
+              </div>
+              <h3 class="font-bold text-xl mb-2">SKATE NIGHT</h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Welcoming skaters of all ages to roll out and unwind. Whether you're lacing up for the first time or looking to show off your moves, we've got the music, the floor, and the energy.
+              </p>
+              <p class="font-semibold text-yellow-600 text-sm mb-3">
+                Themed Events • DJs • Community
+              </p>
+              <a href="skate-now.html" class="text-[#5fbcff] font-semibold text-sm flex items-center">
+                Learn More
+                <i data-feather="arrow-right" class="ml-2 text-[#5fbcff]"></i>
+              </a>
             </div>
-            <h3 class="font-bold text-2xl mb-4">NIGHT SKATE</h3>
-            <p class="text-gray-600 mb-6">
-              Welcoming skaters of all ages to roll out and unwind. Whether
-              you're lacing up for the first time or looking to show off your
-              moves, we've got the music, the floor, and the energy.
-            </p>
-            <p class="font-semibold text-yellow-600 mb-4">
-              Themed Events • DJs • Community
-            </p>
-            <a
-              href="skate-now.html"
-              class="text-[#5fbcff] font-semibold flex items-center"
-            >
-              Learn More
-              <i data-feather="arrow-right" class="ml-2 text-[#5fbcff]"></i>
-            </a>
           </div>
 
-          <!-- Feature 3 -->
-          <div
-            class="feature-card bg-white p-8 rounded-xl transition-all duration-300"
-          >
-            <div class="flex justify-center">
-              <img
-                src="images/cat-01.png"
-                alt="Birthday Parties"
-                class="h-64 mb-6"
-              />
+          <!-- Feature 3 - Arena Rental -->
+          <div class="transform skew-y-[-3deg] hover:scale-105 transition duration-300">
+            <div class="feature-card bg-white p-6 rounded-xl transform skew-y-[3deg] shadow-md h-full flex flex-col justify-between">
+              <div class="flex justify-center">
+                <img src="images/cat-01.png" alt="Birthday Parties" class="h-48 mb-4" />
+              </div>
+              <h3 class="font-bold text-xl mb-2">ARENA RENTAL</h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Celebrate your special occasion on wheels with us! Use our space to host a public event or private party at Solid Ground Arena.
+              </p>
+              <p class="font-semibold text-yellow-600 text-sm mb-3">
+                Party Packages • Events • Add-ons
+              </p>
+              <a href="contact.html" class="text-[#5fbcff] font-semibold text-sm flex items-center">
+                Learn More
+                <i data-feather="arrow-right" class="ml-2 text-[#5fbcff]"></i>
+              </a>
             </div>
-            <h3 class="font-bold text-2xl mb-4">ARENA RENTAL</h3>
-            <p class="text-gray-600 mb-6">
-              Celebrate your special occasion on wheels with us! Make your next
-              birthday unforgettable with us. Use our space to host a public event at Solid Ground Arena.
-            </p>
-            <p class="font-semibold text-yellow-600 mb-4">
-              Party Packages • Events • Add-ons
-            </p>
-            <a
-              href="contact.html"
-              class="text-[#5fbcff] font-semibold flex items-center"
-            >
-              Learn More
-              <i data-feather="arrow-right" class="ml-2 text-[#5fbcff]"></i>
-            </a>
+          </div>
+
+          <!-- Feature 4 - Volleyball -->
+          <div class="transform skew-y-[-3deg] hover:scale-105 transition duration-300">
+            <div class="feature-card bg-white p-6 rounded-xl transform skew-y-[3deg] shadow-md h-full flex flex-col justify-between">
+              <div class="flex justify-center">
+                <img src="images/cat-04.png" alt="Volleyball" class="h-48 mb-4" />
+              </div>
+              <h3 class="font-bold text-xl mb-2">VOLLEYBALL</h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Set, spike, and serve on our indoor courts! Join a league or rent our convertible volleyball setups for your team.
+              </p>
+              <p class="font-semibold text-yellow-600 text-sm mb-3">
+                Court Rentals • Team Practice • Kid's Leagues
+              </p>
+              <a href="volleyball.html" class="text-[#5fbcff] font-semibold text-sm flex items-center">
+                Learn More
+                <i data-feather="arrow-right" class="ml-2 text-[#5fbcff]"></i>
+              </a>
+            </div>
           </div>
         </div>
       </div>
