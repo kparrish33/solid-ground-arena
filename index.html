@@ -84,6 +84,34 @@
       .footer-gradient {
         background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
       }
+
+       .full-bleed {
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        width: 100vw;
+      }
+      @keyframes marquee-right {
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+      .animate-marquee-right {
+        animation: marquee-right 22s linear infinite reverse;
+      }
+      .marquee {
+        animation: marquee-scroll 22s linear infinite;
+      }
+
+      @keyframes marquee-scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
     </style>
   </head>
   <body class="bg-white text-gray-800">
@@ -162,17 +190,39 @@
         </div>
       </div>
     </nav>
+  
+<!-- SECTION 1: Scrolling video (must come first in DOM) -->
+<section id="video-scroller" class="relative min-h-[200vh]">
+  <!-- Sticky video wrapper -->
+  <div class="sticky top-0 h-screen w-full z-0">
+    <div class="absolute inset-0 w-full h-full">
+      <iframe
+        class="w-full h-full"
+        src="https://www.youtube.com/embed/BP6HNr05yO8?autoplay=1&mute=1&loop=1&playlist=BP6HNr05yO8&controls=0&modestbranding=1&showinfo=0&rel=0"
+        title="Solid Ground Arena"
+        frameborder="0"
+        allow="autoplay; fullscreen"
+        allowfullscreen
+      ></iframe>
+      <div class="absolute inset-0 bg-black/40"></div>
+    </div>
+  </div>
 
-   <!-- Features Section -->
-    <section id="features" class="py-16 bg-gray-50">
-      <div class="w-full px-4 max-w-screen-xl mx-auto">
-        <h2 class="font-bebas text-4xl md:text-5xl text-center mb-16">
-          EXPLORE SOLID GROUND
-        </h2>
+  <!-- Feature Cards Floating Over Video -->
+  <div id="floating-cards" class="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
+    <div class="pointer-events-auto w-full max-w-screen-2xl mx-auto px-4 md:px-6">
+      <h2
+        class="pointer-events-none font-bebas text-white
+              text-6xl md:text-7xl lg:text-8xl tracking-tight
+              drop-shadow-[0_6px_20px_rgba(0,0,0,.45)]
+              text-center absolute left-1/2 -translate-x-1/2
+              top-4 md:top-6 lg:top-8">
+        WELCOME TO SOLID GROUND
+      </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <!-- Feature 1 - Sports -->
-          <div class="transform skew-y-[-3deg] hover:scale-105 transition duration-300">
+          <div class="transform skew-y-[10deg] hover:scale-105 transition duration-300 w-full">
             <div class="feature-card bg-white p-6 rounded-xl transform skew-y-[3deg] shadow-md h-full flex flex-col justify-between">
               <div class="flex justify-center">
                 <img src="images/cat-03.png" alt="Inline Sports" class="h-48 mb-4" />
@@ -192,7 +242,7 @@
           </div>
 
           <!-- Feature 2 - Skate Night -->
-          <div class="transform skew-y-[-3deg] hover:scale-105 transition duration-300">
+          <div class="transform skew-y-[10deg] hover:scale-105 transition duration-300 w-full">
             <div class="feature-card bg-white p-6 rounded-xl transform skew-y-[3deg] shadow-md h-full flex flex-col justify-between">
               <div class="flex justify-center">
                 <img src="images/cat-02.png" alt="Open Skate" class="h-48 mb-4" />
@@ -212,7 +262,7 @@
           </div>
 
           <!-- Feature 3 - Arena Rental -->
-          <div class="transform skew-y-[-3deg] hover:scale-105 transition duration-300">
+          <div class="transform skew-y-[10deg] hover:scale-105 transition duration-300 w-full">
             <div class="feature-card bg-white p-6 rounded-xl transform skew-y-[3deg] shadow-md h-full flex flex-col justify-between">
               <div class="flex justify-center">
                 <img src="images/cat-01.png" alt="Birthday Parties" class="h-48 mb-4" />
@@ -232,7 +282,7 @@
           </div>
 
           <!-- Feature 4 - Volleyball -->
-          <div class="transform skew-y-[-3deg] hover:scale-105 transition duration-300">
+          <div class="transform skew-y-[10deg] hover:scale-105 transition duration-300 w-full">
             <div class="feature-card bg-white p-6 rounded-xl transform skew-y-[3deg] shadow-md h-full flex flex-col justify-between">
               <div class="flex justify-center">
                 <img src="images/cat-04.png" alt="Volleyball" class="h-48 mb-4" />
@@ -251,6 +301,121 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- VIDEO STOP SECTION (acts as the scroll destination) -->
+    <section id="video-stop" class="bg-white min-h-screen">
+      <div class="max-w-screen-xl mx-auto px-6 py-24">
+        <!-- Can-Do Kitchen – Coming Soon Banner -->
+      <div class="full-bleed overflow-hidden">
+        <a
+          href="https://can-dokitchen.com/"
+          target="_blank"
+          rel="noopener"
+          class="block ring-1 ring-black/5
+                bg-gradient-to-r from-[#F6DCC7] via-[#F3CFB4] to-[#F0BE98]"
+          aria-label="Visit Can-Do Kitchen (Coming Soon)"
+        >
+        <!-- moving row; duplicate group for seamless loop -->
+        <div class="whitespace-nowrap animate-marquee-right py-3">
+        <!-- GROUP SET 1 -->
+        <span class="inline-flex items-center gap-12 md:gap-16 px-16 md:px-24">
+          <span class="uppercase tracking-[0.18em] text-[11px] font-semibold text-[#9C5B3A]">
+            Can-Do Kitchen
+          </span>
+
+          <span class="inline-flex items-center text-sm md:text-base font-extrabold text-[#C7643A]">
+            Coming Soon
+            <i data-feather="chevron-right" class="w-4 h-4 ml-1 text-[#C7643A]"></i>
+          </span>
+
+          <span class="uppercase tracking-[0.18em] text-[11px] font-semibold text-[#9C5B3A]">
+            Can-Do Kitchen
+          </span>
+
+          <span class="inline-flex items-center text-sm md:text-base font-extrabold text-[#C7643A]">
+            Coming Soon
+            <i data-feather="chevron-right" class="w-4 h-4 ml-1 text-[#C7643A]"></i>
+          </span>
+
+          <span class="uppercase tracking-[0.18em] text-[11px] font-semibold text-[#9C5B3A]">
+            Can-Do Kitchen
+          </span>
+
+          <span class="inline-flex items-center text-sm md:text-base font-extrabold text-[#C7643A]">
+            Coming Soon
+            <i data-feather="chevron-right" class="w-4 h-4 ml-1 text-[#C7643A]"></i>
+          </span>
+
+          <span class="uppercase tracking-[0.18em] text-[11px] font-semibold text-[#9C5B3A]">
+            Can-Do Kitchen
+          </span>
+
+          <span class="inline-flex items-center text-sm md:text-base font-extrabold text-[#C7643A]">
+            Coming Soon
+            <i data-feather="chevron-right" class="w-4 h-4 ml-1 text-[#C7643A]"></i>
+          </span>
+
+          <span class="uppercase tracking-[0.18em] text-[11px] font-semibold text-[#9C5B3A]">
+            Can-Do Kitchen
+          </span>
+
+          <span class="inline-flex items-center text-sm md:text-base font-extrabold text-[#C7643A]">
+            Coming Soon
+            <i data-feather="chevron-right" class="w-4 h-4 ml-1 text-[#C7643A]"></i>
+          </span>
+        </span>
+
+        <!-- GROUP SET 2 (duplicate, DO NOT CHANGE ANYTHING) -->
+        <span class="inline-flex items-center gap-12 md:gap-16 px-16 md:px-24">
+          <span class="uppercase tracking-[0.18em] text-[11px] font-semibold text-[#9C5B3A]">
+            Can-Do Kitchen
+          </span>
+
+          <span class="inline-flex items-center text-sm md:text-base font-extrabold text-[#C7643A]">
+            Coming Soon
+            <i data-feather="chevron-right" class="w-4 h-4 ml-1 text-[#C7643A]"></i>
+          </span>
+
+          <span class="uppercase tracking-[0.18em] text-[11px] font-semibold text-[#9C5B3A]">
+            Can-Do Kitchen
+          </span>
+
+          <span class="inline-flex items-center text-sm md:text-base font-extrabold text-[#C7643A]">
+            Coming Soon
+            <i data-feather="chevron-right" class="w-4 h-4 ml-1 text-[#C7643A]"></i>
+          </span>
+
+          <span class="uppercase tracking-[0.18em] text-[11px] font-semibold text-[#9C5B3A]">
+            Can-Do Kitchen
+          </span>
+
+          <span class="inline-flex items-center text-sm md:text-base font-extrabold text-[#C7643A]">
+            Coming Soon
+            <i data-feather="chevron-right" class="w-4 h-4 ml-1 text-[#C7643A]"></i>
+          </span>
+
+          <span class="uppercase tracking-[0.18em] text-[11px] font-semibold text-[#9C5B3A]">
+            Can-Do Kitchen
+          </span>
+
+          <span class="inline-flex items-center text-sm md:text-base font-extrabold text-[#C7643A]">
+            Coming Soon
+            <i data-feather="chevron-right" class="w-4 h-4 ml-1 text-[#C7643A]"></i>
+          </span>
+
+          <span class="uppercase tracking-[0.18em] text-[11px] font-semibold text-[#9C5B3A]">
+            Can-Do Kitchen
+          </span>
+
+          <span class="inline-flex items-center text-sm md:text-base font-extrabold text-[#C7643A]">
+            Coming Soon
+            <i data-feather="chevron-right" class="w-4 h-4 ml-1 text-[#C7643A]"></i>
+          </span>
+          </span>
+          </div>
+        </a>
       </div>
     </section>
 
@@ -281,7 +446,7 @@
         <div class="flex flex-col md:flex-row items-center">
           <div class="md:w-1/2 mb-8 md:mb-0 md:pr-12">
             <h2 class="font-bebas text-4xl md:text-5xl mb-6">
-              CONVERTIBLE SPACE, <br />ENDLESS FUN
+              CONVERTIBLE SPACE, ENDLESS FUN
             </h2>
             <p class="text-lg mb-4">
               <strong>Solid Ground Arena</strong> is a multi-sport indoor arena
