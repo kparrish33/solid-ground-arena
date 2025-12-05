@@ -135,3 +135,16 @@ if (facilityForm && facilityThankYou) {
     facilityThankYou.classList.remove("hidden");
   });
 }
+
+// 10. Expanding Stripes on Hover Animation
+const stripes = document.querySelectorAll(".stripe-container");
+
+stripes.forEach((stripe) => {
+  stripe.addEventListener("mouseenter", () => {
+    stripe.style.transform = "skewY(-12deg) scale(1.02)";
+  });
+
+  stripe.addEventListener("mouseleave", () => {
+    stripe.style.transform = "skewY(-12deg)";
+  });
+});

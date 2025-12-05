@@ -115,46 +115,73 @@
         position: relative;
         flex: 1;
         width: 100%;
+        transform: skewY(-12deg);
+        transform-origin: left;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
         display: flex;
         align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-        overflow: hidden;
+        padding-left: 15%;
+        color: white;
+        text-decoration: none;
       }
 
-      .stripe-container {
-        transform: skewY(-12deg);
+      .stripe-container:first-child {
+        margin-top: -0.5vh;
+      }
+
+      .stripe-container:last-child {
+        margin-bottom: -0.5vh;
       }
 
       .stripe-container:hover {
-        width: 110%;
-        transform: skewY(-12deg) scale(1.03);
+        z-index: 10;
       }
-     
+
       .stripe-content {
         transform: skewY(12deg);
-        text-align: center;
-        padding: 3rem 1rem;
-        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
       }
-      
+
       .stripe-icon {
-        width: 36px;
-        height: 36px;
-        margin-bottom: 0.75rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        stroke-width: 1.5;
       }
 
       .stripe-title {
         font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 0.25rem;
+        font-weight: 800;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
       }
 
       .stripe-subtitle {
-        font-size: 1rem;
+        font-size: 1.25rem;
+        font-weight: 500;
         opacity: 0.9;
       }
-      
+
+      @media (max-width: 768px) {
+        .stripe-container {
+          padding-left: 10%;
+        }
+
+        .stripe-title {
+          font-size: 1.75rem;
+        }
+
+        .stripe-subtitle {
+          font-size: 1rem;
+        }
+      }
+
+      .stripe-wrapper {
+        padding-top: 6vh;
+        height: 110vh;   
+      }
+
       section.relative.h-screen.w-full.overflow-hidden > .absolute.inset-0.flex.flex-col {
         height: 100%;
       }
@@ -256,47 +283,45 @@
 <body class="bg-gray-100 font-sans">
     <custom-navbar></custom-navbar>
     
-    <main class="overflow-hidden">
-        <!-- Diagonal Stripe Hero Section -->
-        <section class="relative h-screen w-full overflow-hidden">
-            <div class="absolute inset-0 flex flex-col">
-                <!-- Hockey Stripe -->
-                <a href="/hockey" class="stripe-container group bg-blue-600 hover:w-[110%]">
-                    <div class="stripe-content">
-                        <i data-feather="zap" class="stripe-icon"></i>
-                        <h2 class="stripe-title">Hockey</h2>
-                        <p class="stripe-subtitle">Leagues & Open Skate</p>
-                    </div>
-                </a>
-                
-                <!-- Volleyball Stripe -->
-                <a href="/volleyball" class="stripe-container group bg-red-600 hover:w-[110%]">
-                    <div class="stripe-content">
-                        <i data-feather="activity" class="stripe-icon"></i>
-                        <h2 class="stripe-title">Volleyball</h2>
-                        <p class="stripe-subtitle">Competitive & Casual</p>
-                    </div>
-                </a>
-                
-                <!-- Parties Stripe -->
-                <a href="/parties" class="stripe-container group bg-green-600 hover:w-[110%]">
-                    <div class="stripe-content">
-                        <i data-feather="gift" class="stripe-icon"></i>
-                        <h2 class="stripe-title">Birthday Parties</h2>
-                        <p class="stripe-subtitle">Unforgettable Celebrations</p>
-                    </div>
-                </a>
-                
-                <!-- Open Skate Stripe -->
-                <a href="/skate" class="stripe-container group bg-purple-600 hover:w-[110%]">
-                    <div class="stripe-content">
-                        <i data-feather="wind" class="stripe-icon"></i>
-                        <h2 class="stripe-title">Open Skate</h2>
-                        <p class="stripe-subtitle">Public Sessions</p>
-                    </div>
-                </a>
-            </div>
-        </section>
+ <section class="relative h-screen w-full overflow-hidden">
+  <div class="absolute inset-0 flex flex-col stripe-wrapper">
+    <!-- Hockey Stripe -->
+    <a href="/hockey" class="stripe-container group bg-blue-600">
+      <div class="stripe-content">
+        <i data-feather="zap" class="stripe-icon"></i>
+        <h2 class="stripe-title">Hockey</h2>
+        <p class="stripe-subtitle">Leagues & Open Skate</p>
+      </div>
+    </a>
+
+    <!-- Volleyball Stripe -->
+    <a href="/volleyball" class="stripe-container group bg-red-600">
+      <div class="stripe-content">
+        <i data-feather="activity" class="stripe-icon"></i>
+        <h2 class="stripe-title">Volleyball</h2>
+        <p class="stripe-subtitle">Competitive & Casual</p>
+      </div>
+    </a>
+
+    <!-- Parties Stripe -->
+    <a href="/parties" class="stripe-container group bg-green-600">
+      <div class="stripe-content">
+        <i data-feather="gift" class="stripe-icon"></i>
+        <h2 class="stripe-title">Birthday Parties</h2>
+        <p class="stripe-subtitle">Unforgettable Celebrations</p>
+      </div>
+    </a>
+
+    <!-- Open Skate Stripe -->
+    <a href="/skate" class="stripe-container group bg-purple-600">
+      <div class="stripe-content">
+        <i data-feather="wind" class="stripe-icon"></i>
+        <h2 class="stripe-title">Open Skate</h2>
+        <p class="stripe-subtitle">Public Sessions</p>
+      </div>
+    </a>
+  </div>
+</section>
 
         <!-- Featured Section -->
         <section class="py-20 px-4 max-w-7xl mx-auto">
