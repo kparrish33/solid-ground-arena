@@ -265,6 +265,30 @@
         pointer-events: none;   
         margin-left: -1rem;      
       }
+
+      .full-bleed {
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        width: 100vw;
+      }
+
+      .marquee-track {
+        display: inline-block;
+        transform: translateX(-50%);
+        animation: marquee-scroll 22s linear infinite;
+      }
+
+      @keyframes marquee-scroll {
+        0% {
+          transform: translateX(-50);
+        }
+        100% {
+          transform: translateX(0%);
+        }
+      }
     </style>
   </head>
   <body class="bg-white text-gray-800">
@@ -424,6 +448,75 @@
                     <i data-feather="star" class="feature-icon"></i>
                     <h3>Top Facilities</h3>
                     <p>Professional-grade equipment and surfaces</p>
+                </div>
+              </div> 
+
+                <!-- Can-Do Kitchen – Coming Soon Banner -->
+                <div class="full-bleed overflow-hidden pt-10 my-10">
+                  <a
+                    href="https://can-dokitchen.com/"
+                    target="_blank"
+                    rel="noopener"
+                    class="block ring-1 ring-black/5 bg-gradient-to-r from-[#F6DCC7] via-[#F3CFB4] to-[#F0BE98]"
+                    aria-label="Visit Can-Do Kitchen (Coming Soon)"
+                  >
+                    <!-- moving row; duplicate content for seamless loop -->
+                    <div class="marquee-track whitespace-nowrap py-3">
+                      <!-- GROUP A -->
+                      <span class="marquee-group inline-flex items-center gap-12 md:gap-16 px-16 md:px-24">
+                        <span class="uppercase tracking-[0.18em] text-[11px] font-semibold text-[#9C5B3A]">
+                          Can-Do Kitchen
+                        </span>
+                        <span class="inline-flex items-center text-sm md:text-base font-extrabold text-[#C7643A]">
+                          Coming Soon
+                          <i data-feather="chevron-right" class="w-4 h-4 ml-1 text-[#C7643A]"></i>
+                        </span>
+
+                        <span class="uppercase tracking-[0.18em] text-[11px] font-semibold text-[#9C5B3A]">
+                          Can-Do Kitchen
+                        </span>
+                        <span class="inline-flex items-center text-sm md:text-base font-extrabold text-[#C7643A]">
+                          Coming Soon
+                          <i data-feather="chevron-right" class="w-4 h-4 ml-1 text-[#C7643A]"></i>
+                        </span>
+
+                        <span class="uppercase tracking-[0.18em] text-[11px] font-semibold text-[#9C5B3A]">
+                          Can-Do Kitchen
+                        </span>
+                        <span class="inline-flex items-center text-sm md:text-base font-extrabold text-[#C7643A]">
+                          Coming Soon
+                          <i data-feather="chevron-right" class="w-4 h-4 ml-1 text-[#C7643A]"></i>
+                        </span>
+                      </span>
+
+                      <!-- GROUP B (duplicate for seamless loop) -->
+                      <span class="marquee-group inline-flex items-center gap-12 md:gap-16 px-16 md:px-24">
+                        <span class="uppercase tracking-[0.18em] text-[11px] font-semibold text-[#9C5B3A]">
+                          Can-Do Kitchen
+                        </span>
+                        <span class="inline-flex items-center text-sm md:text-base font-extrabold text-[#C7643A]">
+                          Coming Soon
+                          <i data-feather="chevron-right" class="w-4 h-4 ml-1 text-[#C7643A]"></i>
+                        </span>
+
+                        <span class="uppercase tracking-[0.18em] text-[11px] font-semibold text-[#9C5B3A]">
+                          Can-Do Kitchen
+                        </span>
+                        <span class="inline-flex items-center text-sm md:text-base font-extrabold text-[#C7643A]">
+                          Coming Soon
+                          <i data-feather="chevron-right" class="w-4 h-4 ml-1 text-[#C7643A]"></i>
+                        </span>
+
+                        <span class="uppercase tracking-[0.18em] text-[11px] font-semibold text-[#9C5B3A]">
+                          Can-Do Kitchen
+                        </span>
+                        <span class="inline-flex items-center text-sm md:text-base font-extrabold text-[#C7643A]">
+                          Coming Soon
+                          <i data-feather="chevron-right" class="w-4 h-4 ml-1 text-[#C7643A]"></i>
+                        </span>
+                      </span>
+                    </div>
+                  </a>
                 </div>
             </div>
         </section>
