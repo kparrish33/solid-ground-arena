@@ -148,3 +148,60 @@ stripes.forEach((stripe) => {
     stripe.style.transform = "skewY(-12deg)";
   });
 });
+
+// 11. Livestream Auto-Detection
+async function checkLivestream() {
+  const checkUrl = "https://impactenvi.watch.pixellot.tv/thumbnail.jpg";
+
+  const card = document.getElementById("livestreamCard");
+  const badge = document.getElementById("liveBadge");
+  const floating = document.getElementById("floatingLiveBadge");
+
+  try {
+    await fetch(checkUrl, { method: "HEAD", mode: "no-cors" });
+
+    const isLive = true;
+
+    if (isLive) {
+      card.classList.add("livestream-glow");
+
+      // Show badge inside card
+      badge.classList.remove("opacity-0");
+      badge.classList.add("opacity-100");
+
+      // Show floating badge
+      floating.classList.remove("hidden");
+      floating.classList.add("flex");
+    }
+  } catch (err) {
+    console.log("Livestream check error:", err);
+  }
+}
+
+// Run on load + every 60s
+checkLivestream();
+setInterval(checkLivestream, 60000);
+
+// Feather icons
+feather.replace();
+
+// 12. Floating Badge Behavior
+
+// Get badge elements
+const floatingBadge = document.getElementById("floatingLiveBadge");
+const closeBtn = document.getElementById("closeLiveBadge");
+
+// Make entire badge open the livestream
+if (floatingBadge) {
+  floatingBadge.addEventListener("click", () => {
+    window.open("https://impactenvi.watch.pixellot.tv/", "_blank");
+  });
+}
+
+// Allow dismiss button to hide the badge
+if (closeBtn && floatingBadge) {
+  closeBtn.addEventListener("click", (e) => {
+    e.stopPropagation(); // Prevents triggering the click-to-open
+    floatingBadge.classList.add("hidden");
+  });
+}

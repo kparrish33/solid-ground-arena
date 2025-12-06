@@ -289,6 +289,17 @@
           transform: translateX(0%);
         }
       }
+
+      .livestream-glow {
+        box-shadow: 0 0 25px 10px rgba(255, 0, 0, 0.55),
+                    0 0 12px 6px rgba(255, 70, 70, 0.45);
+        transition: box-shadow 0.4s ease;
+      }
+
+      #floatingLiveBadge {
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
     </style>
   </head>
   <body class="bg-white text-gray-800">
@@ -432,21 +443,21 @@
 
         <!-- Featured Section -->
         <section class="py-20 px-4 max-w-7xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-12">Why Choose Our Arena?</h2>
+            <h2 class="font-bebas text-4xl md:text-5xl text-center mb-16">UPCOMING EVENTS</h2>
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="feature-card">
                     <i data-feather="clock" class="feature-icon"></i>
-                    <h3>Flexible Hours</h3>
+                    <h3>Fall Festival</h3>
                     <p>Open early until late with sessions for all schedules</p>
                 </div>
                 <div class="feature-card">
                     <i data-feather="users" class="feature-icon"></i>
-                    <h3>Community Focused</h3>
+                    <h3>Open Skate Night</h3>
                     <p>Programs and events for all ages and skill levels</p>
                 </div>
                 <div class="feature-card">
                     <i data-feather="star" class="feature-icon"></i>
-                    <h3>Top Facilities</h3>
+                    <h3>Inline Tournament</h3>
                     <p>Professional-grade equipment and surfaces</p>
                 </div>
               </div> 
@@ -526,6 +537,67 @@
     feather.replace();
   </script>
 </body>
+
+<!-- LIVE STREAM Badge -->
+<section class="py-20 px-4">
+  
+  <!-- Floating LIVE Badge -->
+  <div id="floatingLiveBadge"
+      class="hidden fixed top-20 right-6 z-40 bg-red-600 text-white px-4 py-2 rounded-full shadow-xl items-center gap-3 animate-pulse cursor-pointer transition-all duration-300">
+
+    <!-- Pulsing dot -->
+    <span class="relative flex h-3 w-3">
+      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+      <span class="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+    </span>
+
+    <!-- Label -->
+    <span class="font-bold tracking-wide text-sm uppercase">Live Now</span>
+
+    <!-- Close button -->
+    <button id="closeLiveBadge" class="ml-2 text-white opacity-80 hover:opacity-100">
+      ✕
+    </button>
+  </div>
+
+  <!-- Livestream Card -->
+  <div id="livestreamCard"
+       class="max-w-7xl mx-auto rounded-3xl bg-gradient-to-r from-sky-400 to-blue-600 p-10 shadow-xl text-white transition-all duration-500 relative overflow-hidden">
+
+    <!-- Live badge inside card -->
+    <div id="liveBadge" class="flex items-center gap-2 mb-6 opacity-0 transition-opacity duration-500">
+      <span class="relative flex h-3 w-3">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-3 w-3 bg-red-600"></span>
+      </span>
+
+      <span class="uppercase font-bold tracking-widest text-red-200 text-sm">
+        Live Now
+      </span>
+
+      <i data-feather="tv" class="w-5 h-5 text-red-200"></i>
+    </div>
+
+    <!-- Title -->
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-4">
+      Watch Hockey Live at Solid Ground Arena
+    </h2>
+
+    <!-- Subtitle -->
+    <p class="text-lg md:text-xl opacity-90 mb-8 max-w-3xl">
+      Catch every goal, save, and fast-paced moment—stream all live games directly from the arena.
+    </p>
+
+    <!-- Button -->
+    <a href="https://impactenvi.watch.pixellot.tv/" 
+       target="_blank"
+       class="inline-flex items-center gap-2 bg-white text-blue-700 font-semibold px-8 py-4 rounded-full shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300">
+      Watch Live Stream
+      <i data-feather="play-circle" class="w-5 h-5"></i>
+    </a>
+  </div>
+</section>
+</section>
 
     <!-- Features Section -->
     <section id="features" class="py-16 bg-gray-50">
@@ -645,7 +717,7 @@
         <div class="flex flex-col md:flex-row items-center">
           <div class="md:w-1/2 mb-8 md:mb-0 md:pr-12">
             <h2 class="font-bebas text-4xl md:text-5xl mb-6">
-              CONVERTIBLE SPACE, <br />ENDLESS FUN
+              CONVERTIBLE SPACE, ENDLESS FUN
             </h2>
             <p class="text-lg mb-4">
               <strong>Solid Ground Arena</strong> is a multi-sport indoor arena
