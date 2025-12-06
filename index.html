@@ -62,13 +62,18 @@
       }
 
       .skate-now-btn {
-        background: linear-gradient(90deg, #5fbcff 0%, #ffc371 100%);
-        box-shadow: 0 6px 20px rgba(227, 216, 7, 0.404);
+        background: linear-gradient(to right, #38bdf8, #2563eb); 
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15); 
+        transition: all 0.3s ease; 
+        transform: scale(1);
+        border-radius: 6px; 
       }
 
       .skate-now-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(255, 156, 95, 0.6);
+        transform: scale(1.05); 
+        box-shadow: 0 6px 20px rgba(0,0,0,0.25); 
+        outline: 2px solid rgba(59,130,246,0.4); 
+        outline-offset: 2px; 
       }
 
       .nav-link:hover {
@@ -178,7 +183,7 @@
       }
 
       .stripe-wrapper {
-        padding-top: 6vh;
+        padding-top:20vh;
         height: 110vh;   
       }
 
@@ -187,8 +192,78 @@
       }
       
       .feature-icon {
-      color: #3b82f6; /* Tailwind blue-500 */
-      stroke: #3b82f6;
+        color: #3b82f6; /* Tailwind blue-500 */
+        stroke: #3b82f6;
+      }
+
+      .stripe-title {
+        font-family: "Bebas Neue", sans-serif !important;
+        letter-spacing: 1px;
+        font-size: 3rem;
+        font-weight: 800;
+      }
+
+      .stripe-icon {
+        width: 3rem;
+        height: 3rem;
+        stroke-width: 2.5;
+      }
+
+      .stripe-container {
+        position: relative;
+        box-shadow: 0 0 0 rgba(0,0,0,0);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .stripe-container:hover {
+        box-shadow: 0px 8px 25px rgba(95, 188, 255, 0.45);
+      }
+
+      .stripe-container::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(
+          90deg,
+          rgba(255,255,255,0.15),
+          rgba(0,0,0,0.15)
+        );
+        mix-blend-mode: overlay;
+      }
+
+      .stripe-container:hover .stripe-content {
+        transform: skewY(-1deg) translateX(10px) scale(1.02);
+      }
+
+      .stripe-container::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url('/images/noise.png'); 
+        opacity: 0.15;
+        pointer-events: none;
+      }
+
+      .stripe-content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1.5rem;
+        transform: skewY(-1deg);
+      }
+
+      .stripe-icon {
+        margin-left: -2rem; 
+      }
+
+      .stripe-cat-icon {
+        width: 300px;     
+        height:300px;
+        object-fit: contain;
+        transform: skewY(12deg); 
+        pointer-events: none;   
+        margin-left: -1rem;      
       }
     </style>
   </head>
@@ -286,39 +361,47 @@
  <section class="relative h-screen w-full overflow-hidden">
   <div class="absolute inset-0 flex flex-col stripe-wrapper">
     <!-- Roller Sports -->
-    <a href="/hockey" class="stripe-container group bg-blue-600">
-        <div class="stripe-content">
-            <i data-feather="zap" class="stripe-icon"></i>
-            <h2 class="stripe-title">Roller Sports</h2>
-            <p class="stripe-subtitle">Leagues & Open Skate</p>
+    <a href="sports.html" class="stripe-container group bg-gradient-to-r from-blue-600 via-sky-400 to-blue-600">
+      <div class="stripe-content">
+        <img src="images/cat-03.png" class="stripe-cat-icon" alt="Cat Icon">
+        <div class="stripe-text">
+          <h2 class="stripe-title">Roller Sports</h2>
+          <p class="stripe-subtitle">Leagues & Open Skate</p>
         </div>
+      </div>
     </a>
 
     <!-- Volleyball -->
-    <a href="/volleyball" class="stripe-container group bg-red-600">
-        <div class="stripe-content">
-            <i data-feather="activity" class="stripe-icon"></i>
-            <h2 class="stripe-title">Volleyball</h2>
-            <p class="stripe-subtitle">Competitive & Casual</p>
+    <a href="sports.html" class="stripe-container group bg-gradient-to-r from-[#ff8c00] via-[#ffd60a] to-[#ff8c00]">
+      <div class="stripe-content">
+        <img src="images/cat-04.png" class="stripe-cat-icon" alt="Cat Icon">
+        <div class="stripe-text">
+        <h2 class="stripe-title">Volleyball</h2>
+        <p class="stripe-subtitle">Competitive & Casual</p>
         </div>
+      </div>
     </a>
 
     <!-- Skate Night -->
-    <a href="/skate" class="stripe-container group bg-purple-600">
-        <div class="stripe-content">
-            <i data-feather="wind" class="stripe-icon"></i>
-            <h2 class="stripe-title">Skate Night</h2>
-            <p class="stripe-subtitle">Public Sessions</p>
+    <a href="skate-night.html" class="stripe-container group bg-gradient-to-r from-blue-600 via-sky-400 to-blue-600">
+      <div class="stripe-content">
+        <img src="images/cat-02.png" class="stripe-cat-icon" alt="Cat Icon">
+        <div class="stripe-text">
+        <h2 class="stripe-title">Skate Night</h2>
+        <p class="stripe-subtitle">Open Sessions & Themed Events</p>
         </div>
+      </div>
     </a>
 
     <!-- Arena Rental (Birthday Parties) -->
-    <a href="/parties" class="stripe-container group bg-green-600">
-        <div class="stripe-content">
-            <i data-feather="gift" class="stripe-icon"></i>
-            <h2 class="stripe-title">Arena Rental</h2>
-            <p class="stripe-subtitle">Unforgettable Celebrations</p>
+    <a href="arena-rental.html" class="stripe-container group bg-gradient-to-r from-[#ff8c00] via-[#ffd60a] to-[#ff8c00]">
+      <div class="stripe-content">
+        <img src="images/cat-01.png" class="stripe-cat-icon" alt="Cat Icon">
+        <div class="stripe-text">
+        <h2 class="stripe-title">Arena Rental</h2>
+        <p class="stripe-subtitle">Birthday Parties & Public Events</p>
         </div>
+      </div>
     </a>
     </div>
 </section>
@@ -369,10 +452,10 @@
               <p class="text-sm text-gray-600 mb-4">
                 Join an inline hockey league, watch roller derby matches, or play in an upcoming tournament. Check out our league signups, coaching opportunities, and program schedules.
               </p>
-              <p class="font-semibold text-yellow-600 text-sm mb-3">
+              <p class="font-semibold text-yellow-400 text-sm mb-3">
                 Inline Hockey • Roller Derby • Coaching
               </p>
-              <a href="roller-sports.html" class="text-[#5fbcff] font-semibold text-sm flex items-center">
+              <a href="sports.html" class="text-[#5fbcff] font-semibold text-sm flex items-center">
                 Learn more
                 <i data-feather="arrow-right" class="ml-2 text-[#5fbcff]"></i>
               </a>
@@ -389,10 +472,10 @@
               <p class="text-sm text-gray-600 mb-4">
                 Welcoming skaters of all ages to roll out and unwind. Whether you're lacing up for the first time or looking to show off your moves, we've got the music, the floor, and the energy.
               </p>
-              <p class="font-semibold text-yellow-600 text-sm mb-3">
+              <p class="font-semibold text-yellow-400 text-sm mb-3">
                 Themed Events • DJs • Community
               </p>
-              <a href="skate-now.html" class="text-[#5fbcff] font-semibold text-sm flex items-center">
+              <a href="skate-night.html" class="text-[#5fbcff] font-semibold text-sm flex items-center">
                 Learn More
                 <i data-feather="arrow-right" class="ml-2 text-[#5fbcff]"></i>
               </a>
@@ -409,10 +492,10 @@
               <p class="text-sm text-gray-600 mb-4">
                 Celebrate your special occasion on wheels with us! Use our space to host a public event or private party at Solid Ground Arena.
               </p>
-              <p class="font-semibold text-yellow-600 text-sm mb-3">
+              <p class="font-semibold text-yellow-400 text-sm mb-3">
                 Party Packages • Public Events • Add-ons
               </p>
-              <a href="contact.html" class="text-[#5fbcff] font-semibold text-sm flex items-center">
+              <a href="arena-rental.html" class="text-[#5fbcff] font-semibold text-sm flex items-center">
                 Learn More
                 <i data-feather="arrow-right" class="ml-2 text-[#5fbcff]"></i>
               </a>
@@ -429,10 +512,10 @@
               <p class="text-sm text-gray-600 mb-4">
                 Set, spike, and serve on our indoor courts! Join a league or rent our convertible volleyball setups for your team.
               </p>
-              <p class="font-semibold text-yellow-600 text-sm mb-3">
+              <p class="font-semibold text-yellow-400 text-sm mb-3">
                 Court Rentals • Team Practice • Kid's Leagues
               </p>
-              <a href="volleyball.html" class="text-[#5fbcff] font-semibold text-sm flex items-center">
+              <a href="sports.html" class="text-[#5fbcff] font-semibold text-sm flex items-center">
                 Learn More
                 <i data-feather="arrow-right" class="ml-2 text-[#5fbcff]"></i>
               </a>
@@ -456,7 +539,7 @@
             large events.
           </p>
           <a
-            href="facility.html"
+            href="arena-rental.html"
             class="bg-white text-blue-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300 inline-flex items-center"
           >
             Book Facility Rental <i data-feather="arrow-right" class="ml-2"></i>
@@ -489,7 +572,7 @@
               and activities.
             </p>
             <a
-              href="facility.html"
+              href="arena-rental.html"
               class="inline-block bg-black text-white px-6 py-3 rounded-full font-semibold hover:bg-gray-800 transition-colors"
             >
               EXPLORE <i data-feather="arrow-right" class="inline ml-2"></i>
@@ -508,7 +591,7 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="py-20 bg-gray-900 text-white">
+    <section class="py-20 bg-yellow-400 text-white">
       <div class="container mx-auto px-6 text-center">
         <h2 class="font-bebas text-4xl md:text-6xl mb-6">SOLID GROUND ARENA</h2>
         <p class="text-xl mb-8 max-w-2xl mx-auto">
@@ -517,7 +600,7 @@
         </p>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
           <a
-            href="skate-now.html"
+            href="skate-night.html"
             class="skate-now-btn px-8 py-4 rounded-full text-white text-xl font-bold transition-all duration-300 inline-block"
           >
             SKATE NOW
@@ -608,12 +691,12 @@
             <h3 class="font-bebas text-2xl mb-4">QUICK LINKS</h3>
             <ul class="space-y-2">
               <li>
-                <a href="roller-sports.html" class="hover:text-yellow-400"
+                <a href="sports.html" class="hover:text-yellow-400"
                   >Roller Sports</a
                 >
               </li>
               <li>
-                <a href="facility.html" class="hover:text-yellow-400"
+                <a href="arena-rental.html" class="hover:text-yellow-400"
                   >Facility</a
                 >
               </li>
