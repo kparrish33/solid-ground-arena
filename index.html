@@ -297,6 +297,14 @@
   </head>
   <body class="bg-white text-gray-800">
 
+        <!-- Floating Live Badge -->
+    <div id="liveBadge" 
+        class="hidden fixed top-4 right-4 bg-red-600 text-white font-bold px-4 py-2 rounded-full shadow-lg 
+               flex items-center gap-2 z-50 animate-pulse cursor-pointer">
+        <span>🔴 LIVE Now</span>
+        <button id="dismissLiveBadge" class="text-white text-lg leading-none">&times;</button>
+    </div>
+
     <!-- Navigation -->
     <nav class="bg-white shadow-md sticky top-0 z-50">
       <div class="container mx-auto px-6 py-4">
@@ -532,13 +540,9 @@
 <!-- LIVE STREAM Badge -->
 <section class="py-20 px-4">
   
- <!-- Floating Live Badge -->
-<div id="liveBadge" 
-     class="hidden fixed top-4 right-4 bg-red-600 text-white font-bold px-4 py-2 rounded-full shadow-lg 
-            flex items-center gap-2 z-50 animate-pulse">
-    <span>🔴 LIVE Now</span>
-    <button id="dismissLiveBadge" class="text-white text-lg leading-none">&times;</button>
-</div>
+  <!-- Floating LIVE Badge -->
+  <div id="floatingLiveBadge"
+      class="hidden fixed top-20 right-6 z-40 bg-red-600 text-white px-4 py-2 rounded-full shadow-xl items-center gap-3 animate-pulse cursor-pointer transition-all duration-300">
 
     <!-- Pulsing dot -->
     <span class="relative flex h-3 w-3">
@@ -759,10 +763,11 @@
           sports enthusiasts today!
         </p>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
-          <a
-            href="skate-night.html"
-            class="skate-now-btn px-8 py-4 rounded-full text-white text-xl font-bold transition-all duration-300 inline-block"
-          >
+          <a 
+          href="skate-night.html"
+          class="inline-block bg-gradient-to-r from-sky-400 to-blue-600 
+                text-white font-bold px-10 py-5 rounded-full shadow-lg 
+                hover:scale-105 transition transform !rounded-full">
             SKATE NOW
           </a>
           <a
