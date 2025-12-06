@@ -149,59 +149,67 @@ stripes.forEach((stripe) => {
   });
 });
 
-// 11. Livestream Auto-Detection
-async function checkLivestream() {
-  const checkUrl = "https://impactenvi.watch.pixellot.tv/thumbnail.jpg";
-
-  const card = document.getElementById("livestreamCard");
-  const badge = document.getElementById("liveBadge");
-  const floating = document.getElementById("floatingLiveBadge");
-
-  try {
-    await fetch(checkUrl, { method: "HEAD", mode: "no-cors" });
-
-    const isLive = true;
-
-    if (isLive) {
-      card.classList.add("livestream-glow");
-
-      // Show badge inside card
-      badge.classList.remove("opacity-0");
-      badge.classList.add("opacity-100");
-
-      // Show floating badge
-      floating.classList.remove("hidden");
-      floating.classList.add("flex");
-    }
-  } catch (err) {
-    console.log("Livestream check error:", err);
-  }
-}
-
-// Run on load + every 60s
-checkLivestream();
-setInterval(checkLivestream, 60000);
-
-// Feather icons
-feather.replace();
-
-// 12. Floating Badge Behavior
-
-// Get badge elements
+// 11. Livestream Auto-Detection & Glow Animation
+const card = document.getElementById("livestreamCard");
+const inlineBadge = document.getElementById("liveBadge");
 const floatingBadge = document.getElementById("floatingLiveBadge");
 const closeBtn = document.getElementById("closeLiveBadge");
 
-// Make entire badge open the livestream
+// Placeholder livestream check URL (we'll update this once we know the real one)
+const LIVE_CHECK_URL = "https://impactenvi.watch.pixellot.tv/";
+
+// Automatically checks if livestream is active
+async function checkLivestream() {
+  try {
+    // Lightweight request (Pixellot will not allow us to read content due to CORS)
+    await fetch(LIVE_CHECK_URL, { method: "HEAD", mode: "no-cors" });
+
+    // TEMP LOGIC — We will replace this when we get the real API endpoint
+    const isLive = true;
+
+    if (isLive) {
+      showLivestreamUI();
+    }
+  } catch (err) {
+    console.warn("Livestream check error:", err);
+  }
+}
+
+// Display UI changes when stream is live
+function showLivestreamUI() {
+  if (card) {
+    card.classList.add("livestream-glow");
+  }
+
+  if (inlineBadge) {
+    inlineBadge.classList.remove("opacity-0");
+    inlineBadge.classList.add("opacity-100");
+  }
+
+  if (floatingBadge) {
+    floatingBadge.classList.remove("hidden");
+    floatingBadge.classList.add("flex");
+  }
+}
+
+// Floating badge opens livestream page
 if (floatingBadge) {
   floatingBadge.addEventListener("click", () => {
     window.open("https://impactenvi.watch.pixellot.tv/", "_blank");
   });
 }
 
-// Allow dismiss button to hide the badge
+// Close floating badge without triggering open
 if (closeBtn && floatingBadge) {
   closeBtn.addEventListener("click", (e) => {
-    e.stopPropagation(); // Prevents triggering the click-to-open
+    e.stopPropagation();
     floatingBadge.classList.add("hidden");
   });
 }
+
+// Run check on load + every 60 seconds
+checkLivestream();
+setInterval(checkLivestream, 60000);
+
+// Feather icons
+feather.replace();

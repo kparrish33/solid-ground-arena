@@ -240,7 +240,6 @@
         content: "";
         position: absolute;
         inset: 0;
-        background-image: url('/images/noise.png'); 
         opacity: 0.15;
         pointer-events: none;
       }
@@ -288,12 +287,6 @@
         100% {
           transform: translateX(0%);
         }
-      }
-
-      .livestream-glow {
-        box-shadow: 0 0 25px 10px rgba(255, 0, 0, 0.55),
-                    0 0 12px 6px rgba(255, 70, 70, 0.45);
-        transition: box-shadow 0.4s ease;
       }
 
       #floatingLiveBadge {
@@ -387,8 +380,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
-    <script src="components/navbar.js"></script>
-    <script src="components/footer.js"></script>
 </head>
 <body class="bg-gray-100 font-sans">
     <custom-navbar></custom-navbar>
@@ -541,9 +532,13 @@
 <!-- LIVE STREAM Badge -->
 <section class="py-20 px-4">
   
-  <!-- Floating LIVE Badge -->
-  <div id="floatingLiveBadge"
-      class="hidden fixed top-20 right-6 z-40 bg-red-600 text-white px-4 py-2 rounded-full shadow-xl items-center gap-3 animate-pulse cursor-pointer transition-all duration-300">
+ <!-- Floating Live Badge -->
+<div id="liveBadge" 
+     class="hidden fixed top-4 right-4 bg-red-600 text-white font-bold px-4 py-2 rounded-full shadow-lg 
+            flex items-center gap-2 z-50 animate-pulse">
+    <span>🔴 LIVE Now</span>
+    <button id="dismissLiveBadge" class="text-white text-lg leading-none">&times;</button>
+</div>
 
     <!-- Pulsing dot -->
     <span class="relative flex h-3 w-3">
