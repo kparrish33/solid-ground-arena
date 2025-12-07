@@ -49,7 +49,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
   </head>
-  <body class="bg-white text-gray-800">
+  <body class="neon-page">
     <!-- Navigation -->
 <nav class="bg-white shadow-md sticky top-0 z-50 overflow-visible">
   <div class="container mx-auto px-6 py-4">
@@ -173,39 +173,118 @@
 </nav>
 
     <!-- Hero Section -->
-    <header class="hero-gradient text-white">
-      <div
-        class="container mx-auto px-6 py-20 md:py-32 flex flex-col md:flex-row items-center"
-      >
-        <div class="md:w-1/2 mb-12 md:mb-0">
-          <h1 class="font-bebas text-5xl md:text-7xl mb-6 text-yellow-400">SKATE NOW</h1>
-          <p class="text-xl mb-8">
-            Ready to roll? Find skate schedules, book your spot, and join the
-            fun at Solid Ground Arena.
-          </p>
+    <header class="hero-gradient pt-16 md:pt-24 pb-8 md:pb-10">
+      <div class="container mx-auto px-6">
+
+        <!-- Neon title -->
+        <h1 class="font-bebas text-5xl md:text-7xl text-center mb-10 neon-hero-title">
+          SKATE NIGHT AZ
+        </h1>
+
+        <!-- Video wrapper -->
+        <div class="relative w-full max-w-7xl mx-auto h-[75vh] rounded-3xl overflow-hidden shadow-2xl">
+          <iframe 
+            class="w-full h-full"
+            src="https://www.youtube.com/embed/4NOSAFWIxXQ?autoplay=1&mute=1&loop=1&playlist=4NOSAFWIxXQ&controls=0&modestbranding=1&showinfo=0&rel=0&iv_load_policy=3&playsinline=1"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+          ></iframe>
         </div>
-        <div class="md:w-1/2">
-          <img
-            src="https://images.squarespace-cdn.com/content/v1/68adceb4527e8e5038fdbfe6/ad2d799f-c643-42b6-acb6-2fd51237787a/rink+header.jpg"
-            alt="Solid Ground Arena"
-            class="rounded-lg shadow-2xl"
-          />
-        </div>
+
       </div>
     </header>
 
-    <!-- Features Section -->
-    <section id="sports" class="py-16 bg-gray-50">
-      <div class="container mx-auto px-6">
-        <h2 class="font-bebas text-4xl md:text-5xl text-center mb-16">
-          ROLL ON OVER TO SOLID GROUND
-        </h2>
+<!-- Welcome to SkateNights! -->
+<section class="info-section neon-panel mt-20 mb-20 max-w-5xl mx-auto px-6 py-12 text-center rounded-2xl">
+  <h2 class="neon-title text-4xl md:text-5xl mb-6">Welcome to SkateNights!</h2>
 
-        <div class="grid md:grid-cols-3 gap-8">
-          </div>
+  <p class="neon-subtext text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
+    Experience the ultimate roller skating adventure under vibrant neon lights! Whether you're a seasoned skater or stepping onto the rink for the first time, SkateNights at Solid Ground Arena is your destination for unforgettable nights of music, movement, and memories. Join us every week for themed nights that bring the energy, the beats, and the pure joy of skating!
+  </p>
+</section>
+
+<!-- Themed Nights -->
+<section class="carousel-section mt-24 mb-24">
+  <h2 class="neon-title text-center text-4xl md:text-5xl mb-12">
+    🎉 Themed Nights
+  </h2>
+
+  <div class="carousel-container">
+    <div class="carousel-track">
+
+      <!-- Card 1 -->
+      <div class="theme-card">
+        <div class="theme-content">
+          <h3>Glow Party</h3>
+          <p class="theme-date">Every Saturday | 8:00 PM – 12:00 AM</p>
+          <p>Lights, glow sticks, and UV-active gear! Shine bright all night long.</p>
         </div>
       </div>
-    </section>
+
+      <!-- Card 2 -->
+      <div class="theme-card">
+        <div class="theme-content">
+          <h3>🎸 Rock & Roll</h3>
+          <p class="theme-date">Second Friday | 7:00 PM – 11:00 PM</p>
+          <p>Skate to the greatest rock anthems and headbang on wheels.</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="theme-card">
+        <div class="theme-content">
+          <h3>⭐ Disco Fever</h3>
+          <p class="theme-date">Every Friday | 7:00 PM – 11:00 PM</p>
+          <p>Bell bottoms, platform shoes, and mirror balls! Boogie all night long.</p>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="theme-card">
+        <div class="theme-content">
+          <h3>🕺 Retro Vibes</h3>
+          <p class="theme-date">Every Saturday | 6:00 PM – 10:00 PM</p>
+          <p>Throwback classics from the 70s–90s. Bring your best retro outfit!</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Photo Gallery -->
+<section class="mt-24 mb-24 text-center">
+  <h2 class="neon-title text-4xl md:text-5xl mb-6">📸 Photo Gallery</h2>
+  <p class="neon-subtext mb-12">Check out the fun from our recent SkateNights!</p>
+
+  <div class="gallery-grid max-w-6xl mx-auto px-6">
+    <div class="gallery-item"><img src="images/skatenight1.jpeg" class="gallery-image" /></div>
+    <div class="gallery-item"><img src="images/skatenight2.jpeg" class="gallery-image" /></div>
+    <div class="gallery-item"><img src="images/skatenight3.jpeg" class="gallery-image" /></div>
+    <div class="gallery-item"><img src="images/skatenight4.jpeg" class="gallery-image" /></div>
+    <div class="gallery-item"><img src="images/skatenight5.jpeg" class="gallery-image" /></div>
+    <div class="gallery-item"><img src="images/skatenight6.jpeg" class="gallery-image" /></div>
+  </div>
+</section>
+
+<!-- DJ Section -->
+<section class="dj-section max-w-5xl mx-auto px-6 py-16 mb-24 text-center rounded-2xl">
+  <h2 class="text-4xl md:text-5xl neon-title mb-6">🎵 DJ Music That Moves You</h2>
+
+  <p class="neon-subtext max-w-3xl mx-auto text-lg leading-relaxed mb-6">
+    Professional DJ services bringing you the perfect soundtrack for every themed night!
+  </p>
+
+  <img src="images/complete-weddings-events-logo.webp" class=" mx-auto mb-6" alt="DJ Logo">
+
+  <p class="neon-subtext text-xl font-bold">
+    Complete Weddings + Events Phoenix
+  </p>
+    <p class="neon-subtext text-xl">
+    Spinning the hits that keep you rolling!
+  </p>
+</section>
 
     <!-- About Section -->
     <section id="about" class="py-16 bg-white">
@@ -213,7 +292,7 @@
         <div class="flex flex-col md:flex-row items-center">
           <div class="md:w-1/2 mb-8 md:mb-0 md:pr-12">
             <h2 class="font-bebas text-4xl md:text-5xl mb-6">
-              CONVERTIBLE SPACE, <br />ENDLESS FUN
+              KEEP IT GROOVY, KEEP IT ROLLING!
             </h2>
             <p class="text-lg mb-4">
               <strong>Solid Ground Arena</strong> is a multi-sport indoor arena
@@ -239,12 +318,6 @@
               EXPLORE <i data-feather="arrow-right" class="inline ml-2"></i>
             </a>
           </div>
-          <div class="md:w-1/2 h-full">
-            <img
-              src="images/inline-hockey-01.jpg"
-              alt="Roller Hockey"
-              class="w-full h-full object-cover rounded-lg shadow-md"
-            />
           </div>
         </div>
       </div>

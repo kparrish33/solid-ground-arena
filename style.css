@@ -266,3 +266,479 @@ main {
 .submenu a {
   padding-right: 8px;
 }
+
+/*************************************************************
+    NEON PAGE — SKATE NIGHT THEME (AZ Skate Night Inspired)
+*************************************************************/
+
+.neon-page {
+  background: #050109;
+  color: #e6e6ff;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* -------------------- NAVBAR -------------------- */
+
+.neon-page nav {
+  background: rgba(5, 1, 15, 0.9) !important;
+  backdrop-filter: blur(6px);
+  border-bottom: 2px solid #08e8ff;
+  box-shadow: 0 0 18px #08e8ff66;
+}
+
+.neon-page nav a,
+.neon-page .nav-link {
+  color: #ffffff !important;
+  text-shadow: 0 0 6px #08e8ff;
+}
+
+.neon-page nav a:hover,
+.neon-page .nav-link:hover {
+  color: #ff2df2 !important;
+  text-shadow: 0 0 10px #ff2df2;
+}
+
+/* Desktop dropdowns */
+.neon-page nav .group div {
+  background: #0a0616 !important;
+  border: 1px solid #08e8ff55;
+  box-shadow: 0 0 12px #08e8ff55;
+}
+
+.neon-page nav .group div a:hover {
+  background: #1a0b33 !important;
+  color: #08e8ff !important;
+}
+
+/* -------------------- NEON SKATE NIGHT BUTTON -------------------- */
+
+.neon-page a[href="skate-night.html"] {
+  background: transparent !important;
+  border: 2px solid #ff00c8 !important;
+  color: #ff00c8 !important;
+  border-radius: 9999px;
+  text-shadow: 0 0 8px #ff00c8;
+  box-shadow: 0 0 14px #ff00c8aa;
+  transition: 0.25s ease;
+}
+
+.neon-page a[href="skate-night.html"]:hover {
+  background: #ff00c8 !important;
+  color: #000 !important;
+  box-shadow: 0 0 25px #ff00c8;
+}
+
+/* -------------------- HERO SECTION -------------------- */
+
+.neon-page .hero-gradient {
+  background: radial-gradient(
+    circle at center,
+    #120027 0%,
+    #060012 60%,
+    #000000 100%
+  ) !important;
+  color: #08e8ff;
+  text-shadow: 0 0 12px #08e8ffdd;
+}
+
+.neon-page h1 {
+  color: #ffea00 !important;
+  text-shadow: 0 0 14px #ffea00cc;
+}
+
+/* -------------------- HEADERS -------------------- */
+
+.neon-page h2,
+.neon-page h3,
+.neon-page h4 {
+  color: #08e8ff !important;
+  text-shadow: 0 0 10px #08e8ff;
+}
+
+/* -------------------- FEATURE / ABOUT SECTIONS -------------------- */
+
+.neon-page section {
+  background: transparent !important;
+}
+
+.neon-page #sports,
+.neon-page #about {
+  background: #080313 !important;
+  border-top: 1px solid #220044;
+  border-bottom: 1px solid #220044;
+}
+
+/* -------------------- IMAGES -------------------- */
+
+.neon-page img {
+  box-shadow: 0 0 20px #08e8ff33;
+  border-radius: 12px;
+}
+
+/* -------------------- NEON CTA BUTTONS -------------------- */
+
+.neon-page a.inline-block,
+.neon-page .btn {
+  background: transparent !important;
+  border: 2px solid #08e8ff !important;
+  color: #08e8ff !important;
+  text-shadow: 0 0 10px #08e8ff;
+  box-shadow: 0 0 16px #08e8ff77;
+}
+
+.neon-page a.inline-block:hover,
+.neon-page .btn:hover {
+  background: #08e8ff !important;
+  color: #000 !important;
+  box-shadow: 0 0 24px #08e8ff;
+}
+
+/* -------------------- FOOTER -------------------- */
+
+.neon-page footer {
+  background: linear-gradient(
+    to bottom,
+    #0a0018,
+    #050009 60%,
+    #000000 100%
+  ) !important;
+  border-top: 1px solid #08e8ff55;
+  box-shadow: 0 -2px 20px #08e8ff33;
+}
+
+.neon-page footer a:hover {
+  color: #ff2df2 !important;
+  text-shadow: 0 0 8px #ff2df2;
+}
+
+.neon-page footer h3 {
+  color: #ffea00 !important;
+  text-shadow: 0 0 6px #ffea00aa;
+}
+
+/* -------------------- MOBILE MENU -------------------- */
+
+.neon-page #mobile-menu {
+  background: rgba(5, 1, 15, 0.95) !important;
+  border: 1px solid #08e8ff55;
+  box-shadow: 0 0 18px #08e8ff55;
+}
+
+.neon-page #mobile-menu a {
+  color: #ffffff !important;
+}
+
+.neon-page #mobile-menu a:hover {
+  color: #08e8ff !important;
+}
+/*************************************************************
+   NEON PULSING EFFECTS
+*************************************************************/
+
+@keyframes neonPulsePink {
+  0% {
+    text-shadow: 0 0 8px #ff00c8, 0 0 20px #ff00c8aa;
+  }
+  50% {
+    text-shadow: 0 0 14px #ff4de6, 0 0 28px #ff00c8ff;
+  }
+  100% {
+    text-shadow: 0 0 8px #ff00c8, 0 0 20px #ff00c8aa;
+  }
+}
+
+@keyframes neonPulseCyan {
+  0% {
+    text-shadow: 0 0 10px #08e8ff, 0 0 20px #08e8ff88;
+  }
+  50% {
+    text-shadow: 0 0 16px #4cffff, 0 0 32px #08e8ffff;
+  }
+  100% {
+    text-shadow: 0 0 10px #08e8ff, 0 0 20px #08e8ff88;
+  }
+}
+
+@keyframes neonPulseYellow {
+  0% {
+    text-shadow: 0 0 10px #ffea00, 0 0 20px #ffea0099;
+  }
+  50% {
+    text-shadow: 0 0 14px #fff066, 0 0 30px #ffea00ff;
+  }
+  100% {
+    text-shadow: 0 0 10px #ffea00, 0 0 20px #ffea0099;
+  }
+}
+
+/* Apply pulsing to main neon headers */
+.neon-page h1,
+.neon-page h2,
+.neon-page h3 {
+  animation: neonPulseCyan 3s infinite ease-in-out;
+}
+
+/* Pink hover pulse on links and buttons */
+.neon-page a:hover {
+  animation: neonPulsePink 1.8s infinite ease-in-out;
+}
+
+/*************************************************************
+   MATCH CTA “SKATE NOW” TO NEON PINK BUTTON
+*************************************************************/
+
+.neon-page a[href*="skate"],
+.neon-page .skate-now-btn {
+  background: transparent !important;
+  border: 2px solid #ff00c8 !important;
+  color: #ff00c8 !important;
+  border-radius: 9999px;
+  font-weight: bold;
+  text-shadow: 0 0 8px #ff00c8;
+  box-shadow: 0 0 14px #ff00c8aa;
+  transition: 0.25s ease;
+}
+
+/* Hover state */
+.neon-page a[href*="skate"]:hover,
+.neon-page .skate-now-btn:hover {
+  background: #ff00c8 !important;
+  color: #000 !important;
+  box-shadow: 0 0 28px #ff00c8;
+  animation: neonPulsePink 1.7s infinite ease-in-out;
+}
+
+/*************************************************************
+   REMOVE NEON GLOW FROM LOGOS (NAV + FOOTER ONLY)
+*************************************************************/
+
+/* Nav logo */
+.neon-page nav img {
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+  border: none !important;
+}
+
+/* Footer logo */
+.neon-page footer img {
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+  border: none !important;
+}
+
+/* ================================
+   TONED-DOWN NEON UTILITIES
+   For Welcome, Carousel, Gallery, DJ Sections
+   ================================ */
+
+/* Softer neon colors */
+:root {
+  --neon-pink: #ff4fe0;
+  --neon-cyan: #64f5ff;
+  --neon-soft-bg: rgba(255, 255, 255, 0.06);
+}
+
+/* Section title */
+.neon-title {
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 2px;
+  text-shadow: 0 0 8px var(--neon-pink), 0 0 16px var(--neon-pink);
+  color: var(--neon-pink);
+  animation: neonPulse 3s ease-in-out infinite;
+}
+
+@keyframes neonPulse {
+  0%,
+  100% {
+    text-shadow: 0 0 6px var(--neon-pink), 0 0 14px var(--neon-pink);
+  }
+  50% {
+    text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+  }
+}
+
+/* Subtext */
+.neon-subtext {
+  color: #fdfdfd;
+  text-shadow: 0 0 6px rgba(100, 245, 255, 0.4);
+}
+
+/* Frosted neon panels */
+.neon-panel {
+  background: var(--neon-soft-bg);
+  border: 2px solid var(--neon-pink);
+  border-radius: 20px;
+  box-shadow: 0 0 18px rgba(255, 79, 224, 0.35);
+  backdrop-filter: blur(8px);
+}
+
+/* Carousel container fade mask */
+.carousel-container {
+  overflow: hidden;
+  padding: 10px 0;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}
+
+/* Carousel track animation (toned down speed) */
+.carousel-track {
+  display: flex;
+  gap: 28px;
+  animation: scrollHoriz 45s linear infinite;
+}
+.carousel-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scrollHoriz {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-350px * 4));
+  }
+}
+
+/* Theme cards (toned neon) */
+.theme-card {
+  width: 320px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 18px;
+  padding: 24px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 6px 26px rgba(100, 245, 255, 0.25);
+}
+
+.theme-card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 12px 40px rgba(100, 245, 255, 0.5);
+}
+
+/* Theme card heading */
+.theme-content h3 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.7rem;
+  color: var(--neon-pink);
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(255, 79, 224, 0.6);
+}
+
+/* Theme date */
+.theme-date {
+  color: var(--neon-cyan);
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-shadow: 0 0 8px rgba(100, 245, 255, 0.7);
+}
+
+/* Gallery */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+.gallery-item {
+  border: 2px solid var(--neon-pink);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 26px rgba(255, 79, 224, 0.25);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.gallery-item:hover {
+  transform: scale(1.04);
+  box-shadow: 0 12px 40px rgba(255, 79, 224, 0.5);
+}
+
+.gallery-image {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+
+/* DJ Section */
+.dj-section {
+  background: rgba(100, 245, 255, 0.08);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(100, 245, 255, 0.25);
+  backdrop-filter: blur(8px);
+}
+
+/* DJ Logo Glow */
+.dj-logo {
+  filter: drop-shadow(0 0 16px rgba(100, 245, 255, 0.7));
+}
+
+/* MULTI-COLOR NEON GLOW (AZ SkateNight-style) */
+@keyframes multicolorGlow {
+  0% {
+    color: #ffb7f6;
+    text-shadow: 0 0 12px #ff4fe0, 0 0 28px #ff4fe0, 0 0 42px #ff4fe0;
+  }
+  33% {
+    color: #c3faff;
+    text-shadow: 0 0 12px #64f5ff, 0 0 28px #64f5ff, 0 0 42px #64f5ff;
+  }
+  66% {
+    color: #e8c8ff;
+    text-shadow: 0 0 12px #c084fc, 0 0 28px #c084fc, 0 0 42px #c084fc;
+  }
+  100% {
+    color: #ffb7f6;
+    text-shadow: 0 0 12px #ff4fe0, 0 0 28px #ff4fe0, 0 0 42px #ff4fe0;
+  }
+}
+
+.neon-hero-title {
+  animation: multicolorGlow 4s ease-in-out infinite !important;
+  color: #ffb7f6 !important;
+  text-shadow: 0 0 12px #ff4fe0 !important;
+}
+
+@keyframes rainbowGlowHero {
+  0% {
+    color: #ffb7f6;
+    text-shadow: 0 0 8px #ff4fe0, 0 0 18px #ff4fe0, 0 0 28px #ff4fe0;
+  }
+  25% {
+    color: #c3faff;
+    text-shadow: 0 0 8px #64f5ff, 0 0 18px #64f5ff, 0 0 28px #64f5ff;
+  }
+  50% {
+    color: #e8c8ff;
+    text-shadow: 0 0 8px #c084fc, 0 0 18px #c084fc, 0 0 28px #c084fc;
+  }
+  75% {
+    color: #ffffff;
+    text-shadow: 0 0 8px #ffffff, 0 0 22px #64f5ff, 0 0 34px #ff4fe0;
+  }
+  100% {
+    color: #ffb7f6;
+    text-shadow: 0 0 8px #ff4fe0, 0 0 18px #ff4fe0, 0 0 28px #ff4fe0;
+  }
+}
+
+/* make THIS win over everything else */
+.neon-page .neon-hero-title {
+  animation: rainbowGlowHero 4s linear infinite !important;
+  color: #ffb7f6 !important;
+  text-shadow: 0 0 8px #ff4fe0, 0 0 18px #ff4fe0, 0 0 28px #ff4fe0 !important;
+}
