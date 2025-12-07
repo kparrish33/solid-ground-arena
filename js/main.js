@@ -213,3 +213,20 @@ setInterval(checkLivestream, 60000);
 
 // Feather icons
 feather.replace();
+
+// 12.Upcoming Events Carousel Scroll
+const eventsCarousel = document.getElementById("eventsCarousel");
+const eventsPrev = document.getElementById("eventsPrev");
+const eventsNext = document.getElementById("eventsNext");
+
+if (eventsCarousel && eventsPrev && eventsNext) {
+  const scrollAmount = 340; // roughly one card width
+
+  eventsPrev.addEventListener("click", () => {
+    eventsCarousel.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+  });
+
+  eventsNext.addEventListener("click", () => {
+    eventsCarousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
+  });
+}
