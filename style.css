@@ -94,6 +94,11 @@ main {
   z-index: 10;
 }
 
+.stripe-wrapper {
+  padding-top: 15vh;
+  height: 110vh;
+}
+
 .stripe-content {
   display: flex;
   flex-direction: row;
