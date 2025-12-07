@@ -304,3 +304,37 @@ document.addEventListener("DOMContentLoaded", () => {
     track.addEventListener("transitionend", onTransitionEnd, { once: true });
   });
 });
+
+// --- Mobile Swipe Support ---
+let startX = 0;
+let endX = 0;
+const swipeTrack = document.getElementById("eventsTrack");
+
+swipeTrack.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+});
+
+swipeTrack.addEventListener("touchmove", (e) => {
+  endX = e.touches[0].clientX;
+});
+
+swipeTrack.addEventListener("touchend", () => {
+  const diff = startX - endX;
+
+  // Minimum swipe distance so small taps don't trigger
+  const swipeThreshold = 50;
+
+  if (Math.abs(diff) > swipeThreshold) {
+    if (diff > 0) {
+      // Swiped Left → go forward
+      nextBtn.click();
+    }
+    // If you add a left arrow later, enable this:
+    // else {
+    //     prevBtn.click();
+    // }
+  }
+
+  startX = 0;
+  endX = 0;
+});
