@@ -208,8 +208,8 @@ section.relative.h-screen.w-full.overflow-hidden
 }
 
 .stripe-cat-icon {
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   object-fit: contain;
   transform: skewY(12deg);
   pointer-events: none;
@@ -243,4 +243,24 @@ section.relative.h-screen.w-full.overflow-hidden
 #floatingLiveBadge {
   backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.slide-up-visible {
+  animation: slideUp 1s ease-out forwards;
 }

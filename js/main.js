@@ -74,13 +74,12 @@ document.addEventListener("DOMContentLoaded", function () {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.remove("opacity-0");
-            entry.target.classList.add("opacity-100");
+            entry.target.classList.add("slide-up-visible");
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.15 }
     );
     observer.observe(formSection);
   }
@@ -214,19 +213,27 @@ setInterval(checkLivestream, 60000);
 // Feather icons
 feather.replace();
 
-// 12.Upcoming Events Carousel Scroll
-const eventsCarousel = document.getElementById("eventsCarousel");
-const eventsPrev = document.getElementById("eventsPrev");
-const eventsNext = document.getElementById("eventsNext");
+// 12.Smooth Scroll
+const SCROLL_OFFSET = -500;
 
-if (eventsCarousel && eventsPrev && eventsNext) {
-  const scrollAmount = 340; // roughly one card width
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    const targetId = this.getAttribute("href");
+    if (!targetId || targetId === "#") return;
 
-  eventsPrev.addEventListener("click", () => {
-    eventsCarousel.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+    const targetEl = document.querySelector(targetId);
+    if (!targetEl) return;
+
+    e.preventDefault();
+
+    const y =
+      targetEl.getBoundingClientRect().top + window.pageYOffset - SCROLL_OFFSET;
+
+    window.scrollTo({
+      top: y,
+      behavior: "smooth",
+    });
   });
+});
 
-  eventsNext.addEventListener("click", () => {
-    eventsCarousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
-  });
-}
+// 13.Upcoming Events Carousel Scroll
