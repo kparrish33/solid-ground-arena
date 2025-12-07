@@ -338,3 +338,15 @@ swipeTrack.addEventListener("touchend", () => {
   startX = 0;
   endX = 0;
 });
+
+// 14. Mobile Dropdown Logic
+document.querySelectorAll(".mobile-dropdown").forEach((dropdown) => {
+  const btn = dropdown.querySelector("button");
+  const submenu = dropdown.querySelector(".submenu");
+  const arrow = dropdown.querySelector(".arrow");
+
+  btn.addEventListener("click", () => {
+    submenu.classList.toggle("hidden");
+    arrow.classList.toggle("rotate-180");
+  });
+});

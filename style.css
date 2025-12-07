@@ -252,3 +252,17 @@ main {
 .event-card.dim {
   opacity: 0.65;
 }
+
+.nav-link {
+  position: relative;
+  z-index: 20;
+  pointer-events: auto;
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+.submenu a {
+  padding-right: 8px;
+}
