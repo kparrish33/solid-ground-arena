@@ -236,4 +236,71 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   });
 });
 
-// 13.Upcoming Events Carousel Scroll
+// 13. Upcoming Events Carousel Scroll - one-direction infinite loop w/ centered highlight
+document.addEventListener("DOMContentLoaded", () => {
+  const track = document.getElementById("eventsTrack");
+  const nextBtn = document.getElementById("nextBtn");
+
+  if (!track || !nextBtn) return;
+
+  function getStep() {
+    const cards = track.querySelectorAll(".event-card");
+    if (cards.length < 2) return cards[0].getBoundingClientRect().width;
+
+    const r0 = cards[0].getBoundingClientRect();
+    const r1 = cards[1].getBoundingClientRect();
+    const diff = r1.left - r0.left;
+    return diff > 0 ? diff : r0.width;
+  }
+
+  let step = getStep();
+  window.addEventListener("resize", () => {
+    step = getStep();
+  });
+
+  /* -----------------------------
+     HIGHLIGHT CENTER CARD
+  ----------------------------- */
+  function updateActiveCard() {
+    const cards = Array.from(track.children);
+
+    // Assuming 3 visible cards at a time → center = index 1
+    const centerIndex = 2;
+
+    cards.forEach((card, i) => {
+      card.classList.remove("active", "dim");
+      if (i === centerIndex) {
+        card.classList.add("active");
+      } else {
+        card.classList.add("dim");
+      }
+    });
+  }
+
+  updateActiveCard(); // initial
+
+  /* -----------------------------
+     SLIDE + LOOP
+  ----------------------------- */
+  nextBtn.addEventListener("click", () => {
+    if (!step) return;
+
+    track.style.transition = "transform 0.4s ease";
+    track.style.transform = `translateX(-${step}px)`;
+
+    const onTransitionEnd = () => {
+      track.style.transition = "none";
+
+      // Move the first card to the end
+      const firstCard = track.firstElementChild;
+      if (firstCard) track.appendChild(firstCard);
+
+      // Reset track position
+      track.style.transform = "translateX(0)";
+
+      updateActiveCard(); // <-- apply new center highlight
+    };
+
+    track.addEventListener("transitionend", onTransitionEnd, { once: true });
+  });
+});
