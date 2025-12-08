@@ -595,4 +595,10 @@ document.querySelectorAll(".mobile-dropdown").forEach((dropdown) => {
   });
 });
 
+const delayedCTA = document.getElementById("delayed-cta");
+
+  setTimeout(() => {
+    delayedCTA.classList.add("show-cta");
+  }, 2500); // <-- appear after 2.5 seconds (you can change this)
+
 });

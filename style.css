@@ -851,3 +851,16 @@ main {
     #00ffff
   ) !important;
 }
+
+/* Hidden at first */
+.hidden-before-show {
+  opacity: 0;
+  transform: translate(-50%, -60%);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* When shown */
+.show-cta {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
