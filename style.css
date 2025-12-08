@@ -341,20 +341,6 @@ main {
   text-shadow: 0 0 12px #08e8ffdd;
 }
 
-.neon-page h1 {
-  color: #ffea00 !important;
-  text-shadow: 0 0 14px #ffea00cc;
-}
-
-/* -------------------- HEADERS -------------------- */
-
-.neon-page h2,
-.neon-page h3,
-.neon-page h4 {
-  color: #08e8ff !important;
-  text-shadow: 0 0 10px #08e8ff;
-}
-
 /* -------------------- FEATURE / ABOUT SECTIONS -------------------- */
 
 .neon-page section {
@@ -469,13 +455,6 @@ main {
   100% {
     text-shadow: 0 0 10px #ffea00, 0 0 20px #ffea0099;
   }
-}
-
-/* Apply pulsing to main neon headers */
-.neon-page h1,
-.neon-page h2,
-.neon-page h3 {
-  animation: neonPulseCyan 3s infinite ease-in-out;
 }
 
 /* Pink hover pulse on links and buttons */
@@ -634,7 +613,7 @@ main {
 .theme-content h3 {
   font-family: "Bebas Neue", sans-serif;
   font-size: 1.7rem;
-  color: var(--neon-pink);
+  color: #ffea00;
   letter-spacing: 1px;
   text-shadow: 0 0 10px rgba(255, 79, 224, 0.6);
 }
@@ -687,58 +666,125 @@ main {
   filter: drop-shadow(0 0 16px rgba(100, 245, 255, 0.7));
 }
 
-/* MULTI-COLOR NEON GLOW (AZ SkateNight-style) */
-@keyframes multicolorGlow {
-  0% {
-    color: #ffb7f6;
-    text-shadow: 0 0 12px #ff4fe0, 0 0 28px #ff4fe0, 0 0 42px #ff4fe0;
-  }
-  33% {
-    color: #c3faff;
-    text-shadow: 0 0 12px #64f5ff, 0 0 28px #64f5ff, 0 0 42px #64f5ff;
-  }
-  66% {
-    color: #e8c8ff;
-    text-shadow: 0 0 12px #c084fc, 0 0 28px #c084fc, 0 0 42px #c084fc;
-  }
-  100% {
-    color: #ffb7f6;
-    text-shadow: 0 0 12px #ff4fe0, 0 0 28px #ff4fe0, 0 0 42px #ff4fe0;
-  }
-}
+/************************************************************
+   CLEAN NEON HEADER SYSTEM
+************************************************************/
 
-.neon-hero-title {
-  animation: multicolorGlow 4s ease-in-out infinite !important;
-  color: #ffb7f6 !important;
-  text-shadow: 0 0 12px #ff4fe0 !important;
-}
+/* ----------------------------------------------------------
+   HERO HEADER — SKATE NIGHT AZ
+   Full multicolor animated text + glow
+---------------------------------------------------------- */
 
-@keyframes rainbowGlowHero {
+@keyframes heroMulticolorGlow {
   0% {
-    color: #ffb7f6;
-    text-shadow: 0 0 8px #ff4fe0, 0 0 18px #ff4fe0, 0 0 28px #ff4fe0;
+    color: #ff4fe0;
+    text-shadow: 0 0 12px #ff4fe0, 0 0 22px #ff4fe0;
   }
   25% {
-    color: #c3faff;
-    text-shadow: 0 0 8px #64f5ff, 0 0 18px #64f5ff, 0 0 28px #64f5ff;
+    color: #64f5ff;
+    text-shadow: 0 0 12px #64f5ff, 0 0 22px #64f5ff;
   }
   50% {
-    color: #e8c8ff;
-    text-shadow: 0 0 8px #c084fc, 0 0 18px #c084fc, 0 0 28px #c084fc;
+    color: #c084fc;
+    text-shadow: 0 0 12px #c084fc, 0 0 22px #c084fc;
   }
   75% {
-    color: #ffffff;
-    text-shadow: 0 0 8px #ffffff, 0 0 22px #64f5ff, 0 0 34px #ff4fe0;
+    color: #fff799;
+    text-shadow: 0 0 12px #fff799, 0 0 22px #fff799;
   }
   100% {
-    color: #ffb7f6;
-    text-shadow: 0 0 8px #ff4fe0, 0 0 18px #ff4fe0, 0 0 28px #ff4fe0;
+    color: #ff4fe0;
+    text-shadow: 0 0 12px #ff4fe0, 0 0 22px #ff4fe0;
   }
 }
 
-/* make THIS win over everything else */
-.neon-page .neon-hero-title {
-  animation: rainbowGlowHero 4s linear infinite !important;
-  color: #ffb7f6 !important;
-  text-shadow: 0 0 8px #ff4fe0, 0 0 18px #ff4fe0, 0 0 28px #ff4fe0 !important;
+.neon-hero {
+  animation: heroMulticolorGlow 4s linear infinite;
+}
+
+/* ----------------------------------------------------------
+   HEADERS — fixed text color + glow cycles between
+---------------------------------------------------------- */
+
+/* Pink glow cycle */
+@keyframes glowPink {
+  0% {
+    text-shadow: 0 0 10px #ff4fe0;
+  }
+  25% {
+    text-shadow: 0 0 12px #64f5ff; /* cyan */
+  }
+  50% {
+    text-shadow: 0 0 14px #c084fc; /* purple */
+  }
+  75% {
+    text-shadow: 0 0 12px #fff799; /* yellow */
+  }
+  100% {
+    text-shadow: 0 0 10px #ff4fe0; /* back to pink */
+  }
+}
+
+/* Yellow glow cycle */
+@keyframes glowYellow {
+  0% {
+    text-shadow: 0 0 10px #ffea00;
+  }
+  25% {
+    text-shadow: 0 0 12px #64f5ff; /* cyan */
+  }
+  50% {
+    text-shadow: 0 0 14px #c084fc; /* purple */
+  }
+  75% {
+    text-shadow: 0 0 12px #ff4fe0; /* pink */
+  }
+  100% {
+    text-shadow: 0 0 10px #ffea00;
+  }
+}
+
+/* Cyan glow cycle */
+@keyframes glowCyan {
+  0% {
+    text-shadow: 0 0 10px #64f5ff;
+  }
+  25% {
+    text-shadow: 0 0 12px #c084fc; /* purple */
+  }
+  50% {
+    text-shadow: 0 0 14px #ff4fe0; /* pink */
+  }
+  75% {
+    text-shadow: 0 0 12px #ffea00; /* yellow */
+  }
+  100% {
+    text-shadow: 0 0 10px #64f5ff;
+  }
+}
+
+/* Utility classes */
+.neon-heading {
+  font-family: "Bebas Neue", sans-serif;
+  animation-duration: 3s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+/* Pink */
+.neon-pink {
+  color: #ff4fe0;
+  animation-name: glowPink;
+}
+
+/* Yellow */
+.neon-yellow {
+  color: #ffea00;
+  animation-name: glowYellow;
+}
+
+/* Cyan / Blue */
+.neon-cyan {
+  color: #64f5ff;
+  animation-name: glowCyan;
 }

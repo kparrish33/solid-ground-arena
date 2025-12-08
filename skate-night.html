@@ -45,145 +45,171 @@
       content="https://portal.solidgroundarena.com/images/rink-preview.jpg"
     />
 
-     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
   </head>
   <body class="neon-page">
     <!-- Navigation -->
-<nav class="bg-white shadow-md sticky top-0 z-50 overflow-visible">
-  <div class="container mx-auto px-6 py-4">
-    <div class="flex justify-between items-center">
-      
-      <!-- Logo -->
-      <div class="flex items-center">
-        <img
-          src="images/logo-01.png"
-          alt="Solid Ground Arena"
-          class="h-24 transform"
-          id="logo"
-        />
-        <span class="ml-10 font-bebas text-6xl hidden md:block">
-          SOLID GROUND ARENA
-        </span>
-      </div>
+    <nav class="bg-white shadow-md sticky top-0 z-50 overflow-visible">
+      <div class="container mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+          <!-- Logo -->
+          <div class="flex items-center">
+            <img
+              src="images/logo-01.png"
+              alt="Solid Ground Arena"
+              class="h-24 transform"
+              id="logo"
+            />
+            <span class="ml-10 font-bebas text-6xl hidden md:block">
+              SOLID GROUND ARENA
+            </span>
+          </div>
 
-      <!-- Desktop Menu -->
-      <div class="hidden md:flex items-center space-x-8">
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex items-center space-x-8">
+            <!-- HOME -->
+            <a href="index.html" class="nav-link font-semibold" id="home-link"
+              >Home</a
+            >
 
-          <!-- HOME -->
-          <a href="index.html" class="nav-link font-semibold" id="home-link">Home</a>
+            <!-- SPORTS DROPDOWN -->
+            <div class="relative group">
+              <button class="nav-link font-semibold flex items-center gap-1">
+                Sports
+                <i data-feather="chevron-down" class="w-4 h-4"></i>
+              </button>
 
-          <!-- SPORTS DROPDOWN -->
-          <div class="relative group">
-            <button class="nav-link font-semibold flex items-center gap-1">
+              <div
+                class="absolute left-0 top-full mt-0 w-56 bg-white shadow-lg rounded-lg z-[999] opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-150"
+              >
+                <a href="sports.html" class="block px-4 py-2 hover:bg-gray-100"
+                  >Inline Hockey</a
+                >
+                <a href="sports.html" class="block px-4 py-2 hover:bg-gray-100"
+                  >Roller Derby</a
+                >
+                <a
+                  href="sports.html"
+                  class="block px-4 py-2 hover:bg-gray-100 rounded-b-lg"
+                  >Volleyball</a
+                >
+              </div>
+            </div>
+
+            <!-- ARENA RENTAL DROPDOWN -->
+            <div class="relative group">
+              <button class="nav-link font-semibold flex items-center gap-1">
+                Arena Rental
+                <i data-feather="chevron-down" class="w-4 h-4"></i>
+              </button>
+
+              <div
+                class="absolute left-0 top-full mt-0 w-56 bg-white shadow-lg rounded-lg z-[999] opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-150"
+              >
+                <a
+                  href="arena-rental.html"
+                  class="block px-4 py-2 hover:bg-gray-100"
+                  >Birthday Parties</a
+                >
+                <a
+                  href="arena-rental.html"
+                  class="block px-4 py-2 hover:bg-gray-100 rounded-b-lg"
+                  >Public Events</a
+                >
+              </div>
+            </div>
+
+            <!-- CONTACT -->
+            <a href="contact.html" class="nav-link font-semibold">Contact</a>
+
+            <!-- SKATE NIGHT BUTTON -->
+            <a
+              href="skate-night.html"
+              class="px-6 py-2 rounded-full font-bold text-white bg-gradient-to-r from-sky-400 to-blue-600 shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl hover:ring hover:ring-blue-300"
+            >
+              SKATE NIGHT
+            </a>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden">
+            <button id="menu-btn" class="text-gray-800 focus:outline-none">
+              <i data-feather="menu"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div
+          id="mobile-menu"
+          class="hidden md:hidden mt-4 pb-4 pr-6 space-y-2 text-right"
+        >
+          <a href="index.html" class="block py-2 nav-link font-semibold"
+            >Home</a
+          >
+
+          <!-- MOBILE DROPDOWN: SPORTS -->
+          <div class="mobile-dropdown">
+            <button
+              class="w-full text-right py-2 font-semibold flex justify-end items-center gap-2"
+            >
               Sports
-              <i data-feather="chevron-down" class="w-4 h-4"></i>
+              <span class="arrow transition-transform">&#9662;</span>
             </button>
 
-            <div class="absolute left-0 top-full mt-0
-              w-56 bg-white shadow-lg rounded-lg z-[999]
-              opacity-0 pointer-events-none
-              group-hover:opacity-100 group-hover:pointer-events-auto
-              transition-opacity duration-150">
-              <a href="sports.html" class="block px-4 py-2 hover:bg-gray-100">Inline Hockey</a>
-              <a href="sports.html" class="block px-4 py-2 hover:bg-gray-100">Roller Derby</a>
-              <a href="sports.html" class="block px-4 py-2 hover:bg-gray-100 rounded-b-lg">Volleyball</a>
+            <div class="submenu hidden pr-2 space-y-1 text-sm">
+              <a href="sports.html" class="block py-1">Inline Hockey</a>
+              <a href="sports.html" class="block py-1">Roller Derby</a>
+              <a href="sports.html" class="block py-1">Volleyball</a>
             </div>
           </div>
 
-          <!-- ARENA RENTAL DROPDOWN -->
-          <div class="relative group">
-            <button class="nav-link font-semibold flex items-center gap-1">
+          <!-- MOBILE DROPDOWN: ARENA RENTAL -->
+          <div class="mobile-dropdown">
+            <button
+              class="w-full text-right py-2 font-semibold flex justify-end items-center gap-2"
+            >
               Arena Rental
-              <i data-feather="chevron-down" class="w-4 h-4"></i>
+              <span class="arrow transition-transform">&#9662;</span>
             </button>
 
-            <div class="absolute left-0 top-full mt-0
-              w-56 bg-white shadow-lg rounded-lg z-[999]
-              opacity-0 pointer-events-none
-              group-hover:opacity-100 group-hover:pointer-events-auto
-              transition-opacity duration-150">
-              <a href="arena-rental.html" class="block px-4 py-2 hover:bg-gray-100">Birthday Parties</a>
-              <a href="arena-rental.html" class="block px-4 py-2 hover:bg-gray-100 rounded-b-lg">Public Events</a>
+            <div class="submenu hidden pr-2 space-y-1 text-sm">
+              <a href="arena-rental.html" class="block py-1"
+                >Birthday Parties</a
+              >
+              <a href="arena-rental.html" class="block py-1">Public Events</a>
             </div>
           </div>
 
-          <!-- CONTACT -->
-          <a href="contact.html" class="nav-link font-semibold">Contact</a>
+          <a href="contact.html" class="block py-2 nav-link font-semibold"
+            >Contact</a
+          >
 
-          <!-- SKATE NIGHT BUTTON -->
           <a
             href="skate-night.html"
-            class="px-6 py-2 rounded-full font-bold text-white bg-gradient-to-r from-sky-400 to-blue-600 shadow-md 
-                  transition-all duration-300 hover:scale-105 hover:shadow-xl hover:ring hover:ring-blue-300"
+            class="inline-block px-6 py-2 rounded-full text-white font-bold bg-gradient-to-r from-[#5fbcff] to-[#0085c3]"
           >
             SKATE NIGHT
           </a>
         </div>
-
-      <!-- Mobile Menu Button -->
-      <div class="md:hidden">
-        <button id="menu-btn" class="text-gray-800 focus:outline-none">
-          <i data-feather="menu"></i>
-        </button>
       </div>
-    </div>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 pr-6 space-y-2 text-right">
-
-      <a href="index.html" class="block py-2 nav-link font-semibold">Home</a>
-
-      <!-- MOBILE DROPDOWN: SPORTS -->
-      <div class="mobile-dropdown">
-        <button class="w-full text-right py-2 font-semibold flex justify-end items-center gap-2">
-          Sports
-          <span class="arrow transition-transform">&#9662;</span>
-        </button>
-
-        <div class="submenu hidden pr-2 space-y-1 text-sm">
-          <a href="sports.html" class="block py-1">Inline Hockey</a>
-          <a href="sports.html" class="block py-1">Roller Derby</a>
-          <a href="sports.html" class="block py-1">Volleyball</a>
-        </div>
-      </div>
-
-      <!-- MOBILE DROPDOWN: ARENA RENTAL -->
-      <div class="mobile-dropdown">
-        <button class="w-full text-right py-2 font-semibold flex justify-end items-center gap-2">
-          Arena Rental
-          <span class="arrow transition-transform">&#9662;</span>
-        </button>
-
-        <div class="submenu hidden pr-2 space-y-1 text-sm">
-          <a href="arena-rental.html" class="block py-1">Birthday Parties</a>
-          <a href="arena-rental.html" class="block py-1">Public Events</a>
-        </div>
-      </div>
-
-      <a href="contact.html" class="block py-2 nav-link font-semibold">Contact</a>
-
-      <a href="skate-night.html"
-        class="inline-block px-6 py-2 rounded-full text-white font-bold bg-gradient-to-r from-[#5fbcff] to-[#0085c3]">
-        SKATE NIGHT
-      </a>
-    </div>
-  </div>
-</nav>
+    </nav>
 
     <!-- Hero Section -->
     <header class="hero-gradient pt-16 md:pt-24 pb-8 md:pb-10">
       <div class="container mx-auto px-6">
-
         <!-- Neon title -->
-        <h1 class="font-bebas text-5xl md:text-7xl text-center mb-10 neon-hero-title">
+        <h1 class="font-bebas text-5xl md:text-7xl text-center mb-10 neon-hero">
           SKATE NIGHT AZ
         </h1>
 
         <!-- Video wrapper -->
-        <div class="relative w-full max-w-7xl mx-auto h-[75vh] rounded-3xl overflow-hidden shadow-2xl">
-          <iframe 
+        <div
+          class="relative w-full max-w-7xl mx-auto h-[75vh] rounded-3xl overflow-hidden shadow-2xl"
+        >
+          <iframe
             class="w-full h-full"
             src="https://www.youtube.com/embed/4NOSAFWIxXQ?autoplay=1&mute=1&loop=1&playlist=4NOSAFWIxXQ&controls=0&modestbranding=1&showinfo=0&rel=0&iv_load_policy=3&playsinline=1"
             frameborder="0"
@@ -191,162 +217,174 @@
             allowfullscreen
           ></iframe>
         </div>
-
       </div>
     </header>
 
-<!-- Welcome to SkateNights! -->
-<section class="info-section neon-panel mt-20 mb-20 max-w-5xl mx-auto px-6 py-12 text-center rounded-2xl">
-  <h2 class="neon-title text-4xl md:text-5xl mb-6">Welcome to SkateNights!</h2>
+    <!-- Welcome to SkateNights! -->
+    <section
+      class="info-section neon-panel mt-20 mb-20 max-w-5xl mx-auto px-6 py-12 text-center rounded-2xl"
+    >
+      <h2 class="neon-heading neon-yellow text-4xl md:text-5xl mb-6">
+        Welcome to SkateNights!
+      </h2>
 
-  <p class="neon-subtext text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
-    Experience the ultimate roller skating adventure under vibrant neon lights! Whether you're a seasoned skater or stepping onto the rink for the first time, SkateNights at Solid Ground Arena is your destination for unforgettable nights of music, movement, and memories. Join us every week for themed nights that bring the energy, the beats, and the pure joy of skating!
-  </p>
-</section>
+      <p
+        class="neon-subtext text-lg md:text-xl leading-relaxed max-w-3xl mx-auto"
+      >
+        Experience the ultimate roller skating adventure under vibrant neon
+        lights! Whether you're a seasoned skater or stepping onto the rink for
+        the first time, SkateNights at Solid Ground Arena is your destination
+        for unforgettable nights of music, movement, and memories. Join us every
+        week for themed nights that bring the energy, the beats, and the pure
+        joy of skating!
+      </p>
+    </section>
 
-<!-- Themed Nights -->
-<section class="carousel-section mt-24 mb-24">
-  <h2 class="neon-title text-center text-4xl md:text-5xl mb-12">
-    🎉 Themed Nights
-  </h2>
+    <!-- Themed Nights -->
+    <section class="carousel-section mt-24 mb-24">
+      <h2 class="neon-heading neon-pink text-center text-4xl md:text-5xl mb-12">
+        🎉 Themed Nights
+      </h2>
 
-  <div class="carousel-container">
-    <div class="carousel-track">
-
-      <!-- Card 1 -->
-      <div class="theme-card">
-        <div class="theme-content">
-          <h3>Glow Party</h3>
-          <p class="theme-date">Every Saturday | 8:00 PM – 12:00 AM</p>
-          <p>Lights, glow sticks, and UV-active gear! Shine bright all night long.</p>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="theme-card">
-        <div class="theme-content">
-          <h3>🎸 Rock & Roll</h3>
-          <p class="theme-date">Second Friday | 7:00 PM – 11:00 PM</p>
-          <p>Skate to the greatest rock anthems and headbang on wheels.</p>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="theme-card">
-        <div class="theme-content">
-          <h3>⭐ Disco Fever</h3>
-          <p class="theme-date">Every Friday | 7:00 PM – 11:00 PM</p>
-          <p>Bell bottoms, platform shoes, and mirror balls! Boogie all night long.</p>
-        </div>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="theme-card">
-        <div class="theme-content">
-          <h3>🕺 Retro Vibes</h3>
-          <p class="theme-date">Every Saturday | 6:00 PM – 10:00 PM</p>
-          <p>Throwback classics from the 70s–90s. Bring your best retro outfit!</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- Photo Gallery -->
-<section class="mt-24 mb-24 text-center">
-  <h2 class="neon-title text-4xl md:text-5xl mb-6">📸 Photo Gallery</h2>
-  <p class="neon-subtext mb-12">Check out the fun from our recent SkateNights!</p>
-
-  <div class="gallery-grid max-w-6xl mx-auto px-6">
-    <div class="gallery-item"><img src="images/skatenight1.jpeg" class="gallery-image" /></div>
-    <div class="gallery-item"><img src="images/skatenight2.jpeg" class="gallery-image" /></div>
-    <div class="gallery-item"><img src="images/skatenight3.jpeg" class="gallery-image" /></div>
-    <div class="gallery-item"><img src="images/skatenight4.jpeg" class="gallery-image" /></div>
-    <div class="gallery-item"><img src="images/skatenight5.jpeg" class="gallery-image" /></div>
-    <div class="gallery-item"><img src="images/skatenight6.jpeg" class="gallery-image" /></div>
-  </div>
-</section>
-
-<!-- DJ Section -->
-<section class="dj-section max-w-5xl mx-auto px-6 py-16 mb-24 text-center rounded-2xl">
-  <h2 class="text-4xl md:text-5xl neon-title mb-6">🎵 DJ Music That Moves You</h2>
-
-  <p class="neon-subtext max-w-3xl mx-auto text-lg leading-relaxed mb-6">
-    Professional DJ services bringing you the perfect soundtrack for every themed night!
-  </p>
-
-  <img src="images/complete-weddings-events-logo.webp" class=" mx-auto mb-6" alt="DJ Logo">
-
-  <p class="neon-subtext text-xl font-bold">
-    Complete Weddings + Events Phoenix
-  </p>
-    <p class="neon-subtext text-xl">
-    Spinning the hits that keep you rolling!
-  </p>
-</section>
-
-    <!-- About Section -->
-    <section id="about" class="py-16 bg-white">
-      <div class="container mx-auto px-6">
-        <div class="flex flex-col md:flex-row items-center">
-          <div class="md:w-1/2 mb-8 md:mb-0 md:pr-12">
-            <h2 class="font-bebas text-4xl md:text-5xl mb-6">
-              KEEP IT GROOVY, KEEP IT ROLLING!
-            </h2>
-            <p class="text-lg mb-4">
-              <strong>Solid Ground Arena</strong> is a multi-sport indoor arena
-              and the new home of Arizona Inline Hockey. We have a full-size
-              <strong>185 x 80 indoor roller hockey rink</strong> that we use
-              for Arizona inline hockey, roller derby and roller skating.
-            </p>
-            <p class="text-lg mb-4">
-              We offer <strong>youth leagues</strong> on Saturday mornings and
-              <strong>adult leagues</strong> every day of the week.
-            </p>
-            <p class="text-lg mb-6">
-              Our indoor rink is also convertible into
-              <strong>4 full-size competition volleyball courts</strong>, and we
-              offer daily, weekly, or monthly volleyball rentals. We also have a
-              <strong>110 x 42 multi-purpose court</strong> for various sports
-              and activities.
-            </p>
-            <a
-              href="https://www.solidgroundarena.com/rc-cars"
-              class="inline-block bg-black text-white px-6 py-3 rounded-full font-semibold hover:bg-gray-800 transition-colors"
-            >
-              EXPLORE <i data-feather="arrow-right" class="inline ml-2"></i>
-            </a>
+      <div class="carousel-container">
+        <div class="carousel-track">
+          <!-- Card 1 -->
+          <div class="theme-card">
+            <div class="theme-content">
+              <h3>Glow Party</h3>
+              <p class="theme-date">Every Saturday | 8:00 PM – 12:00 AM</p>
+              <p>
+                Lights, glow sticks, and UV-active gear! Shine bright all night
+                long.
+              </p>
+            </div>
           </div>
+
+          <!-- Card 2 -->
+          <div class="theme-card">
+            <div class="theme-content">
+              <h3>🎸 Rock & Roll</h3>
+              <p class="theme-date">Second Friday | 7:00 PM – 11:00 PM</p>
+              <p>Skate to the greatest rock anthems and headbang on wheels.</p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="theme-card">
+            <div class="theme-content">
+              <h3>⭐ Disco Fever</h3>
+              <p class="theme-date">Every Friday | 7:00 PM – 11:00 PM</p>
+              <p>
+                Bell bottoms, platform shoes, and mirror balls! Boogie all night
+                long.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="theme-card">
+            <div class="theme-content">
+              <h3>🕺 Retro Vibes</h3>
+              <p class="theme-date">Every Saturday | 6:00 PM – 10:00 PM</p>
+              <p>
+                Throwback classics from the 70s–90s. Bring your best retro
+                outfit!
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="py-20 bg-yellow-400 text-white">
-      <div class="container mx-auto px-6 text-center">
-        <h2 class="font-bebas text-4xl md:text-6xl mb-6">SOLID GROUND ARENA</h2>
-        <p class="text-xl mb-8 max-w-2xl mx-auto">
-          Ready to roll? Join our community of skaters, hockey players, and
-          sports enthusiasts today!
-        </p>
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
-          <a 
-          href="skate-night.html"
-          class="inline-block bg-gradient-to-r from-sky-400 to-blue-600 
-                text-white text-xl font-bold px-10 py-5 rounded-full shadow-lg 
-                hover:scale-105 transition transform !rounded-full">
-            SKATE NOW
-          </a>
-          <a
-            href="contact.html"
-            class="bg-transparent border-2 border-white px-8 py-4 rounded-full text-white text-xl font-bold hover:bg-white hover:text-gray-900 transition-all duration-300 inline-block"
-          >
-            CONTACT US
-          </a>
+    <!-- Photo Gallery -->
+    <section class="mt-24 mb-24 text-center">
+      <h2 class="neon-heading neon-cyan text-4xl md:text-5xl mb-6">
+        📸 Photo Gallery
+      </h2>
+      <p class="neon-subtext mb-12">
+        Check out the fun from our recent SkateNights!
+      </p>
+
+      <div class="gallery-grid max-w-6xl mx-auto px-6">
+        <div class="gallery-item">
+          <img src="images/skatenight1.png" class="gallery-image" />
+        </div>
+        <div class="gallery-item">
+          <img src="images/skaters.png" class="gallery-image" />
+        </div>
+        <div class="gallery-item">
+          <img src="images/DJskate.png" class="gallery-image" />
+        </div>
+        <div class="gallery-item">
+          <img src="images/skaters.png" class="gallery-image" />
+        </div>
+        <div class="gallery-item">
+          <img src="images/childskate.png" class="gallery-image" />
+        </div>
+        <div class="gallery-item">
+          <img src="images/skatenight1.png" class="gallery-image" />
         </div>
       </div>
+    </section>
+
+    <!-- DJ Section -->
+    <section
+      class="dj-section max-w-5xl mx-auto px-6 py-16 mb-24 text-center rounded-2xl"
+    >
+      <h2 class="text-4xl md:text-5xl neon-heading neon-pink mb-6">
+        🎵 DJ Music That Moves You
+      </h2>
+
+      <p class="neon-subtext max-w-3xl mx-auto text-lg leading-relaxed mb-6">
+        Professional DJ services bringing you the perfect soundtrack for every
+        themed night!
+      </p>
+
+      <img
+        src="images/complete-weddings-events-logo.webp"
+        class="dj-logo mx-auto mb-6"
+        alt="DJ Logo"
+      />
+
+      <p class="neon-subtext text-xl font-bold">
+        Complete Weddings + Events Phoenix
+      </p>
+      <p class="neon-subtext text-xl">
+        Spinning the hits that keep you rolling!
+      </p>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="about" class="py-16 bg-white">
+      <section class="py-10 bg-yellow-400 text-white">
+        <div class="container mx-auto px-6 text-center">
+          <h2
+            class="font-bebas neon-heading neon-yellow text-4xl md:text-6xl mb-6"
+          >
+            KEEP IT GROOVY, KEEP IT ROLLING!
+          </h2>
+          <p class="text-lg mb-8 max-w-2xl mx-auto">
+            <strong>Solid Ground Arena</strong> is a multi-sport indoor arena
+            and the new home of Arizona Inline Hockey. We have a full-size
+            <strong>185 x 80 indoor roller hockey rink</strong> that we use for
+            Arizona inline hockey, roller derby and roller skating.
+          </p>
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a
+              href="skate-night.html"
+              class="inline-block bg-gradient-to-r from-sky-400 to-blue-600 text-white text-xl font-bold px-10 py-5 rounded-full shadow-lg hover:scale-105 transition transform !rounded-full"
+            >
+              EXPLORE
+            </a>
+            <a
+              href="contact.html"
+              class="bg-transparent border-2 border-white px-8 py-4 rounded-full text-white text-xl font-bold hover:bg-white hover:text-gray-900 transition-all duration-300 inline-block"
+            >
+              CONTACT US
+            </a>
+          </div>
+        </div>
+      </section>
     </section>
 
     <!-- Footer -->
