@@ -379,6 +379,11 @@ main {
   box-shadow: 0 0 24px #08e8ff;
 }
 
+.neon-page .btn,
+.neon-page a.inline-block {
+  padding-top: 14px !important;
+  padding-bottom: 16px !important;
+}
 /* -------------------- FOOTER -------------------- */
 
 .neon-page footer {
