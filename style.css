@@ -661,7 +661,7 @@ main {
   background: rgba(100, 245, 255, 0.08);
   border: 2px solid var(--neon-cyan);
   border-radius: 20px;
-  box-shadow: 0 0 30px rgba(100, 245, 255, 0.25);
+  box-shadow: none !important;
   backdrop-filter: blur(8px);
 }
 
