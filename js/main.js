@@ -526,10 +526,11 @@ document.querySelectorAll(".mobile-dropdown").forEach((dropdown) => {
 
 const delayedCTA = document.getElementById("delayed-cta");
 
+ if (delayedCTA) {
   setTimeout(() => {
     delayedCTA.classList.add("show-cta");
-  }, 2500); // <-- appear after 2.5 seconds (you can change this)
-
+  }, 2500);
+}
   
 // 15. Auto-detect center card during marquee scroll
 const trackEl = document.getElementById("eventsTrack");
