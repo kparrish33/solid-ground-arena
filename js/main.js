@@ -453,105 +453,37 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 
 });
 
-
-
-// 13. Upcoming Events Carousel Scroll - one-direction infinite loop w/ centered highlight
-
+// 13. Upcoming Events Carousel Scroll - safe for pages without buttons
 const track = document.getElementById("eventsTrack");
 
-const nextBtn = document.getElementById("nextBtn");
-
-
-
-if (track && nextBtn) {
+if (track) {
 
   function getStep() {
-
     const cards = track.querySelectorAll(".event-card");
-
-    if (cards.length < 2) return cards[0].getBoundingClientRect().width;
-
-
+    if (cards.length < 2) return 0;
 
     const r0 = cards[0].getBoundingClientRect();
-
     const r1 = cards[1].getBoundingClientRect();
-
     const diff = r1.left - r0.left;
-
     return diff > 0 ? diff : r0.width;
-
   }
-
-
 
   let step = getStep();
-
   window.addEventListener("resize", () => (step = getStep()));
 
-
-
   function updateActiveCard() {
-
     const cards = Array.from(track.children);
-
     const centerIndex = 2;
 
-
-
     cards.forEach((card, i) => {
-
       card.classList.remove("active", "dim");
-
       card.classList.add(i === centerIndex ? "active" : "dim");
-
     });
-
   }
 
-
-
   updateActiveCard();
-
-
-
-  nextBtn.addEventListener("click", () => {
-
-    if (!step) return;
-
-
-
-    track.style.transition = "transform 0.4s ease";
-
-    track.style.transform = `translateX(-${step}px)`;
-
-
-
-    const onTransitionEnd = () => {
-
-      track.style.transition = "none";
-
-
-
-      const firstCard = track.firstElementChild;
-
-      if (firstCard) track.appendChild(firstCard);
-
-
-
-      track.style.transform = "translateX(0)";
-
-      updateActiveCard();
-
-    };
-
-
-
-    track.addEventListener("transitionend", onTransitionEnd, { once: true });
-
-  });
-
 }
+
 
 // --- Mobile Swipe Support ---
 
@@ -560,7 +492,6 @@ let endX = 0;
 const swipeTrack = document.getElementById("eventsTrack");
 
 if (swipeTrack) {
-  const nextBtn = document.getElementById("nextBtn"); // <-- re-select safely
   swipeTrack.addEventListener("touchstart", (e) => {
     startX = e.touches[0].clientX;
   });
@@ -573,9 +504,7 @@ if (swipeTrack) {
     const diff = startX - endX;
     const swipeThreshold = 50;
 
-    if (Math.abs(diff) > swipeThreshold && diff > 0) {
-      nextBtn?.click(); // safe & clean
-    }
+    if (Math.abs(diff) > swipeThreshold && diff > 0)
 
     startX = 0;
     endX = 0;
@@ -600,5 +529,34 @@ const delayedCTA = document.getElementById("delayed-cta");
   setTimeout(() => {
     delayedCTA.classList.add("show-cta");
   }, 2500); // <-- appear after 2.5 seconds (you can change this)
+
+  
+// 15. Auto-detect center card during marquee scroll
+const trackEl = document.getElementById("eventsTrack");
+
+if (trackEl) {
+  const cards = Array.from(trackEl.querySelectorAll(".event-card"));
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const card = entry.target;
+
+        // Consider card "centered" if it is at least 60% visible
+        if (entry.intersectionRatio > 0.6) {
+          card.classList.add("active");
+        } else {
+          card.classList.remove("active");
+        }
+      });
+    },
+    {
+      root: document.getElementById("eventsViewport"),
+      threshold: [0.2, 0.4, 0.6, 0.8],
+    }
+  );
+
+  cards.forEach((c) => observer.observe(c));
+}
 
 });

@@ -202,9 +202,8 @@ main {
 /* Track layout */
 #eventsTrack {
   display: flex;
-  gap: 2.5rem;
+  gap: 5rem;
   justify-content: center;
-  transition: transform 0.4s ease;
   will-change: transform;
 }
 
@@ -224,33 +223,11 @@ main {
   overflow: visible;
 }
 
-/* ========== NEXT ARROW (ONLY ONE IN USE) ========== */
-
-#nextBtn {
-  background: #ffde24 !important;
-  width: 65px !important;
-  height: 65px !important;
-  border-radius: 50%;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
-  right: -70px !important;
-}
-
-#nextBtn i {
-  stroke: black !important;
-  width: 36px !important;
-  height: 36px !important;
-}
-
 /* Enlarged centered card */
 .event-card.active {
   transform: scale(1.08);
   z-index: 5;
   opacity: 1;
-}
-
-/* Slight dimming on non-active cards */
-.event-card.dim {
-  opacity: 0.65;
 }
 
 .nav-link {
@@ -259,13 +236,39 @@ main {
   pointer-events: auto;
 }
 
-.arrow {
-  display: inline-block;
-  transition: transform 0.25s ease;
-}
 .submenu a {
   padding-right: 8px;
 }
+
+/* HOME PAGE — Auto-scrolling events track */
+#eventsTrack {
+  animation: eventsAutoScroll 45s linear infinite;
+}
+
+#eventsTrack:hover {
+  animation-play-state: paused; /* pause on hover */
+}
+
+@keyframes eventsAutoScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); /* because we duplicated all cards */
+  }
+}
+
+/* Smooth enlargement while scrolling */
+.event-card {
+  transition: transform 0.35s ease;
+}
+
+/* Center card gets scaled up */
+.event-card.active {
+  transform: scale(1.12);
+  z-index: 5;
+}
+
 
 /*************************************************************
     NEON PAGE — SKATE NIGHT THEME (AZ Skate Night Inspired)
