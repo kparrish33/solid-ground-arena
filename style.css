@@ -902,3 +902,20 @@ main {
     background-size: 100% 100% !important;
   }
 }
+
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden !important;
+  }
+
+  #eventsViewport,
+  #eventsTrack,
+  .carousel-container {
+    overflow-x: hidden !important;
+  }
+
+  /* Prevent cards from creating extra width */
+  .event-card {
+    margin-right: 1rem;
+  }
+}
