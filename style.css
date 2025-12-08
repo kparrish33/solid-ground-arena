@@ -873,33 +873,32 @@ main {
   transform: translate(-50%, -50%);
 }
 
-/* Neon CTA button – mobile fix */
+/* ===========================
+   MOBILE FIXES FOR NEON PAGE
+   =========================== */
 @media (max-width: 768px) {
+
+  /* Make video button full-width & fix deformation */
   .video-button-wrapper {
-    top: 72%; /* nudge a bit lower so it feels centered on phones */
+    top: 58%;               /* move it slightly lower if needed */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 1.5rem;
   }
 
   .skate-btn {
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
+    width: 100% !important;      /* full width */
+    max-width: 330px !important; /* keeps it pretty */
+    height: auto !important;
+    padding: 18px 32px !important;
+    font-size: 1.1rem !important;
 
-    width: auto !important;
-    min-width: 230px;
-    max-width: 90vw;
+    border-radius: 40px !important;
+  }
 
-    padding: 16px 32px !important;
-    font-size: 1.05rem !important;
-    line-height: 1.2 !important;
-    border-radius: 9999px !important; /* keeps it pill-shaped */
-
-    /* keep your solid multicolor background exactly as-is */
-    background-image: linear-gradient(
-      90deg,
-      #ff00ff 0%,
-      #ff7b00 33%,
-      #fff400 66%,
-      #00eaff 100%
-    ) !important;
+  /* Prevent the weird oval distortion on small screens */
+  .skate-btn {
+    background-size: 100% 100% !important;
   }
 }
