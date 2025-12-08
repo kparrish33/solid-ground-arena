@@ -574,21 +574,25 @@ main {
 }
 
 /* Carousel track animation (toned down speed) */
+/* Themed Nights – horizontal auto scroll */
 .carousel-track {
-  display: flex;
+  display: inline-flex;
   gap: 28px;
-  animation: scrollHoriz 45s linear infinite;
+  animation: themedScroll 45s linear infinite;
+  will-change: transform;
 }
+
 .carousel-track:hover {
   animation-play-state: paused;
 }
 
-@keyframes scrollHoriz {
+@keyframes themedScroll {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-350px * 4));
+    /* move left by half the total width since we duplicated the group */
+    transform: translateX(-50%);
   }
 }
 
