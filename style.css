@@ -191,45 +191,56 @@ main {
 /* ========== EVENT CARDS (UPCOMING EVENTS CAROUSEL) ========== */
 
 .event-card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08) !important;
+  will-change: transform;
 }
 
 .event-card:hover {
   transform: translateY(-6px);
 }
 
-/* Track layout */
+/* Track layout + auto-scroll */
 #eventsTrack {
   display: flex;
   gap: 5rem;
   justify-content: center;
+  width: max-content; /* critical for infinite loop */
   will-change: transform;
+
+  animation: eventsAutoScroll 45s linear infinite;
 }
 
-/* Center viewport width so exactly 3 cards fit nicely */
+#eventsTrack:hover {
+  animation-play-state: paused;
+}
+
+@keyframes eventsAutoScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* duplicated cards */
+}
+
+/* Viewport */
 #eventsViewport {
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  overflow: visible !important;
+  padding: 24px 0;          /* gives space for shadow */
+  overflow-y: visible !important;
 }
 
-/* Tighten vertical spacing under cards */
+/* Wrapper spacing (remove negative margin = fixes vertical clipping) */
 .carousel-wrapper {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
-  margin-bottom: -20px;
+  margin-bottom: 0 !important; /* was -20px */
   overflow: visible;
 }
 
-/* Enlarged centered card */
+/* Optional "active" scale if you still use it */
 .event-card.active {
   transform: scale(1.08);
   z-index: 5;
-  opacity: 1;
 }
 
+/* unrelated nav bits (keep if you want) */
 .nav-link {
   position: relative;
   z-index: 20;
@@ -238,35 +249,6 @@ main {
 
 .submenu a {
   padding-right: 8px;
-}
-
-/* HOME PAGE — Auto-scrolling events track */
-#eventsTrack {
-  animation: eventsAutoScroll 45s linear infinite;
-}
-
-#eventsTrack:hover {
-  animation-play-state: paused; /* pause on hover */
-}
-
-@keyframes eventsAutoScroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%); /* because we duplicated all cards */
-  }
-}
-
-/* Smooth enlargement while scrolling */
-.event-card {
-  transition: transform 0.35s ease;
-}
-
-/* Center card gets scaled up */
-.event-card.active {
-  transform: scale(1.12);
-  z-index: 5;
 }
 
 
@@ -680,6 +662,9 @@ main {
 
 @media (max-width: 768px) {
   #eventsViewport {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
     overflow-x: hidden !important;
   }
 
@@ -693,6 +678,36 @@ main {
     width: 80% !important;
     margin: 0 auto;
   }
+}
+
+@media (max-width: 1100px) {
+  #eventsViewport {
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+  }
+
+  #eventsTrack {
+    justify-content: flex-start;
+    width: max-content;
+    padding: 0 16px;
+  }
+
+  .event-card {
+    scroll-snap-align: center;
+    flex: 0 0 85%;
+    max-width: 420px;
+  }
+
+  #eventsViewport::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+html, body {
+  overflow-x: hidden;
 }
 
 /************************************************************
@@ -943,4 +958,37 @@ main {
     stroke: #08e8ff !important;   /* bright cyan */
     filter: drop-shadow(0 0 6px #08e8ff);
   }
+}
+
+/* ===== FIX: Carousel clipping + small-width behavior ===== */
+
+/* Default: no vertical clipping */
+#eventsViewport{
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
+/* Small window / 1-card layout: allow swipe instead of stretching page */
+@media (max-width: 1100px){
+  #eventsViewport{
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+  }
+
+  #eventsTrack{
+    justify-content: flex-start;
+    width: max-content;
+    padding: 0 16px;
+  }
+
+  .event-card{
+    scroll-snap-align: center;
+    flex: 0 0 85%;
+    max-width: 420px;
+  }
+
+  #eventsViewport::-webkit-scrollbar{ display:none; }
 }
