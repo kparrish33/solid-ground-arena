@@ -678,6 +678,23 @@ main {
   filter: drop-shadow(0 0 16px rgba(100, 245, 255, 0.7));
 }
 
+@media (max-width: 768px) {
+  #eventsViewport {
+    overflow-x: hidden !important;
+  }
+
+  #eventsTrack {
+    gap: 1rem !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .event-card {
+    width: 80% !important;
+    margin: 0 auto;
+  }
+}
+
 /************************************************************
    CLEAN NEON HEADER SYSTEM
 ************************************************************/
@@ -917,5 +934,13 @@ main {
   /* Prevent cards from creating extra width */
   .event-card {
     margin-right: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .neon-page #menu-btn i,
+  .neon-page #menu-btn svg {
+    stroke: #08e8ff !important;   /* bright cyan */
+    filter: drop-shadow(0 0 6px #08e8ff);
   }
 }
