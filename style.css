@@ -471,19 +471,37 @@ main {
 }
 
 /*************************************************************
-   MATCH CTA “SKATE NOW” TO NEON PINK BUTTON
+   NEON SKATE NOW BUTTON
 *************************************************************/
 
 .neon-page a[href*="skate"],
 .neon-page .skate-now-btn {
+  /* size + alignment (match your regular CTA) */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.5rem 1.5rem;            /* = py-2 px-6 */
+  line-height: 1.2;
+  border-radius: 9999px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+
+  /* neon look */
   background: transparent !important;
   border: 2px solid #ff00c8 !important;
   color: #ff00c8 !important;
-  border-radius: 9999px;
-  font-weight: bold;
   text-shadow: 0 0 8px #ff00c8;
   box-shadow: 0 0 14px #ff00c8aa;
   transition: 0.25s ease;
+}
+
+/* Full screen size match (your regular button got bigger at md) */
+@media (min-width: 768px) {
+  .neon-page a[href*="skate"],
+  .neon-page .skate-now-btn {
+    padding: 0.75rem 2rem;           /* = md:py-3 md:px-8 */
+  }
 }
 
 /* Hover state */
@@ -494,6 +512,7 @@ main {
   box-shadow: 0 0 28px #ff00c8;
   animation: neonPulsePink 1.7s infinite ease-in-out;
 }
+
 
 /*************************************************************
    REMOVE NEON GLOW FROM LOGOS (NAV + FOOTER ONLY)
