@@ -195,8 +195,10 @@
 <body class="bg-gray-100 font-sans">
     <custom-navbar></custom-navbar>
     
- <section class="relative h-screen w-full overflow-hidden">
-  <div class="absolute inset-0 flex flex-col stripe-wrapper">
+ <!-- STRIPES + VIDEO SPLIT (desktop) + STACK (mobile) -->
+<section class="relative w-full overflow-hidden stripes-video">
+  <!-- Stripes -->
+  <div class="stripes-layer stripe-wrapper">
     <!-- Roller Sports -->
     <a href="sports.html" class="stripe-container group bg-gradient-to-r from-blue-600 via-sky-400 to-blue-600">
       <div class="stripe-content">
@@ -213,8 +215,8 @@
       <div class="stripe-content">
         <img src="images/cat-04.png" class="stripe-cat-icon" alt="Cat Icon">
         <div class="stripe-text">
-        <h2 class="stripe-title">Volleyball</h2>
-        <p class="stripe-subtitle">Competitive & Casual</p>
+          <h2 class="stripe-title">Volleyball</h2>
+          <p class="stripe-subtitle">Competitive & Casual</p>
         </div>
       </div>
     </a>
@@ -224,23 +226,35 @@
       <div class="stripe-content">
         <img src="images/cat-02.png" class="stripe-cat-icon" alt="Cat Icon">
         <div class="stripe-text">
-        <h2 class="stripe-title">Skate Night</h2>
-        <p class="stripe-subtitle">Open Sessions & Themed Events</p>
+          <h2 class="stripe-title">Skate Night</h2>
+          <p class="stripe-subtitle">Open Sessions & Themed Events</p>
         </div>
       </div>
     </a>
 
-    <!-- Arena Rental (Birthday Parties) -->
+    <!-- Arena Rental -->
     <a href="arena-rental.html" class="stripe-container group bg-gradient-to-r from-[#ff8c00] via-[#ffd60a] to-[#ff8c00]">
       <div class="stripe-content">
         <img src="images/cat-01.png" class="stripe-cat-icon" alt="Cat Icon">
         <div class="stripe-text">
-        <h2 class="stripe-title">Arena Rental</h2>
-        <p class="stripe-subtitle">Birthday Parties & Public Events</p>
+          <h2 class="stripe-title">Arena Rental</h2>
+          <p class="stripe-subtitle">Birthday Parties & Public Events</p>
         </div>
       </div>
     </a>
+  </div>
+
+  <!-- Video overlay (KEEP your existing markup inside) -->
+  <div class="video-overlay">
+    <div class="video-shell">
+      <!-- your video/iframe element -->
+      <!-- <video class="video-el" ...></video> or iframe -->
+      <div class="video-caption">
+        <div class="video-kicker">WATCH</div>
+        <div class="video-title">Solid Ground Highlights</div>
+      </div>
     </div>
+  </div>
 </section>
 
 <!-- Featured Section – Carousel -->
