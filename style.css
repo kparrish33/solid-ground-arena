@@ -224,6 +224,7 @@ main {
 @media (max-width: 900px){
   .stripes-video{
     height: auto;
+    min-height: 0;   /* ✅ important */
     overflow: visible;
   }
 
@@ -249,6 +250,12 @@ main {
     height: 140px;
   }
 
+  /* ✅ keep stripes above */
+  .stripes-layer,
+  .stripe-container{
+    z-index: 2;
+  }
+
   .video-overlay{
     position: relative;
     top: auto;
@@ -258,13 +265,14 @@ main {
     padding-right: 0;
     margin-top: 18px;
     pointer-events: auto;
-    z-index: 30;
+    z-index: 0;  
+    height: auto;
   }
 
   .video-shell{
     height: 240px;
     border-radius: 22px;
-    z-index: 31;
+    z-index: 1;
   }
 
   .video-shell::before{
@@ -1066,4 +1074,3 @@ main {
 .ez-iframe{
   height: clamp(900px, 85vh, 1300px);
 }
-
