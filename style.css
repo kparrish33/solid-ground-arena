@@ -1,287 +1,431 @@
 /* ========== BASE TYPOGRAPHY & GLOBAL BEHAVIOR ========== */
+body { font-family: "Montserrat", sans-serif; scroll-behavior: smooth; }
+.font-bebas { font-family: "Bebas Neue", sans-serif; }
 
-body {
-  font-family: "Montserrat", sans-serif;
-  scroll-behavior: smooth;
+main { min-height: 100vh; }
+
+/* =========================================================
+   GLOBAL NAV ARROW SIZE FIX
+   Prevent dropdown arrows from shrinking on text wrap
+   ========================================================= */
+
+/* Ensure nav links are flex rows */
+nav .nav-link,
+nav .group > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
-.font-bebas {
-  font-family: "Bebas Neue", sans-serif;
+/* Lock arrow size */
+nav .nav-link svg,
+nav .group > a svg,
+nav .arrow {
+  flex-shrink: 0;       /* 🔑 this is the key fix */
+  width: 16px;
+  height: 16px;
+}
+
+/* Optional: prevent awkward text + arrow line breaks */
+nav .nav-link,
+nav .group > a {
+  line-height: 1.1;
 }
 
 /* ========== HERO SECTION ========== */
-
-.hero-gradient {
-  background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
-}
+.hero-gradient { background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%); }
 
 /* ========== BUTTONS ========== */
-
 .skate-now-btn {
   background: linear-gradient(to right, #38bdf8, #2563eb);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   transition: all 0.3s ease;
   border-radius: 6px;
 }
-
-.skate-now-btn:hover {
+.skate-now-btn:hover{
   transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-  outline: 2px solid rgba(59, 130, 246, 0.4);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  outline: 2px solid rgba(59,130,246,0.4);
   outline-offset: 2px;
 }
+.nav-link:hover { color: #5fbcff; }
 
-/* Navigation hover */
-.nav-link:hover {
-  color: #5fbcff;
-}
-
-/* ========== FEATURE CARDS (HOME & GENERIC) ========== */
-
-.feature-card {
-  background: #ffffff;
-  padding: 2rem;
-  border-radius: 1rem;
-  text-align: center;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
+/* ========== FEATURE CARDS ========== */
+.feature-card{
+  background:#fff;
+  padding:2rem;
+  border-radius:1rem;
+  text-align:center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.06);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
-.feature-card:hover {
+.feature-card:hover{
   transform: translateY(-10px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
 }
-
-.feature-icon {
-  width: 48px;
-  height: 48px;
-  stroke-width: 1.5;
+.feature-icon{
+  width:48px; height:48px; stroke-width:1.5;
   margin: 0 auto 1rem;
-  color: #3b82f6;
-  stroke: #3b82f6;
+  color:#3b82f6; stroke:#3b82f6;
 }
 
 /* ========== FOOTER GRADIENT ========== */
+.footer-gradient { background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%); }
 
-.footer-gradient {
-  background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
-}
-
-main {
-  min-height: 100vh;
-}
-
-/* ========== STRIPE NAV SECTIONS ========== */
-
+/* ========== STRIPE NAV SECTIONS (unchanged from your working version) ========== */
 .stripes-video{
   position: relative;
-  isolation: isolate;          /* IMPORTANT: guarantees z-index behaves predictably */
+  isolation: isolate;
   min-height: clamp(620px, 78vh, 980px);
   background: #fff;
 }
-
-/* keep your original big stripe feel */
 .stripe-wrapper{
   padding-top: 15vh;
   height: 100%;
-  display: flex;
-  flex-direction: column;
+  display:flex;
+  flex-direction:column;
 }
+.stripes-layer{ position: relative; z-index: 1; }
 
-/* FULL STRIPES LAYER */
-.stripes-layer{
-  position: relative;
-  z-index: 1;
-}
-
-/* Your existing stripe styles (kept) */
 .stripe-container{
   position: relative;
-  z-index: 1;  
-  flex: 1;
-  width: 100%;
+  z-index: 1;
+  flex:1;
+  width:100%;
   transform: skewY(-12deg);
-  transform-origin: left;
+  transform-origin:left;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  padding-left: 15%;
-  color: white;
-  text-decoration: none;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  padding-left:15%;
+  color:#fff;
+  text-decoration:none;
 }
-
 .stripe-container:hover{
-  box-shadow: 0px 8px 25px rgba(95, 188, 255, 0.45);
-  z-index: 2;
+  box-shadow: 0 8px 25px rgba(95,188,255,0.45);
+  z-index:2;
 }
-
 .stripe-content{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1.5rem;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  gap:1.5rem;
   transform: skewY(-1deg);
 }
-
 .stripe-title{
   font-family: "Bebas Neue", sans-serif !important;
   letter-spacing: 1px;
   font-size: 3rem;
   font-weight: 800;
 }
-
 .stripe-cat-icon{
-  width: 200px;
-  height: 200px;
-  object-fit: contain;
+  width:200px; height:200px;
+  object-fit:contain;
   transform: skewY(12deg);
-  pointer-events: none;
-  margin-left: -1rem;
+  pointer-events:none;
+  margin-left:-1rem;
 }
 
-/* Positions the video to the RIGHT, matching stripe height */
+/* Video overlay */
 .video-overlay{
-  position: absolute;
-  z-index: 50;                 /* higher than any stripe */
-  top: 50%;
-  right: 0;
+  position:absolute;
+  z-index:50;
+  top:50%;
+  right:0;
   transform: translateY(-50%);
   width: clamp(700px, 54vw, 900px);
   height: clamp(960px, 100vh, 1260px);
-  pointer-events: none;
+  pointer-events:none;
 }
-
 .video-shell{
-  position: relative;
-  width: 100%;
-  height: calc(100% - 24px); /* was min(560px, calc(100% - 60px)) */
-  border-radius: 28px;
-  overflow: hidden;
+  position:relative;
+  width:100%;
+  height: calc(100% - 24px);
+  border-radius:28px;
+  overflow:hidden;
   background: rgba(255,255,255,0.12);
   backdrop-filter: blur(6px);
 }
-
-/* The “paint fade” edge that blends stripes into the video card */
 .video-shell::before{
   content:"";
   position:absolute;
   left:-70px; top:0; bottom:0;
-  width: 140px;
+  width:140px;
   background:
     radial-gradient(60px 160px at 65% 18%, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0) 70%),
     radial-gradient(70px 190px at 55% 52%, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0) 72%),
     radial-gradient(55px 170px at 70% 86%, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0) 70%),
     linear-gradient(to right, rgba(255,255,255,0.98), rgba(255,255,255,0));
   pointer-events:none;
-  z-index: 3;
+  z-index:3;
 }
-
 .video-shell::after{
   content:"";
   position:absolute;
   inset:0;
-  border-radius: 28px;
+  border-radius:28px;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35);
   pointer-events:none;
-  z-index: 4;
+  z-index:4;
 }
-
-.video-el{
-  width:100%;
-  height:100%;
-  object-fit: cover;
-  display:block;
-}
+.video-el{ width:100%; height:100%; object-fit:cover; display:block; }
 
 .video-caption{
   position:absolute;
-  left:18px;
-  bottom:18px;
-  right:18px;
+  left:18px; bottom:18px; right:18px;
   padding:14px 16px;
-  border-radius: 18px;
+  border-radius:18px;
   background: rgba(0,0,0,0.35);
   backdrop-filter: blur(6px);
   color:#fff;
-  z-index: 5;
+  z-index:5;
 }
-
-.video-kicker{
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  opacity: 0.9;
-}
-
-.video-title{
-  font-size: 18px;
-  font-weight: 800;
-  margin-top: 4px;
-}
+.video-kicker{ font-size:12px; font-weight:700; letter-spacing:0.12em; opacity:0.9; }
+.video-title{ font-size:18px; font-weight:800; margin-top:4px; }
 
 @media (max-width: 900px){
-  .stripes-video{
-    height: auto;
-    min-height: 0;   /* ✅ important */
-    overflow: visible;
-  }
-
-  .stripe-wrapper{
-    padding-top: 0;
-    height: auto;
-  }
-
-  .stripe-container{
-    padding-left: 10%;
-  }
-
-  .stripe-title{
-    font-size: 1.75rem;
-  }
-
-  .stripe-subtitle{
-    font-size: 1rem;
-  }
-
-  .stripe-cat-icon{
-    width: 140px;
-    height: 140px;
-  }
-
-  /* ✅ keep stripes above */
-  .stripes-layer,
-  .stripe-container{
-    z-index: 2;
-  }
+  .stripes-video{ height:auto; min-height:0; overflow: visible; }
+  .stripe-wrapper{ padding-top:0; height:auto; }
+  .stripe-container{ padding-left:10%; }
+  .stripe-title{ font-size:1.75rem; }
+  .stripe-cat-icon{ width:140px; height:140px; }
+  .stripes-layer, .stripe-container{ z-index:2; }
 
   .video-overlay{
-    position: relative;
-    top: auto;
-    bottom: auto;
-    right: auto;
-    width: 100%;
-    padding-right: 0;
-    margin-top: 18px;
-    pointer-events: auto;
-    z-index: 0;  
-    height: auto;
+    position:relative;
+    top:auto; bottom:auto; right:auto;
+    width:100%;
+    margin-top:18px;
+    pointer-events:auto;
+    z-index:0;
+    height:auto;
+    transform:none;
   }
+  .video-shell{ height:240px; border-radius:22px; z-index:1; }
+  .video-shell::before{ display:none; }
+}
 
-  .video-shell{
-    height: 240px;
-    border-radius: 22px;
-    z-index: 1;
+/* ========== LIVE BADGE ========== */
+#floatingLiveBadge{
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* ========== SLIDE-UP ANIMATION ========== */
+@keyframes slideUp{
+  0%{ opacity:0; transform: translateY(20px); }
+  100%{ opacity:1; transform: translateY(0); }
+}
+.animate-slide-up{ opacity:0; transform: translateY(20px); }
+.slide-up-visible{ animation: slideUp 1s ease-out forwards; }
+
+/* =========================================================
+   ✅ UNIFIED CAROUSEL ENGINE STYLES (WITH EDGE FADE)
+   Works for BOTH homepage + neon (different skins)
+   Breakpoint standardized: 900px
+   ========================================================= */
+
+/* Wrapper */
+.sga-carousel{
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;           /* prevents page horizontal scroll */
+  overflow-y: visible;
+
+  /* Fade config */
+  --fade-size: 56px;            /* width of fade on each side */
+  --fade-z: 30;
+  --fade-bg: #ffffff;           /* HOME default background for fade */
+}
+
+/* Neon page background is dark, so fade into dark */
+.neon-page .sga-carousel{
+  --fade-bg: #050109;
+}
+
+/* Edge fade overlays (keeps shadows; no mask clipping) */
+.sga-carousel::before,
+.sga-carousel::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--fade-size);
+  pointer-events: none;
+  z-index: var(--fade-z);
+}
+
+.sga-carousel::before{
+  left: 0;
+  background: linear-gradient(
+    to right,
+    var(--fade-bg) 0%,
+    rgba(255,255,255,0) 100%
+  );
+}
+
+.sga-carousel::after{
+  right: 0;
+  background: linear-gradient(
+    to left,
+    var(--fade-bg) 0%,
+    rgba(255,255,255,0) 100%
+  );
+}
+
+/* ==========================
+   DESKTOP / TABLET (>= 900px)
+   ========================== */
+
+.sga-viewport{
+  width: 100%;
+  max-width: 1280px;            /* match max-w-7xl */
+  margin: 0 auto;
+
+  overflow: visible;            /* stops cut-off */
+  overflow-y: visible;
+  padding: 36px 0;              /* vertical breathing room for shadows */
+}
+
+/* Track (desktop + base) */
+.sga-track{
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+
+  gap: 3rem;                    /* horizontal breathing room */
+  padding: 0 24px;              /* keeps cards away from hard edges */
+
+  will-change: transform;
+  transform: translate3d(0,0,0);
+}
+
+/* Card base */
+.sga-card{
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Dots (desktop hidden) */
+.sga-dots{
+  display: none;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 18px;
+}
+.sga-dot{
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  border: 0;
+  background: rgba(0,0,0,0.25);
+  cursor: pointer;
+}
+.sga-dot.is-active{
+  width: 22px;
+  background: rgba(0,0,0,0.7);
+}
+
+/* Desktop hover lift allowed */
+@media (min-width: 900px){
+  .sga-carousel .event-card:hover{
+    transform: translateY(-6px);
   }
-
-  .video-shell::before{
-    display:none;
+  .sga-carousel .theme-card:hover{
+    transform: translateY(-8px) scale(1.05);
   }
 }
 
-/* ========== MARQUEE ========== */
+/* ==========================
+   MOBILE (< 900px)
+   swipe + snap + dots + centered emphasis
+   ========================== */
+@media (max-width: 899.98px){
 
+  /* Slightly smaller fade on mobile so it doesn’t feel heavy */
+  .sga-carousel{
+    --fade-size: 34px;
+  }
+
+  .sga-viewport{
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+
+    scroll-snap-type: x mandatory;
+    scroll-padding: 24px;
+
+    /* mobile “gutter” + vertical room */
+    padding: 28px 24px 32px;
+  }
+
+  /* Hide scrollbar */
+  .sga-viewport::-webkit-scrollbar{ display:none; }
+  .sga-viewport{ scrollbar-width: none; }
+
+  .sga-track{
+    /* mobile uses scroll, not transform */
+    transform: none !important;
+    will-change: auto;
+
+    /* mobile spacing */
+    gap: 16px;
+
+    /* IMPORTANT: do NOT center track on mobile */
+    justify-content: flex-start;
+  }
+
+  .sga-card{
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+
+    width: min(90vw, 360px);
+    flex: 0 0 auto;
+  }
+
+  /* remove floaty animation on mobile */
+  .event-card,
+  .theme-card{
+    transform: none !important;
+    transition: transform 220ms ease, opacity 220ms ease;
+  }
+
+  /* centered card emphasis */
+  .sga-card.is-active{
+    transform: scale(1.03) !important;
+    opacity: 1;
+  }
+  .sga-card.is-dim{
+    opacity: 0.55;
+  }
+
+  .sga-dots{
+    display: flex;
+  }
+
+  /* Dot colors per skin */
+  .sga-carousel--neon .sga-dot{ background: rgba(100,245,255,0.30); }
+  .sga-carousel--neon .sga-dot.is-active{ background: rgba(100,245,255,0.95); }
+
+  .sga-carousel--home .sga-dot{ background: rgba(0,0,0,0.25); }
+  .sga-carousel--home .sga-dot.is-active{ background: rgba(0,0,0,0.70); }
+}
+
+/* =========================================================
+   Your existing homepage card look (kept)
+   ========================================================= */
+.event-card{
+  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08) !important;
+}
+
+/* =========================================================
+   Can-Do Kitchen animation
+   ========================================================= */
 .marquee-track {
   display: inline-block;
   transform: translateX(-50%);
@@ -297,129 +441,25 @@ main {
   }
 }
 
-/* ========== LIVE BADGE ========== */
-
-#floatingLiveBadge {
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-/* ========== SLIDE-UP ANIMATION (CONTACT FORM) ========== */
-
-@keyframes slideUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-slide-up {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.slide-up-visible {
-  animation: slideUp 1s ease-out forwards;
-}
-
-/* ========== EVENT CARDS (UPCOMING EVENTS CAROUSEL) ========== */
-
-.event-card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08) !important;
-}
-
-.event-card:hover {
-  transform: translateY(-6px);
-}
-
-/* Track layout */
-#eventsTrack {
-  display: flex;
-  gap: 5rem;
-  justify-content: center;
-  will-change: transform;
-}
-
-/* Center viewport width so exactly 3 cards fit nicely */
-#eventsViewport {
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  overflow: visible !important;
-}
-
-/* Tighten vertical spacing under cards */
-.carousel-wrapper {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  margin-bottom: -20px;
-  overflow: visible;
-}
-
-/* Enlarged centered card */
-.event-card.active {
-  transform: scale(1.08);
-  z-index: 5;
-  opacity: 1;
-}
-
-.nav-link {
-  position: relative;
-  z-index: 20;
-  pointer-events: auto;
-}
-
-.submenu a {
-  padding-right: 8px;
-}
-
-/* HOME PAGE — Auto-scrolling events track */
-#eventsTrack {
-  animation: eventsAutoScroll 45s linear infinite;
-}
-
-#eventsTrack:hover {
-  animation-play-state: paused; /* pause on hover */
-}
-
-@keyframes eventsAutoScroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%); /* because we duplicated all cards */
-  }
-}
-
-/* Smooth enlargement while scrolling */
-.event-card {
-  transition: transform 0.35s ease;
-}
-
-/* Center card gets scaled up */
-.event-card.active {
-  transform: scale(1.12);
-  z-index: 5;
-}
-
-
 /*************************************************************
-    NEON PAGE — SKATE NIGHT THEME (AZ Skate Night Inspired)
+  NEON PAGE — SKATE NIGHT THEME (AZ Skate Night Inspired)
+  Scope: add class="neon-page" on <body> for neon pages only
 *************************************************************/
 
+/* -------------------- BASE PAGE -------------------- */
 .neon-page {
   background: #050109;
   color: #e6e6ff;
   font-family: "Montserrat", sans-serif;
+
+  /* Scoped neon vars (prevents leaking to non-neon pages) */
+  --neon-pink: #ff4fe0;
+  --neon-cyan: #64f5ff;
+  --neon-yellow: #ffea00;
+  --neon-soft-bg: rgba(255, 255, 255, 0.06);
 }
 
 /* -------------------- NAVBAR -------------------- */
-
 .neon-page nav {
   background: rgba(5, 1, 15, 0.9) !important;
   backdrop-filter: blur(6px);
@@ -451,26 +491,16 @@ main {
   color: #08e8ff !important;
 }
 
-/* -------------------- NEON SKATE NIGHT BUTTON -------------------- */
-
-.neon-page a[href="skate-night.html"] {
-  background: transparent !important;
-  border: 2px solid #ff00c8 !important;
-  color: #ff00c8 !important;
-  border-radius: 9999px;
-  text-shadow: 0 0 8px #ff00c8;
-  box-shadow: 0 0 14px #ff00c8aa;
-  transition: 0.25s ease;
-}
-
-.neon-page a[href="skate-night.html"]:hover {
-  background: #ff00c8 !important;
-  color: #000 !important;
-  box-shadow: 0 0 25px #ff00c8;
+/* Remove glow from logos (nav + footer only) */
+.neon-page nav img,
+.neon-page footer img {
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+  border: none !important;
 }
 
 /* -------------------- HERO SECTION -------------------- */
-
 .neon-page .hero-gradient {
   background: radial-gradient(
     circle at center,
@@ -482,8 +512,7 @@ main {
   text-shadow: 0 0 12px #08e8ffdd;
 }
 
-/* -------------------- FEATURE / ABOUT SECTIONS -------------------- */
-
+/* -------------------- SECTION BACKGROUNDS -------------------- */
 .neon-page section {
   background: transparent !important;
 }
@@ -495,8 +524,7 @@ main {
   border-bottom: 1px solid #220044;
 }
 
-/* -------------------- NEON CTA BUTTONS -------------------- */
-
+/* -------------------- CTA BUTTONS (generic neon CTAs) -------------------- */
 .neon-page a.inline-block,
 .neon-page .btn {
   background: transparent !important;
@@ -518,8 +546,25 @@ main {
   padding-top: 14px !important;
   padding-bottom: 16px !important;
 }
-/* -------------------- FOOTER -------------------- */
 
+/* -------------------- SKATE NIGHT NAV BUTTON (specific) -------------------- */
+.neon-page a[href="skate-night.html"] {
+  background: transparent !important;
+  border: 2px solid #ff00c8 !important;
+  color: #ff00c8 !important;
+  border-radius: 9999px;
+  text-shadow: 0 0 8px #ff00c8;
+  box-shadow: 0 0 14px #ff00c8aa;
+  transition: 0.25s ease;
+}
+
+.neon-page a[href="skate-night.html"]:hover {
+  background: #ff00c8 !important;
+  color: #000 !important;
+  box-shadow: 0 0 25px #ff00c8;
+}
+
+/* -------------------- FOOTER -------------------- */
 .neon-page footer {
   background: linear-gradient(
     to bottom,
@@ -537,12 +582,11 @@ main {
 }
 
 .neon-page footer h3 {
-  color: #ffea00 !important;
+  color: var(--neon-yellow) !important;
   text-shadow: 0 0 6px #ffea00aa;
 }
 
 /* -------------------- MOBILE MENU -------------------- */
-
 .neon-page #mobile-menu {
   background: rgba(5, 1, 15, 0.95) !important;
   border: 1px solid #08e8ff55;
@@ -556,69 +600,52 @@ main {
 .neon-page #mobile-menu a:hover {
   color: #08e8ff !important;
 }
-/*************************************************************
-   NEON PULSING EFFECTS
-*************************************************************/
 
+/*************************************************************
+  NEON PULSING EFFECTS
+  NOTE: We keep this scoped to neon links, but avoid applying
+  it to EVERYTHING automatically (more predictable).
+*************************************************************/
 @keyframes neonPulsePink {
-  0% {
-    text-shadow: 0 0 8px #ff00c8, 0 0 20px #ff00c8aa;
-  }
-  50% {
-    text-shadow: 0 0 14px #ff4de6, 0 0 28px #ff00c8ff;
-  }
-  100% {
-    text-shadow: 0 0 8px #ff00c8, 0 0 20px #ff00c8aa;
-  }
+  0% { text-shadow: 0 0 8px #ff00c8, 0 0 20px #ff00c8aa; }
+  50% { text-shadow: 0 0 14px #ff4de6, 0 0 28px #ff00c8ff; }
+  100% { text-shadow: 0 0 8px #ff00c8, 0 0 20px #ff00c8aa; }
 }
 
 @keyframes neonPulseCyan {
-  0% {
-    text-shadow: 0 0 10px #08e8ff, 0 0 20px #08e8ff88;
-  }
-  50% {
-    text-shadow: 0 0 16px #4cffff, 0 0 32px #08e8ffff;
-  }
-  100% {
-    text-shadow: 0 0 10px #08e8ff, 0 0 20px #08e8ff88;
-  }
+  0% { text-shadow: 0 0 10px #08e8ff, 0 0 20px #08e8ff88; }
+  50% { text-shadow: 0 0 16px #4cffff, 0 0 32px #08e8ffff; }
+  100% { text-shadow: 0 0 10px #08e8ff, 0 0 20px #08e8ff88; }
 }
 
 @keyframes neonPulseYellow {
-  0% {
-    text-shadow: 0 0 10px #ffea00, 0 0 20px #ffea0099;
-  }
-  50% {
-    text-shadow: 0 0 14px #fff066, 0 0 30px #ffea00ff;
-  }
-  100% {
-    text-shadow: 0 0 10px #ffea00, 0 0 20px #ffea0099;
-  }
+  0% { text-shadow: 0 0 10px #ffea00, 0 0 20px #ffea0099; }
+  50% { text-shadow: 0 0 14px #fff066, 0 0 30px #ffea00ff; }
+  100% { text-shadow: 0 0 10px #ffea00, 0 0 20px #ffea0099; }
 }
 
-/* Pink hover pulse on links and buttons */
+/* If you still want the global neon hover pulse, keep it.
+   If it ever causes weirdness, delete this ONE block. */
 .neon-page a:hover {
   animation: neonPulsePink 1.8s infinite ease-in-out;
 }
 
 /*************************************************************
-   NEON SKATE NOW BUTTON
+  NEON “SKATE NOW” BUTTON (broad: any skate CTA)
 *************************************************************/
-
 .neon-page a[href*="skate"],
 .neon-page .skate-now-btn {
-  /* size + alignment (match your regular CTA) */
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0.5rem 1.5rem;            /* = py-2 px-6 */
+
+  padding: 0.5rem 1.5rem; /* py-2 px-6 */
   line-height: 1.2;
   border-radius: 9999px;
   font-weight: 800;
   letter-spacing: 0.02em;
 
-  /* neon look */
   background: transparent !important;
   border: 2px solid #ff00c8 !important;
   color: #ff00c8 !important;
@@ -627,15 +654,13 @@ main {
   transition: 0.25s ease;
 }
 
-/* Full screen size match (your regular button got bigger at md) */
 @media (min-width: 768px) {
   .neon-page a[href*="skate"],
   .neon-page .skate-now-btn {
-    padding: 0.75rem 2rem;           /* = md:py-3 md:px-8 */
+    padding: 0.75rem 2rem; /* md */
   }
 }
 
-/* Hover state */
 .neon-page a[href*="skate"]:hover,
 .neon-page .skate-now-btn:hover {
   background: #ff00c8 !important;
@@ -644,59 +669,24 @@ main {
   animation: neonPulsePink 1.7s infinite ease-in-out;
 }
 
-
 /*************************************************************
-   REMOVE NEON GLOW FROM LOGOS (NAV + FOOTER ONLY)
+  TONED-DOWN NEON UTILITIES (carousel, gallery, DJ)
 *************************************************************/
-
-/* Nav logo */
-.neon-page nav img {
-  box-shadow: none !important;
-  filter: none !important;
-  text-shadow: none !important;
-  border: none !important;
-}
-
-/* Footer logo */
-.neon-page footer img {
-  box-shadow: none !important;
-  filter: none !important;
-  text-shadow: none !important;
-  border: none !important;
-}
-
-/* ================================
-   TONED-DOWN NEON UTILITIES
-   For Welcome, Carousel, Gallery, DJ Sections
-   ================================ */
-
-/* Softer neon colors */
-:root {
-  --neon-pink: #ff4fe0;
-  --neon-cyan: #64f5ff;
-  --neon-soft-bg: rgba(255, 255, 255, 0.06);
-}
 
 /* Section title */
 .neon-title {
   font-family: "Bebas Neue", sans-serif;
   letter-spacing: 2px;
-  text-shadow: 0 0 8px var(--neon-pink), 0 0 16px var(--neon-pink);
   color: var(--neon-pink);
-  animation: neonPulse 3s ease-in-out infinite;
+  text-shadow: 0 0 8px var(--neon-pink), 0 0 16px var(--neon-pink);
+  animation: neonTitlePulse 3s ease-in-out infinite;
 }
 
-@keyframes neonPulse {
-  0%,
-  100% {
-    text-shadow: 0 0 6px var(--neon-pink), 0 0 14px var(--neon-pink);
-  }
-  50% {
-    text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
-  }
+@keyframes neonTitlePulse {
+  0%, 100% { text-shadow: 0 0 6px var(--neon-pink), 0 0 14px var(--neon-pink); }
+  50% { text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan); }
 }
 
-/* Subtext */
 .neon-subtext {
   color: #fdfdfd;
   text-shadow: 0 0 6px rgba(100, 245, 255, 0.4);
@@ -712,50 +702,32 @@ main {
 }
 
 /* Carousel container fade mask */
-.carousel-container {
+.neon-page .carousel-container {
   overflow: visible;
   padding: 40px 0;
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 10%,
-    black 90%,
-    transparent
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 10%,
-    black 90%,
-    transparent
-  );
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
-/* Carousel track animation (toned down speed) */
 /* Themed Nights – horizontal auto scroll */
-.carousel-track {
+.neon-page .carousel-track {
   display: inline-flex;
   gap: 28px;
   animation: themedScroll 45s linear infinite;
   will-change: transform;
 }
 
-.carousel-track:hover {
+.neon-page .carousel-track:hover {
   animation-play-state: paused;
 }
 
 @keyframes themedScroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    /* move left by half the total width since we duplicated the group */
-    transform: translateX(-50%);
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-/* Theme cards (toned neon) */
-.theme-card {
+/* Theme cards */
+.neon-page .theme-card {
   width: 320px;
   background: rgba(255, 255, 255, 0.07);
   border: 2px solid var(--neon-cyan);
@@ -766,22 +738,20 @@ main {
   box-shadow: 0 6px 26px rgba(100, 245, 255, 0.25);
 }
 
-.theme-card:hover {
+.neon-page .theme-card:hover {
   transform: translateY(-8px) scale(1.05);
   box-shadow: 0 12px 40px rgba(100, 245, 255, 0.5);
 }
 
-/* Theme card heading */
-.theme-content h3 {
+.neon-page .theme-content h3 {
   font-family: "Bebas Neue", sans-serif;
   font-size: 1.7rem;
-  color: #ffea00;
+  color: var(--neon-yellow);
   letter-spacing: 1px;
   text-shadow: 0 0 10px rgba(255, 79, 224, 0.6);
 }
 
-/* Theme date */
-.theme-date {
+.neon-page .theme-date {
   color: var(--neon-cyan);
   font-weight: 600;
   margin-bottom: 12px;
@@ -789,13 +759,13 @@ main {
 }
 
 /* Gallery */
-.gallery-grid {
+.neon-page .gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 22px;
 }
 
-.gallery-item {
+.neon-page .gallery-item {
   border: 2px solid var(--neon-pink);
   border-radius: 16px;
   overflow: hidden;
@@ -803,19 +773,19 @@ main {
   transition: transform 0.25s, box-shadow 0.25s;
 }
 
-.gallery-item:hover {
+.neon-page .gallery-item:hover {
   transform: scale(1.04);
   box-shadow: 0 12px 40px rgba(255, 79, 224, 0.5);
 }
 
-.gallery-image {
+.neon-page .gallery-image {
   width: 100%;
   height: 260px;
   object-fit: cover;
 }
 
 /* DJ Section */
-.dj-section {
+.neon-page .dj-section {
   background: rgba(100, 245, 255, 0.08);
   border: 2px solid var(--neon-cyan);
   border-radius: 20px;
@@ -823,109 +793,26 @@ main {
   backdrop-filter: blur(8px);
 }
 
-/* DJ Logo Glow */
-.dj-logo {
+.neon-page .dj-logo {
   filter: drop-shadow(0 0 16px rgba(100, 245, 255, 0.7));
 }
 
-/************************************************************
-   CLEAN NEON HEADER SYSTEM
-************************************************************/
-
-/* ----------------------------------------------------------
-   HERO HEADER — SKATE NIGHT AZ
-   Full multicolor animated text + glow
----------------------------------------------------------- */
-
+/*************************************************************
+  CLEAN NEON HEADER SYSTEM
+*************************************************************/
 @keyframes heroMulticolorGlow {
-  0% {
-    color: #ff4fe0;
-    text-shadow: 0 0 12px #ff4fe0, 0 0 22px #ff4fe0;
-  }
-  25% {
-    color: #64f5ff;
-    text-shadow: 0 0 12px #64f5ff, 0 0 22px #64f5ff;
-  }
-  50% {
-    color: #c084fc;
-    text-shadow: 0 0 12px #c084fc, 0 0 22px #c084fc;
-  }
-  75% {
-    color: #fff799;
-    text-shadow: 0 0 12px #fff799, 0 0 22px #fff799;
-  }
-  100% {
-    color: #ff4fe0;
-    text-shadow: 0 0 12px #ff4fe0, 0 0 22px #ff4fe0;
-  }
+  0%   { color: var(--neon-pink);   text-shadow: 0 0 12px var(--neon-pink), 0 0 22px var(--neon-pink); }
+  25%  { color: var(--neon-cyan);   text-shadow: 0 0 12px var(--neon-cyan), 0 0 22px var(--neon-cyan); }
+  50%  { color: #c084fc;           text-shadow: 0 0 12px #c084fc, 0 0 22px #c084fc; }
+  75%  { color: #fff799;           text-shadow: 0 0 12px #fff799, 0 0 22px #fff799; }
+  100% { color: var(--neon-pink);   text-shadow: 0 0 12px var(--neon-pink), 0 0 22px var(--neon-pink); }
 }
 
 .neon-hero {
   animation: heroMulticolorGlow 4s linear infinite;
 }
 
-/* ----------------------------------------------------------
-   HEADERS — fixed text color + glow cycles between
----------------------------------------------------------- */
-
-/* Pink glow cycle */
-@keyframes glowPink {
-  0% {
-    text-shadow: 0 0 10px #ff4fe0;
-  }
-  25% {
-    text-shadow: 0 0 12px #64f5ff; /* cyan */
-  }
-  50% {
-    text-shadow: 0 0 14px #c084fc; /* purple */
-  }
-  75% {
-    text-shadow: 0 0 12px #fff799; /* yellow */
-  }
-  100% {
-    text-shadow: 0 0 10px #ff4fe0; /* back to pink */
-  }
-}
-
-/* Yellow glow cycle */
-@keyframes glowYellow {
-  0% {
-    text-shadow: 0 0 10px #ffea00;
-  }
-  25% {
-    text-shadow: 0 0 12px #64f5ff; /* cyan */
-  }
-  50% {
-    text-shadow: 0 0 14px #c084fc; /* purple */
-  }
-  75% {
-    text-shadow: 0 0 12px #ff4fe0; /* pink */
-  }
-  100% {
-    text-shadow: 0 0 10px #ffea00;
-  }
-}
-
-/* Cyan glow cycle */
-@keyframes glowCyan {
-  0% {
-    text-shadow: 0 0 10px #64f5ff;
-  }
-  25% {
-    text-shadow: 0 0 12px #c084fc; /* purple */
-  }
-  50% {
-    text-shadow: 0 0 14px #ff4fe0; /* pink */
-  }
-  75% {
-    text-shadow: 0 0 12px #ffea00; /* yellow */
-  }
-  100% {
-    text-shadow: 0 0 10px #64f5ff;
-  }
-}
-
-/* Utility classes */
+/* Glow utility headings */
 .neon-heading {
   font-family: "Bebas Neue", sans-serif;
   animation-duration: 3s;
@@ -933,29 +820,35 @@ main {
   animation-iteration-count: infinite;
 }
 
-/* Pink */
-.neon-pink {
-  color: #ff4fe0;
-  animation-name: glowPink;
+@keyframes glowPink {
+  0%   { text-shadow: 0 0 10px var(--neon-pink); }
+  25%  { text-shadow: 0 0 12px var(--neon-cyan); }
+  50%  { text-shadow: 0 0 14px #c084fc; }
+  75%  { text-shadow: 0 0 12px #fff799; }
+  100% { text-shadow: 0 0 10px var(--neon-pink); }
+}
+@keyframes glowYellow {
+  0%   { text-shadow: 0 0 10px var(--neon-yellow); }
+  25%  { text-shadow: 0 0 12px var(--neon-cyan); }
+  50%  { text-shadow: 0 0 14px #c084fc; }
+  75%  { text-shadow: 0 0 12px var(--neon-pink); }
+  100% { text-shadow: 0 0 10px var(--neon-yellow); }
+}
+@keyframes glowCyan {
+  0%   { text-shadow: 0 0 10px var(--neon-cyan); }
+  25%  { text-shadow: 0 0 12px #c084fc; }
+  50%  { text-shadow: 0 0 14px var(--neon-pink); }
+  75%  { text-shadow: 0 0 12px var(--neon-yellow); }
+  100% { text-shadow: 0 0 10px var(--neon-cyan); }
 }
 
-/* Yellow */
-.neon-yellow {
-  color: #ffea00;
-  animation-name: glowYellow;
-}
+.neon-pink { color: var(--neon-pink); animation-name: glowPink; }
+.neon-yellow { color: var(--neon-yellow); animation-name: glowYellow; }
+.neon-cyan { color: var(--neon-cyan); animation-name: glowCyan; }
 
-/* Cyan / Blue */
-.neon-cyan {
-  color: #64f5ff;
-  animation-name: glowCyan;
-}
-
-/* =========================================
-   HERO VIDEO CTA — solid rainbow + cyan glow
-   ========================================= */
-
-/* Position button over the video */
+/*************************************************************
+  HERO VIDEO CTA — solid rainbow + cyan glow
+*************************************************************/
 .neon-page .video-button-wrapper {
   position: absolute;
   top: 80%;
@@ -964,7 +857,6 @@ main {
   z-index: 40;
 }
 
-/* Solid multicolor button (override all other CTA styles) */
 .neon-page a.cta-main {
   display: inline-block;
   padding: 18px 48px;
@@ -978,99 +870,65 @@ main {
   text-align: center;
   text-decoration: none;
 
-  /* SOLID rainbow background */
   background-image: linear-gradient(45deg, #ff00ff, #c084fc, #00ffff) !important;
   color: #000 !important;
   border: none !important;
 
-  /* Base glow (pinkish like AZ) */
   box-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* Hover: strong cyan glow */
+/* IMPORTANT: keep CTA hover clean (overrides the global neon-page a:hover) */
 .neon-page a.cta-main:hover {
-  /* Prevent neon pink override */
   animation: none !important;
   text-shadow: none !important;
   color: #000 !important;
 
-  /* KEEP your designed hover glow */
   transform: scale(1.05) !important;
   box-shadow:
     0 0 25px rgba(0, 255, 255, 0.9),
     0 0 60px rgba(0, 255, 255, 0.6),
     0 0 100px rgba(0, 255, 255, 0.4) !important;
-
-  background-image: linear-gradient(
-    45deg,
-    #ff00ff,
-    #c084fc,
-    #00ffff
-  ) !important;
 }
 
-/* Hidden at first */
 .hidden-before-show {
   opacity: 0;
   transform: translate(-50%, -60%);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-/* When shown */
 .show-cta {
   opacity: 1;
   transform: translate(-50%, -50%);
 }
 
-/* ===========================
-   MOBILE FIXES FOR NEON PAGE
-   =========================== */
+/* -------------------- MOBILE FIXES -------------------- */
 @media (max-width: 768px) {
-
   /* Make video button full-width & fix deformation */
-  .video-button-wrapper {
-    top: 58%;               /* move it slightly lower if needed */
+  .neon-page .video-button-wrapper {
+    top: 58%;
     width: 100%;
     display: flex;
     justify-content: center;
     padding: 0 1.5rem;
   }
 
-  .skate-btn {
-    width: 100% !important;      /* full width */
-    max-width: 330px !important; /* keeps it pretty */
+  .neon-page .skate-btn {
+    width: 100% !important;
+    max-width: 330px !important;
     height: auto !important;
     padding: 18px 32px !important;
     font-size: 1.1rem !important;
-
     border-radius: 40px !important;
-  }
-
-  /* Prevent the weird oval distortion on small screens */
-  .skate-btn {
     background-size: 100% 100% !important;
   }
+
+  /* your existing safety */
+  body { overflow-x: hidden !important; }
 }
 
-@media (max-width: 768px) {
-  body {
-    overflow-x: hidden !important;
-  }
-
-  #eventsViewport,
-  #eventsTrack,
-  .carousel-container {
-    overflow-x: hidden !important;
-  }
-
-  /* Prevent cards from creating extra width */
-  .event-card {
-    margin-right: 1rem;
-  }
-}
-
+/*************************************************************
+  EZFacility Styles
+*************************************************************/
 /* EZFacility iframe sizing */
-.ez-iframe{
-  height: clamp(900px, 85vh, 1300px);
-}
+.ez-iframe{ height: clamp(900px, 85vh, 1300px); }
