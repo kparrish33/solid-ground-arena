@@ -929,6 +929,35 @@ nav .group > a {
   body { overflow-x: hidden !important; }
 }
 
+/* =========================================================
+   FIX: Neon page swipe not working (<900px)
+   Cause: .carousel-container overflow + .carousel-track animation overrides
+   Paste at VERY BOTTOM of style.css
+   ========================================================= */
+
+@media (max-width: 899.98px){
+
+  /* Force the neon viewport to actually scroll */
+  .sga-carousel--neon .sga-viewport.carousel-container{
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+  }
+
+  /* Stop the neon auto-scroll animation on mobile so swipe can win */
+  .sga-carousel--neon .sga-track.carousel-track{
+    animation: none !important;
+    transform: none !important;
+    will-change: auto !important;
+  }
+
+  /* Make touch gestures prioritize horizontal panning */
+  .sga-carousel--neon .sga-viewport{
+    touch-action: pan-x;
+  }
+}
+
 /*************************************************************
   EZFacility Styles
 *************************************************************/
