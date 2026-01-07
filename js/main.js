@@ -452,7 +452,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // 10. Expanding Stripes on Hover Animation
+  // Expanding Stripes on Hover Animation
   qsa(".stripe-container").forEach((stripe) => {
     stripe.addEventListener("mouseenter", () => {
       stripe.style.transform = "skewY(-12deg) scale(1.02)";
@@ -462,51 +462,141 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 11. Livestream Auto-Detection & Glow Animation
-  const card = qs("#livestreamCard");
-  const inlineBadge = qs("#liveBadge");
-  const floatingBadge = qs("#floatingLiveBadge");
-  const closeBtn = qs("#closeLiveBadge");
+// 11. Livestream Auto-Detection & Glow Animation (FULL REWRITE)
+(function initLivestreamBadge() {
+  const LIVE_PORTAL_URL = "https://impactenvi.watch.pixellot.tv/";
+  const LIVE_LIST_URL = "https://impactenvi.watch.pixellot.tv/api/event/list";
+  const POLL_MS = 90000;
 
-  const LIVE_CHECK_URL = "https://impactenvi.watch.pixellot.tv/";
+  let liveEventUrl = LIVE_PORTAL_URL;
+  let pollId = null;
+
+function getEls() {
+  return {
+    cards: document.querySelectorAll("#livestreamCard"),
+    inlineBadges: document.querySelectorAll("#liveBadge"),
+  };
+}
+
+function showUI() {
+  const { cards, inlineBadges } = getEls();
+
+  cards.forEach((card) => card.classList.add("livestream-glow"));
+
+  inlineBadges.forEach((badge) => {
+    badge.classList.remove("hidden");
+    badge.classList.add("flex");
+  });
+
+  if (window.feather) feather.replace();
+}
+
+function hideUI() {
+  const { card, inlineBadge } = getEls();
+
+  if (card) card.classList.remove("livestream-glow");
+
+  if (inlineBadge) {
+    inlineBadge.classList.add("hidden");
+    inlineBadge.classList.remove("flex", "opacity-100");
+  }
+}
+
+  async function fetchLiveEvent() {
+    const payload = {
+      page: 0,
+      size: 20,
+      next: true,
+      count: false,
+      filters: { status: "live" },
+      isHomePage: true,
+    };
+
+    const res = await fetch(LIVE_LIST_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(payload),
+      cache: "no-store",
+    });
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    const data = await res.json();
+    const entries = data?.content?.entries || [];
+    return entries[0] || null; // filtered to live, so first is enough
+  }
 
   async function checkLivestream() {
     try {
-      await fetch(LIVE_CHECK_URL, { method: "HEAD", mode: "no-cors" });
-      const isLive = true; // placeholder
-      if (isLive) showLivestreamUI();
+      console.log("[LIVE] check start");
+
+      const liveEvent = await fetchLiveEvent();
+      console.log("[LIVE] result:", liveEvent ? liveEvent.status : "none");
+
+      if (liveEvent) {
+        const eventId = liveEvent.event_id || liveEvent._id;
+        liveEventUrl = eventId
+          ? `https://impactenvi.watch.pixellot.tv/events/${eventId}`
+          : LIVE_PORTAL_URL;
+
+        showUI();
+      } else {
+        liveEventUrl = LIVE_PORTAL_URL;
+
+        // If you want the badges to disappear when not live, uncomment:
+        // hideUI();
+      }
     } catch (err) {
-      console.warn("Livestream check error:", err);
+      console.warn("[LIVE] check failed:", err);
     }
   }
 
-  function showLivestreamUI() {
-    if (card) card.classList.add("livestream-glow");
-    if (inlineBadge) {
-      inlineBadge.classList.remove("opacity-0");
-      inlineBadge.classList.add("opacity-100");
+  function wireClicksOnce() {
+    const { floatingBadge, closeBtn } = getEls();
+
+    if (floatingBadge && !floatingBadge.dataset.liveWired) {
+      floatingBadge.dataset.liveWired = "1";
+
+      floatingBadge.addEventListener("click", () => {
+        window.open(liveEventUrl || LIVE_PORTAL_URL, "_blank");
+      });
     }
-    if (floatingBadge) {
-      floatingBadge.classList.remove("hidden");
-      floatingBadge.classList.add("flex");
+
+    if (closeBtn && !closeBtn.dataset.liveWired) {
+      closeBtn.dataset.liveWired = "1";
+
+      closeBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const { floatingBadge: fb } = getEls();
+        if (fb) fb.classList.add("hidden");
+      });
     }
   }
 
-  if (floatingBadge) {
-    floatingBadge.addEventListener("click", () => {
-      window.open(LIVE_CHECK_URL, "_blank");
-    });
+  function start() {
+    console.log("[LIVE] script init");
+
+    wireClicksOnce();
+    checkLivestream();
+
+    if (pollId) clearInterval(pollId);
+    pollId = setInterval(() => {
+      wireClicksOnce();   // in case DOM is injected later
+      checkLivestream();
+    }, POLL_MS);
   }
 
-  if (closeBtn && floatingBadge) {
-    closeBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      floatingBadge.classList.add("hidden");
-    });
+  // Start after DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start);
+  } else {
+    start();
   }
+})();
 
-  checkLivestream();
-  setInterval(checkLivestream, 60000);
 
   // 12. Smooth Scroll
   const SCROLL_OFFSET = -500;

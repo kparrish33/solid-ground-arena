@@ -978,3 +978,18 @@ nav .group > a {
   }
 }
 
+/*************************************************************
+  LIVESTREAM
+*************************************************************/
+.livestream-glow {
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.25), 0 18px 45px rgba(0, 0, 0, 0.18);
+}
+
+@keyframes livePop {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.liveBadge {
+  animation: livePop 0.35s ease-out;
+}
