@@ -135,6 +135,12 @@ nav .group > a {
   transform: skewY(12deg) scale(1.05) translateX(-10px) translateY(4px);
 }
 
+@media (max-width: 900px) {
+  .stripes-video {
+    margin-top: 64px; /* adjust as needed */
+  }
+}
+
 /* Video overlay */
 .video-overlay{
   position:absolute;
