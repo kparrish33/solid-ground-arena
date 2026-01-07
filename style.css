@@ -326,7 +326,6 @@ nav .group > a {
   align-items: center;
   margin-top: 18px;
   position: relative;
-  z-index: 9999;
   pointer-events: auto;
 }
 
@@ -972,3 +971,4 @@ nav .group > a {
     margin-top: 10px;    /* optional: adds breathing room */
   }
 }
+

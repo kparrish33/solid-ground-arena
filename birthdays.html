@@ -194,7 +194,7 @@
       </div>
     </header>
     
-    <!-- Facility Rental Form -->
+    <!-- Birthday Party Form -->
     <section id="rental-form" class="py-16 bg-white scroll-mt-28">
       <div class="container mx-auto px-6">
         <div
@@ -282,7 +282,7 @@
 
           <div class="flex flex-col sm:flex-row justify-center gap-4">
             <a 
-              href="forms/EVENT_APPLICATION.pdf" 
+              href="forms/BIRTHDAY_PARTY.pdf" 
               class="bg-[#5fbcff] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-500 transition duration-300 inline-flex items-center justify-center"
               download
             >
@@ -403,36 +403,9 @@ pyrotechnics, firearms, and any use inconsistent with City of Peoria C-1/2 zonin
         <input type="number" name="attendance" max="430" required class="w-full border rounded p-2">
       </div>
 
-      <!-- Section B - General Questions -->
+      <!-- Section B - Activities and Equipment Related Questions -->
       <div>
-        <h3 class="text-xl font-semibold mb-4">Section B – General Questions</h3>
-        <label class="block mb-2">Has the Applicant reviewed the City of Peoria Code § 8-2 (Special Events) and confirmed whether a City Special Event or Temporary Use Permit is required? *</label>
-        <select name="reviewedCityCode" required class="w-full border rounded p-2">
-          <option value="">Select</option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
-
-        <label class="block mt-4 mb-2">If Yes, provide details</label>
-        <textarea name="codeDetails" class="w-full border rounded p-2"></textarea>
-
-        <label class="block mt-4 mb-2">Please list City Liaison Name</label>
-        <input type="text" name="cityLiaison" class="w-full border rounded p-2">
-
-        <label class="block mt-4 mb-2">Will tickets or admission be sold? *</label>
-        <select name="ticketsSold" required class="w-full border rounded p-2">
-          <option value="">Select</option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
-
-        <label class="block mt-4 mb-2">If Yes, provide details and tax status</label>
-        <input type="text" name="taxStatus" class="w-full border rounded p-2">
-      </div>
-
-      <!-- Section C - Activities and Equipment Related Questions -->
-      <div>
-        <h3 class="text-xl font-semibold mb-4">Section C – Activities and Equipment</h3>
+        <h3 class="text-xl font-semibold mb-4">Section B – Activities and Equipment</h3>
         <div class="mt-4">
           <label class="block mt-4 mb-2">Any fighting, boxing, wrestling, or martial arts? *</label>
           <select name="martialArts" required class="w-full border rounded p-2">
@@ -506,89 +479,17 @@ pyrotechnics, firearms, and any use inconsistent with City of Peoria C-1/2 zonin
           <label class="block mt-4 mb-2">If Yes, explain</label>
           <input type="text" name="structureExplain" class="w-full border rounded p-2">
 
-          <label class="block mt-4 mb-2">Will private security be utilized? *</label>
-          <select name="security" required class="w-full border rounded p-2">
-            <option value="">Select</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
-          <label class="block mt-4 mb-2">If Yes, identify if they are armed</label>
-          <input type="text" name="securityExplain" class="w-full border rounded p-2">
-
-          <label class="block mt-4 mb-2">Will Applicant require any special access considerations [road closures, lane restrictions, barricades detours]? *</label>
-          <select name="specialAccess" required class="w-full border rounded p-2">
-            <option value="">Select</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
-          <label class="block mt-4 mb-2">If Yes, explain</label>
-          <input type="text" name="accessExplain" class="w-full border rounded p-2">
-
-          <label class="block mt-4 mb-2">Will applicant be arranging for trash removal, recycling or restroom facilities? *</label>
-          <select name="trashRemoval" required class="w-full border rounded p-2">
-            <option value="">Select</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
-          <label class="block mt-4 mb-2">If Yes, explain</label>
-          <input type="text" name="trashExplain" class="w-full border rounded p-2">
-        </div>
-      </div>
-
-      <!-- Section D - Vendors and Contractors -->
+      <!-- Section C - Vendors and Contractors -->
       <div>
-        <h3 class="text-xl font-semibold mb-4">Section D – Vendors and Contractors</h3>
+        <h3 class="text-xl font-semibold mb-4">Section D – Vendors and Contractors, If Any</h3>
         <label class="block mt-4 mb-2">List all vendors including contact info, address, and insurance provider.</label>
         <textarea name="vendors" class="w-full border rounded p-2" rows="4" placeholder="List all vendors including contact info, address, and insurance provider"></textarea>
       </div>
 
-      <!-- Section E – Alcohol Use, Sale and Consumption -->
-      <div>
-        <h3 class="text-xl font-semibold mb-4">Section E – Alcohol Use, Sale and Consumption</h3>
-        <label class="block mt-4 mb-2">The premises has no permits to sell or distribute alcohol, if you intend to get a temporary permit for sale and/or distribution of alcohol, provide details on application with Peoria Police Department and Maricopa County.</label>
-
-        <label class="block mt-4 mb-2">Is the Applicant serving Alcohol as a private, invitation-only event with no sales, no open public access? *</label>
-        <select name="privateAlcohol" required class="w-full border rounded p-2">
-          <option value="">Select</option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
-
-        <label class="block mt-4 mb-2">Is the Applicant serving with a hired licensed caterer or bar operator with a Series 6 or 12 license filing an Extension of Premises / Offsite Permit [PD and DLLC sign-off required]? *</label>
-        <select name="liquorCaterer" required class="w-full border rounded p-2">
-            <option value="">Select</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
-
-          <label class="block mt-4 mb-2">Is Applicant claiming temporary permit under A.R.S. § 4-203.02, a Special Event Liquor License? [501c3, religious, civic, fraternal, political, or service organizations] *</label>
-        <select name="liquorPermits" required class="w-full border rounded p-2">
-            <option value="">Select</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
-
-        <label class="block mt-4 mb-2">Police Contact Name & Email</label>
-        <input type="text" name="policeContact" class="w-full border rounded p-2">
-
-        <label class="block mt-4 mb-2">State/Maricopa County Contact Name & Email</label>
-        <input type="text" name="countyContact" class="w-full border rounded p-2">
-
-         <label class="block font-semibold mt-4 mb-2">YOU MUST PROVIDE PROOF OF LIQUOR LIABILITY INSURANCE FOR HOST OR BARTENDER</label>
-
-         <label class="block mt-4 mb-2">Will Applicant have Peoria Police and Arizona Liquor Department security and fencing plan? *</label>
-        <select name="liquorPermits" required class="w-full border rounded p-2">
-            <option value="">Select</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
-
-      </div>
-
-      <!-- Section F – Additional Details -->
+      <!-- Section D – Additional Details -->
       <div>
         <h3 class="text-xl font-semibold mb-4">Section F – Additional Details</h3>
-        <label class="block mt-4 mb-2">Provide any other details or information that will need to be addressed in a binding rental contract:</label>
+        <label class="block mt-4 mb-2">Provide any other details or information that will need to be addressed:</label>
         <textarea name="additionalDetails" rows="4" class="w-full border rounded p-2"></textarea>
       </div>
 
