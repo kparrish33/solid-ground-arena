@@ -4,6 +4,47 @@ body { font-family: "Montserrat", sans-serif; scroll-behavior: smooth; }
 
 main { min-height: 100vh; }
 
+/* =========================================
+   NAV WRAP SPACING FIX (ALL PAGES)
+   Keeps wrapped rows tight + aligned
+   ========================================= */
+
+/* The row that holds your nav links/buttons */
+nav .container .flex.justify-between.items-center{
+  align-items: center !important;   /* prevents weird baseline/drop */
+}
+
+/* The nav links group (desktop) */
+nav .container ul,
+nav .container .nav-links,
+nav .container .flex.gap-8,
+nav .container .flex.gap-6{
+  flex-wrap: wrap;                 /* allow wrap */
+  row-gap: 10px;                   /* ✅ tight vertical spacing between rows */
+  align-items: center;             /* ✅ consistent vertical alignment */
+  line-height: 1;                  /* ✅ removes extra line-height space */
+}
+
+/* Make each top-level nav item not add extra height */
+nav .nav-link,
+nav a.nav-link{
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+/* CTA button (SKATE NIGHT) shouldn't create extra row height */
+nav a[href="skate-night.html"],
+nav a[href*="skate-night"]{
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  padding-top: 0.6rem !important;
+  padding-bottom: 0.6rem !important;
+}
+
 /* =========================================================
    GLOBAL NAV ARROW SIZE FIX
    Prevent dropdown arrows from shrinking on text wrap
@@ -230,18 +271,20 @@ nav .group > a {
 .sga-carousel{
   position: relative;
   width: 100%;
-  overflow-x: hidden;           /* prevents page horizontal scroll */
+  overflow-x: hidden;     /* prevents page horizontal scroll */
   overflow-y: visible;
 
   /* Fade config */
-  --fade-size: 56px;            /* width of fade on each side */
+  --fade-size: 56px;      /* width of fade on each side */
   --fade-z: 30;
-  --fade-bg: #ffffff;           /* HOME default background for fade */
+
+  /* Fade color (RGB) — HOME default is white */
+  --fade-rgb: 255, 255, 255;
 }
 
-/* Neon page background is dark, so fade into dark */
+/* Neon page is dark, so fade into dark */
 .neon-page .sga-carousel{
-  --fade-bg: #050109;
+  --fade-rgb: 5, 1, 9;    /* matches #050109 */
 }
 
 /* Edge fade overlays (keeps shadows; no mask clipping) */
@@ -260,8 +303,8 @@ nav .group > a {
   left: 0;
   background: linear-gradient(
     to right,
-    var(--fade-bg) 0%,
-    rgba(255,255,255,0) 100%
+    rgba(var(--fade-rgb), 1) 0%,
+    rgba(var(--fade-rgb), 0) 100%
   );
 }
 
@@ -269,8 +312,8 @@ nav .group > a {
   right: 0;
   background: linear-gradient(
     to left,
-    var(--fade-bg) 0%,
-    rgba(255,255,255,0) 100%
+    rgba(var(--fade-rgb), 1) 0%,
+    rgba(var(--fade-rgb), 0) 100%
   );
 }
 
@@ -280,12 +323,11 @@ nav .group > a {
 
 .sga-viewport{
   width: 100%;
-  max-width: 1280px;            /* match max-w-7xl */
-  margin: 0 auto;
+  max-width: none;        /* full width (you said you removed max-w-7xl) */
+  margin: 0;
 
-  overflow: visible;            /* stops cut-off */
-  overflow-y: visible;
-  padding: 36px 0;              /* vertical breathing room for shadows */
+  overflow: visible;      /* stops cut-off */
+  padding: 36px 0;        /* vertical breathing room for shadows */
 }
 
 /* Track (desktop + base) */
@@ -294,8 +336,8 @@ nav .group > a {
   align-items: stretch;
   justify-content: center;
 
-  gap: 3rem;                    /* horizontal breathing room */
-  padding: 0 24px;              /* keeps cards away from hard edges */
+  gap: 3rem;
+  padding: 0 24px;
 
   will-change: transform;
   transform: translate3d(0,0,0);
@@ -316,28 +358,38 @@ nav .group > a {
   justify-content: center;
   align-items: center;
   margin-top: 18px;
+  position: relative;
+  z-index: 9999;
+  pointer-events: auto;
 }
+
 .sga-dot{
   width: 8px;
   height: 8px;
   border-radius: 9999px;
   border: 0;
-  background: rgba(0,0,0,0.25);
   cursor: pointer;
+  pointer-events: auto;
 }
-.sga-dot.is-active{
+
+/* Default dot colors (home) */
+.sga-carousel--home .sga-dot{ background: rgba(0,0,0,0.25); }
+.sga-carousel--home .sga-dot.is-active{
   width: 22px;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.70);
+}
+
+/* Neon dot colors */
+.sga-carousel--neon .sga-dot{ background: rgba(100,245,255,0.30); }
+.sga-carousel--neon .sga-dot.is-active{
+  width: 22px;
+  background: rgba(100,245,255,0.95);
 }
 
 /* Desktop hover lift allowed */
 @media (min-width: 900px){
-  .sga-carousel .event-card:hover{
-    transform: translateY(-6px);
-  }
-  .sga-carousel .theme-card:hover{
-    transform: translateY(-8px) scale(1.05);
-  }
+  .sga-carousel .event-card:hover{ transform: translateY(-6px); }
+  .sga-carousel .theme-card:hover{ transform: translateY(-8px) scale(1.05); }
 }
 
 /* ==========================
@@ -347,14 +399,13 @@ nav .group > a {
 @media (max-width: 899.98px){
 
   /* Slightly smaller fade on mobile so it doesn’t feel heavy */
-  .sga-carousel{
-    --fade-size: 34px;
-  }
+  .sga-carousel{ --fade-size: 34px; }
 
   .sga-viewport{
     overflow-x: auto;
     overflow-y: visible;
     -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
 
     scroll-snap-type: x mandatory;
     scroll-padding: 24px;
@@ -368,15 +419,10 @@ nav .group > a {
   .sga-viewport{ scrollbar-width: none; }
 
   .sga-track{
-    /* mobile uses scroll, not transform */
-    transform: none !important;
+    transform: none !important;   /* mobile uses scroll, not transform */
     will-change: auto;
-
-    /* mobile spacing */
     gap: 16px;
-
-    /* IMPORTANT: do NOT center track on mobile */
-    justify-content: flex-start;
+    justify-content: flex-start;  /* IMPORTANT: do NOT center track on mobile */
   }
 
   .sga-card{
@@ -399,20 +445,9 @@ nav .group > a {
     transform: scale(1.03) !important;
     opacity: 1;
   }
-  .sga-card.is-dim{
-    opacity: 0.55;
-  }
+  .sga-card.is-dim{ opacity: 0.55; }
 
-  .sga-dots{
-    display: flex;
-  }
-
-  /* Dot colors per skin */
-  .sga-carousel--neon .sga-dot{ background: rgba(100,245,255,0.30); }
-  .sga-carousel--neon .sga-dot.is-active{ background: rgba(100,245,255,0.95); }
-
-  .sga-carousel--home .sga-dot{ background: rgba(0,0,0,0.25); }
-  .sga-carousel--home .sga-dot.is-active{ background: rgba(0,0,0,0.70); }
+  .sga-dots{ display: flex; }
 }
 
 /* =========================================================
@@ -932,3 +967,9 @@ nav .group > a {
 *************************************************************/
 /* EZFacility iframe sizing */
 .ez-iframe{ height: clamp(900px, 85vh, 1300px); }
+
+@media (max-width: 899.98px){
+  .sga-viewport.carousel-container{
+    overflow-x: auto !important;
+  }
+}

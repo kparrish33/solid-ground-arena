@@ -546,86 +546,54 @@ document.addEventListener("DOMContentLoaded", function () {
   // ✅ Init the unified carousels LAST (so layout is stable)
   initCarousels();
 
-  // Feather icons again (in case cards were cloned)
-  if (window.feather) feather.replace();
-});
-
-  // 16. Clickable dots + active-dot sync for any .sga-carousel
-  // (works for homepage + neon, uses data-dots container)
+// ✅ DOTS CLICK (horizontal-only) — works with duplicated cards, no scrollIntoView
+(function wireCarouselDotsHorizontalOnly() {
   document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     const viewport = carousel.querySelector(".sga-viewport");
     const track = carousel.querySelector(".sga-track");
-    const dotsWrap = carousel.querySelector("[data-dots]");
-
+    const dotsWrap = carousel.querySelector(".sga-dots");
     if (!viewport || !track || !dotsWrap) return;
 
-    const cards = Array.from(track.children).filter((el) => el.nodeType === 1);
-    if (!cards.length) return;
-
-    // If you duplicated cards for looping, dots should represent the first half.
-    // If not duplicated, this still works (dotCount becomes full length).
-    let dotCount = cards.length;
-    if (cards.length >= 2 && cards.length % 2 === 0) {
-      dotCount = cards.length / 2;
+    function centerCard(card) {
+      const left = card.offsetLeft - (viewport.clientWidth - card.offsetWidth) / 2;
+      viewport.scrollTo({ left, behavior: "smooth" });
     }
 
-    dotsWrap.innerHTML = "";
-    const dots = [];
+    function getMiddleDuplicate(originalIdx) {
+      const cards = Array.from(track.querySelectorAll(".sga-card")).filter((c) => {
+        const v = c.getAttribute("data-original-index") ?? c.dataset.originalIndex;
+        return Number(v) === Number(originalIdx);
+      });
 
-    const scrollToIndex = (i) => {
-      const target = cards[i];
+      if (!cards.length) return null;
+
+      // Choose the MIDDLE copy (index ≈ cards.length / 2)
+      return cards[Math.floor(cards.length / 2)];
+    }
+
+
+    dotsWrap.onclick = (e) => {
+      const btn = e.target.closest(".sga-dot");
+      if (!btn) return;
+
+      e.preventDefault();
+
+      // Determine the intended index
+      const idx =
+        btn.dataset.index != null
+          ? Number(btn.dataset.index)
+          : Array.from(dotsWrap.children).indexOf(btn);
+
+      if (idx < 0) return;
+
+      const target = getMiddleDuplicate(idx);
       if (!target) return;
 
-      const left =
-        target.offsetLeft - (viewport.clientWidth - target.clientWidth) / 2;
-
-      viewport.scrollTo({ left, behavior: "smooth" });
+      centerCard(target);
     };
-
-    for (let i = 0; i < dotCount; i++) {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "sga-dot" + (i === 0 ? " is-active" : "");
-      btn.setAttribute("aria-label", `Go to slide ${i + 1}`);
-      btn.addEventListener("click", () => scrollToIndex(i));
-
-      dotsWrap.appendChild(btn);
-      dots.push(btn);
-    }
-
-    // Update active dot based on the card nearest center
-    let rafId = null;
-
-    const updateActiveDot = () => {
-      rafId = null;
-
-      const centerX = viewport.scrollLeft + viewport.clientWidth / 2;
-
-      let bestIndex = 0;
-      let bestDist = Infinity;
-
-      for (let i = 0; i < dotCount; i++) {
-        const c = cards[i];
-        if (!c) continue;
-
-        const cCenter = c.offsetLeft + c.clientWidth / 2;
-        const dist = Math.abs(cCenter - centerX);
-
-        if (dist < bestDist) {
-          bestDist = dist;
-          bestIndex = i;
-        }
-      }
-
-      dots.forEach((d, idx) => d.classList.toggle("is-active", idx === bestIndex));
-    };
-
-    viewport.addEventListener("scroll", () => {
-      if (rafId) return;
-      rafId = requestAnimationFrame(updateActiveDot);
-    });
-
-    // Run once on load
-    updateActiveDot();
   });
+})();
 
+  // Feather icons again (in case cards were cloned)
+  if (window.feather) feather.replace();
+});
