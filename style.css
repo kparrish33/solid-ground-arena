@@ -964,4 +964,11 @@ nav .group > a {
 /* EZFacility iframe sizing */
 .ez-iframe{ height: clamp(900px, 85vh, 1300px); }
 
-
+@media (max-width: 900px) {
+  #mobile-menu a[href="skate-night.html"] {
+    display: block;      /* forces its own line */
+    width: fit-content;  /* keeps pill sized */
+    margin-left: auto;   /* keeps it right-aligned */
+    margin-top: 10px;    /* optional: adds breathing room */
+  }
+}
