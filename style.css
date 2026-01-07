@@ -4,47 +4,6 @@ body { font-family: "Montserrat", sans-serif; scroll-behavior: smooth; }
 
 main { min-height: 100vh; }
 
-/* =========================================
-   NAV WRAP SPACING FIX (ALL PAGES)
-   Keeps wrapped rows tight + aligned
-   ========================================= */
-
-/* The row that holds your nav links/buttons */
-nav .container .flex.justify-between.items-center{
-  align-items: center !important;   /* prevents weird baseline/drop */
-}
-
-/* The nav links group (desktop) */
-nav .container ul,
-nav .container .nav-links,
-nav .container .flex.gap-8,
-nav .container .flex.gap-6{
-  flex-wrap: wrap;                 /* allow wrap */
-  row-gap: 10px;                   /* ✅ tight vertical spacing between rows */
-  align-items: center;             /* ✅ consistent vertical alignment */
-  line-height: 1;                  /* ✅ removes extra line-height space */
-}
-
-/* Make each top-level nav item not add extra height */
-nav .nav-link,
-nav a.nav-link{
-  display: inline-flex;
-  align-items: center;
-  line-height: 1;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-}
-
-/* CTA button (SKATE NIGHT) shouldn't create extra row height */
-nav a[href="skate-night.html"],
-nav a[href*="skate-night"]{
-  display: inline-flex;
-  align-items: center;
-  line-height: 1;
-  padding-top: 0.6rem !important;
-  padding-bottom: 0.6rem !important;
-}
-
 /* =========================================================
    GLOBAL NAV ARROW SIZE FIX
    Prevent dropdown arrows from shrinking on text wrap
@@ -166,6 +125,14 @@ nav .group > a {
   transform: skewY(12deg);
   pointer-events:none;
   margin-left:-1rem;
+}
+
+.stripe-container:nth-child(-n+2) .stripe-cat-icon {
+  transform: skewY(12deg) scale(1.1) translateX(-20px) translateY(6px);
+}
+
+.stripe-container:first-child .stripe-cat-icon {
+  transform: skewY(12deg) scale(1.05) translateX(-10px) translateY(4px);
 }
 
 /* Video overlay */
@@ -968,8 +935,4 @@ nav .group > a {
 /* EZFacility iframe sizing */
 .ez-iframe{ height: clamp(900px, 85vh, 1300px); }
 
-@media (max-width: 899.98px){
-  .sga-viewport.carousel-container{
-    overflow-x: auto !important;
-  }
-}
+
