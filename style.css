@@ -1,8 +1,15 @@
 /* ========== BASE TYPOGRAPHY & GLOBAL BEHAVIOR ========== */
-body { font-family: "Montserrat", sans-serif; scroll-behavior: smooth; }
-.font-bebas { font-family: "Bebas Neue", sans-serif; }
+body {
+  font-family: "Montserrat", sans-serif;
+  scroll-behavior: smooth;
+}
+.font-bebas {
+  font-family: "Bebas Neue", sans-serif;
+}
 
-main { min-height: 100vh; }
+main {
+  min-height: 100vh;
+}
 
 /* =========================================================
    GLOBAL NAV ARROW SIZE FIX
@@ -21,7 +28,7 @@ nav .group > a {
 nav .nav-link svg,
 nav .group > a svg,
 nav .arrow {
-  flex-shrink: 0;       /* 🔑 this is the key fix */
+  flex-shrink: 0; /* 🔑 this is the key fix */
   width: 16px;
   height: 16px;
 }
@@ -33,101 +40,115 @@ nav .group > a {
 }
 
 /* ========== HERO SECTION ========== */
-.hero-gradient { background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%); }
+.hero-gradient {
+  background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+}
 
 /* ========== BUTTONS ========== */
 .skate-now-btn {
   background: linear-gradient(to right, #38bdf8, #2563eb);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
   border-radius: 6px;
 }
-.skate-now-btn:hover{
+.skate-now-btn:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-  outline: 2px solid rgba(59,130,246,0.4);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  outline: 2px solid rgba(59, 130, 246, 0.4);
   outline-offset: 2px;
 }
-.nav-link:hover { color: #5fbcff; }
+.nav-link:hover {
+  color: #5fbcff;
+}
 
 /* ========== FEATURE CARDS ========== */
-.feature-card{
-  background:#fff;
-  padding:2rem;
-  border-radius:1rem;
-  text-align:center;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+.feature-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.feature-card:hover{
+.feature-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
-.feature-icon{
-  width:48px; height:48px; stroke-width:1.5;
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  stroke-width: 1.5;
   margin: 0 auto 1rem;
-  color:#3b82f6; stroke:#3b82f6;
+  color: #3b82f6;
+  stroke: #3b82f6;
 }
 
 /* ========== FOOTER GRADIENT ========== */
-.footer-gradient { background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%); }
+.footer-gradient {
+  background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+}
 
 /* ========== STRIPE NAV SECTIONS (unchanged from your working version) ========== */
-.stripes-video{
+.stripes-video {
   position: relative;
   isolation: isolate;
   min-height: clamp(620px, 78vh, 980px);
   background: #fff;
 }
-.stripe-wrapper{
+.stripe-wrapper {
   padding-top: 15vh;
   height: 100%;
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
 }
-.stripes-layer{ position: relative; z-index: 1; }
-
-.stripe-container{
+.stripes-layer {
   position: relative;
   z-index: 1;
-  flex:1;
-  width:100%;
+}
+
+.stripe-container {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  width: 100%;
   transform: skewY(-12deg);
-  transform-origin:left;
+  transform-origin: left;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  padding-left:15%;
-  color:#fff;
-  text-decoration:none;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding-left: 15%;
+  color: #fff;
+  text-decoration: none;
 }
-.stripe-container:hover{
-  box-shadow: 0 8px 25px rgba(95,188,255,0.45);
-  z-index:2;
+.stripe-container:hover {
+  box-shadow: 0 8px 25px rgba(95, 188, 255, 0.45);
+  z-index: 2;
 }
-.stripe-content{
-  display:flex;
-  flex-direction:row;
-  align-items:center;
-  gap:1.5rem;
+.stripe-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
   transform: skewY(-1deg);
 }
-.stripe-title{
+.stripe-title {
   font-family: "Bebas Neue", sans-serif !important;
   letter-spacing: 1px;
   font-size: 3rem;
   font-weight: 800;
 }
-.stripe-cat-icon{
-  width:200px; height:200px;
-  object-fit:contain;
+.stripe-cat-icon {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
   transform: skewY(12deg);
-  pointer-events:none;
-  margin-left:-1rem;
+  pointer-events: none;
+  margin-left: -1rem;
 }
 
-.stripe-container:nth-child(-n+2) .stripe-cat-icon {
+.stripe-container:nth-child(-n + 2) .stripe-cat-icon {
   transform: skewY(12deg) scale(1.1) translateX(-20px) translateY(6px);
 }
 
@@ -142,97 +163,168 @@ nav .group > a {
 }
 
 /* Video overlay */
-.video-overlay{
-  position:absolute;
-  z-index:50;
-  top:50%;
-  right:0;
+.video-overlay {
+  position: absolute;
+  z-index: 50;
+  top: 50%;
+  right: 0;
   transform: translateY(-50%);
   width: clamp(700px, 54vw, 900px);
   height: clamp(960px, 100vh, 1260px);
-  pointer-events:none;
+  pointer-events: none;
 }
-.video-shell{
-  position:relative;
-  width:100%;
+.video-shell {
+  position: relative;
+  width: 100%;
   height: calc(100% - 24px);
-  border-radius:28px;
-  overflow:hidden;
-  background: rgba(255,255,255,0.12);
+  border-radius: 28px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(6px);
 }
-.video-shell::before{
-  content:"";
-  position:absolute;
-  left:-70px; top:0; bottom:0;
-  width:140px;
-  background:
-    radial-gradient(60px 160px at 65% 18%, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0) 70%),
-    radial-gradient(70px 190px at 55% 52%, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0) 72%),
-    radial-gradient(55px 170px at 70% 86%, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0) 70%),
-    linear-gradient(to right, rgba(255,255,255,0.98), rgba(255,255,255,0));
-  pointer-events:none;
-  z-index:3;
+.video-shell::before {
+  content: "";
+  position: absolute;
+  left: -70px;
+  top: 0;
+  bottom: 0;
+  width: 140px;
+  background: radial-gradient(
+      60px 160px at 65% 18%,
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(255, 255, 255, 0) 70%
+    ),
+    radial-gradient(
+      70px 190px at 55% 52%,
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(255, 255, 255, 0) 72%
+    ),
+    radial-gradient(
+      55px 170px at 70% 86%,
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(255, 255, 255, 0) 70%
+    ),
+    linear-gradient(to right, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0));
+  pointer-events: none;
+  z-index: 3;
 }
-.video-shell::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:28px;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35);
-  pointer-events:none;
-  z-index:4;
+.video-shell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+  z-index: 4;
 }
-.video-el{ width:100%; height:100%; object-fit:cover; display:block; }
+.video-el {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
-.video-caption{
-  position:absolute;
-  left:18px; bottom:18px; right:18px;
-  padding:14px 16px;
-  border-radius:18px;
-  background: rgba(0,0,0,0.35);
+.video-caption {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  right: 18px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(6px);
-  color:#fff;
-  z-index:5;
+  color: #fff;
+  z-index: 5;
 }
-.video-kicker{ font-size:12px; font-weight:700; letter-spacing:0.12em; opacity:0.9; }
-.video-title{ font-size:18px; font-weight:800; margin-top:4px; }
+.video-kicker {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  opacity: 0.9;
+}
+.video-title {
+  font-size: 18px;
+  font-weight: 800;
+  margin-top: 4px;
+}
 
-@media (max-width: 900px){
-  .stripes-video{ height:auto; min-height:0; overflow: visible; }
-  .stripe-wrapper{ padding-top:0; height:auto; }
-  .stripe-container{ padding-left:10%; }
-  .stripe-title{ font-size:1.75rem; }
-  .stripe-cat-icon{ width:140px; height:140px; }
-  .stripes-layer, .stripe-container{ z-index:2; }
-
-  .video-overlay{
-    position:relative;
-    top:auto; bottom:auto; right:auto;
-    width:100%;
-    margin-top:18px;
-    pointer-events:auto;
-    z-index:0;
-    height:auto;
-    transform:none;
+@media (max-width: 900px) {
+  .stripes-video {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
   }
-  .video-shell{ height:240px; border-radius:22px; z-index:1; }
-  .video-shell::before{ display:none; }
+  .stripe-wrapper {
+    padding-top: 0;
+    height: auto;
+  }
+  .stripe-container {
+    padding-left: 10%;
+  }
+  .stripe-title {
+    font-size: 1.75rem;
+  }
+  .stripe-cat-icon {
+    width: 140px;
+    height: 140px;
+  }
+  .stripes-layer,
+  .stripe-container {
+    z-index: 2;
+  }
+
+  .video-overlay {
+    position: relative;
+    top: auto;
+    bottom: auto;
+    right: auto;
+    width: 100%;
+    margin-top: 18px;
+    pointer-events: auto;
+    z-index: 0;
+    height: auto;
+    transform: none;
+  }
+  .video-shell {
+    height: 240px;
+    border-radius: 22px;
+    z-index: 1;
+  }
+  .video-shell::before {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .stripe-content {
+    transform: translateX(-20px);
+  }
 }
 
 /* ========== LIVE BADGE ========== */
-#floatingLiveBadge{
+#floatingLiveBadge {
   backdrop-filter: blur(4px);
-  border: 1px solid rgba(255,255,255,0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* ========== SLIDE-UP ANIMATION ========== */
-@keyframes slideUp{
-  0%{ opacity:0; transform: translateY(20px); }
-  100%{ opacity:1; transform: translateY(0); }
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-.animate-slide-up{ opacity:0; transform: translateY(20px); }
-.slide-up-visible{ animation: slideUp 1s ease-out forwards; }
+.animate-slide-up {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.slide-up-visible {
+  animation: slideUp 1s ease-out forwards;
+}
 
 /* =========================================================
    ✅ UNIFIED CAROUSEL ENGINE STYLES (WITH EDGE FADE)
@@ -241,14 +333,14 @@ nav .group > a {
    ========================================================= */
 
 /* Wrapper */
-.sga-carousel{
+.sga-carousel {
   position: relative;
   width: 100%;
-  overflow-x: hidden;     /* prevents page horizontal scroll */
+  overflow-x: hidden; /* prevents page horizontal scroll */
   overflow-y: visible;
 
   /* Fade config */
-  --fade-size: 56px;      /* width of fade on each side */
+  --fade-size: 56px; /* width of fade on each side */
   --fade-z: 30;
 
   /* Fade color (RGB) — HOME default is white */
@@ -256,13 +348,13 @@ nav .group > a {
 }
 
 /* Neon page is dark, so fade into dark */
-.neon-page .sga-carousel{
-  --fade-rgb: 5, 1, 9;    /* matches #050109 */
+.neon-page .sga-carousel {
+  --fade-rgb: 5, 1, 9; /* matches #050109 */
 }
 
 /* Edge fade overlays (keeps shadows; no mask clipping) */
 .sga-carousel::before,
-.sga-carousel::after{
+.sga-carousel::after {
   content: "";
   position: absolute;
   top: 0;
@@ -272,7 +364,7 @@ nav .group > a {
   z-index: var(--fade-z);
 }
 
-.sga-carousel::before{
+.sga-carousel::before {
   left: 0;
   background: linear-gradient(
     to right,
@@ -281,7 +373,7 @@ nav .group > a {
   );
 }
 
-.sga-carousel::after{
+.sga-carousel::after {
   right: 0;
   background: linear-gradient(
     to left,
@@ -294,17 +386,17 @@ nav .group > a {
    DESKTOP / TABLET (>= 900px)
    ========================== */
 
-.sga-viewport{
+.sga-viewport {
   width: 100%;
-  max-width: none;        /* full width (you said you removed max-w-7xl) */
+  max-width: none; /* full width (you said you removed max-w-7xl) */
   margin: 0;
 
-  overflow: visible;      /* stops cut-off */
-  padding: 36px 0;        /* vertical breathing room for shadows */
+  overflow: visible; /* stops cut-off */
+  padding: 36px 0; /* vertical breathing room for shadows */
 }
 
 /* Track (desktop + base) */
-.sga-track{
+.sga-track {
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -313,11 +405,11 @@ nav .group > a {
   padding: 0 24px;
 
   will-change: transform;
-  transform: translate3d(0,0,0);
+  transform: translate3d(0, 0, 0);
 }
 
 /* Card base */
-.sga-card{
+.sga-card {
   display: block;
   text-decoration: none;
   color: inherit;
@@ -325,7 +417,7 @@ nav .group > a {
 }
 
 /* Dots (desktop hidden) */
-.sga-dots{
+.sga-dots {
   display: none;
   gap: 10px;
   justify-content: center;
@@ -335,7 +427,7 @@ nav .group > a {
   pointer-events: auto;
 }
 
-.sga-dot{
+.sga-dot {
   width: 8px;
   height: 8px;
   border-radius: 9999px;
@@ -345,35 +437,44 @@ nav .group > a {
 }
 
 /* Default dot colors (home) */
-.sga-carousel--home .sga-dot{ background: rgba(0,0,0,0.25); }
-.sga-carousel--home .sga-dot.is-active{
+.sga-carousel--home .sga-dot {
+  background: rgba(0, 0, 0, 0.25);
+}
+.sga-carousel--home .sga-dot.is-active {
   width: 22px;
-  background: rgba(0,0,0,0.70);
+  background: rgba(0, 0, 0, 0.7);
 }
 
 /* Neon dot colors */
-.sga-carousel--neon .sga-dot{ background: rgba(100,245,255,0.30); }
-.sga-carousel--neon .sga-dot.is-active{
+.sga-carousel--neon .sga-dot {
+  background: rgba(100, 245, 255, 0.3);
+}
+.sga-carousel--neon .sga-dot.is-active {
   width: 22px;
-  background: rgba(100,245,255,0.95);
+  background: rgba(100, 245, 255, 0.95);
 }
 
 /* Desktop hover lift allowed */
-@media (min-width: 900px){
-  .sga-carousel .event-card:hover{ transform: translateY(-6px); }
-  .sga-carousel .theme-card:hover{ transform: translateY(-8px) scale(1.05); }
+@media (min-width: 900px) {
+  .sga-carousel .event-card:hover {
+    transform: translateY(-6px);
+  }
+  .sga-carousel .theme-card:hover {
+    transform: translateY(-8px) scale(1.05);
+  }
 }
 
 /* ==========================
    MOBILE (< 900px)
    swipe + snap + dots + centered emphasis
    ========================== */
-@media (max-width: 899.98px){
-
+@media (max-width: 899.98px) {
   /* Slightly smaller fade on mobile so it doesn’t feel heavy */
-  .sga-carousel{ --fade-size: 34px; }
+  .sga-carousel {
+    --fade-size: 34px;
+  }
 
-  .sga-viewport{
+  .sga-viewport {
     overflow-x: auto;
     overflow-y: visible;
     -webkit-overflow-scrolling: touch;
@@ -387,17 +488,21 @@ nav .group > a {
   }
 
   /* Hide scrollbar */
-  .sga-viewport::-webkit-scrollbar{ display:none; }
-  .sga-viewport{ scrollbar-width: none; }
-
-  .sga-track{
-    transform: none !important;   /* mobile uses scroll, not transform */
-    will-change: auto;
-    gap: 16px;
-    justify-content: flex-start;  /* IMPORTANT: do NOT center track on mobile */
+  .sga-viewport::-webkit-scrollbar {
+    display: none;
+  }
+  .sga-viewport {
+    scrollbar-width: none;
   }
 
-  .sga-card{
+  .sga-track {
+    transform: none !important; /* mobile uses scroll, not transform */
+    will-change: auto;
+    gap: 16px;
+    justify-content: flex-start; /* IMPORTANT: do NOT center track on mobile */
+  }
+
+  .sga-card {
     scroll-snap-align: center;
     scroll-snap-stop: always;
 
@@ -407,27 +512,31 @@ nav .group > a {
 
   /* remove floaty animation on mobile */
   .event-card,
-  .theme-card{
+  .theme-card {
     transform: none !important;
     transition: transform 220ms ease, opacity 220ms ease;
   }
 
   /* centered card emphasis */
-  .sga-card.is-active{
+  .sga-card.is-active {
     transform: scale(1.03) !important;
     opacity: 1;
   }
-  .sga-card.is-dim{ opacity: 0.55; }
+  .sga-card.is-dim {
+    opacity: 0.55;
+  }
 
-  .sga-dots{ display: flex; }
+  .sga-dots {
+    display: flex;
+  }
 }
 
 /* =========================================================
    Your existing homepage card look (kept)
    ========================================================= */
-.event-card{
+.event-card {
   transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* =========================================================
@@ -614,21 +723,39 @@ nav .group > a {
   it to EVERYTHING automatically (more predictable).
 *************************************************************/
 @keyframes neonPulsePink {
-  0% { text-shadow: 0 0 8px #ff00c8, 0 0 20px #ff00c8aa; }
-  50% { text-shadow: 0 0 14px #ff4de6, 0 0 28px #ff00c8ff; }
-  100% { text-shadow: 0 0 8px #ff00c8, 0 0 20px #ff00c8aa; }
+  0% {
+    text-shadow: 0 0 8px #ff00c8, 0 0 20px #ff00c8aa;
+  }
+  50% {
+    text-shadow: 0 0 14px #ff4de6, 0 0 28px #ff00c8ff;
+  }
+  100% {
+    text-shadow: 0 0 8px #ff00c8, 0 0 20px #ff00c8aa;
+  }
 }
 
 @keyframes neonPulseCyan {
-  0% { text-shadow: 0 0 10px #08e8ff, 0 0 20px #08e8ff88; }
-  50% { text-shadow: 0 0 16px #4cffff, 0 0 32px #08e8ffff; }
-  100% { text-shadow: 0 0 10px #08e8ff, 0 0 20px #08e8ff88; }
+  0% {
+    text-shadow: 0 0 10px #08e8ff, 0 0 20px #08e8ff88;
+  }
+  50% {
+    text-shadow: 0 0 16px #4cffff, 0 0 32px #08e8ffff;
+  }
+  100% {
+    text-shadow: 0 0 10px #08e8ff, 0 0 20px #08e8ff88;
+  }
 }
 
 @keyframes neonPulseYellow {
-  0% { text-shadow: 0 0 10px #ffea00, 0 0 20px #ffea0099; }
-  50% { text-shadow: 0 0 14px #fff066, 0 0 30px #ffea00ff; }
-  100% { text-shadow: 0 0 10px #ffea00, 0 0 20px #ffea0099; }
+  0% {
+    text-shadow: 0 0 10px #ffea00, 0 0 20px #ffea0099;
+  }
+  50% {
+    text-shadow: 0 0 14px #fff066, 0 0 30px #ffea00ff;
+  }
+  100% {
+    text-shadow: 0 0 10px #ffea00, 0 0 20px #ffea0099;
+  }
 }
 
 /* If you still want the global neon hover pulse, keep it.
@@ -690,8 +817,13 @@ nav .group > a {
 }
 
 @keyframes neonTitlePulse {
-  0%, 100% { text-shadow: 0 0 6px var(--neon-pink), 0 0 14px var(--neon-pink); }
-  50% { text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan); }
+  0%,
+  100% {
+    text-shadow: 0 0 6px var(--neon-pink), 0 0 14px var(--neon-pink);
+  }
+  50% {
+    text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+  }
 }
 
 .neon-subtext {
@@ -712,8 +844,20 @@ nav .group > a {
 .neon-page .carousel-container {
   overflow: visible;
   padding: 40px 0;
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
 }
 
 /* Themed Nights – horizontal auto scroll */
@@ -729,8 +873,12 @@ nav .group > a {
 }
 
 @keyframes themedScroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* Theme cards */
@@ -808,11 +956,26 @@ nav .group > a {
   CLEAN NEON HEADER SYSTEM
 *************************************************************/
 @keyframes heroMulticolorGlow {
-  0%   { color: var(--neon-pink);   text-shadow: 0 0 12px var(--neon-pink), 0 0 22px var(--neon-pink); }
-  25%  { color: var(--neon-cyan);   text-shadow: 0 0 12px var(--neon-cyan), 0 0 22px var(--neon-cyan); }
-  50%  { color: #c084fc;           text-shadow: 0 0 12px #c084fc, 0 0 22px #c084fc; }
-  75%  { color: #fff799;           text-shadow: 0 0 12px #fff799, 0 0 22px #fff799; }
-  100% { color: var(--neon-pink);   text-shadow: 0 0 12px var(--neon-pink), 0 0 22px var(--neon-pink); }
+  0% {
+    color: var(--neon-pink);
+    text-shadow: 0 0 12px var(--neon-pink), 0 0 22px var(--neon-pink);
+  }
+  25% {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 12px var(--neon-cyan), 0 0 22px var(--neon-cyan);
+  }
+  50% {
+    color: #c084fc;
+    text-shadow: 0 0 12px #c084fc, 0 0 22px #c084fc;
+  }
+  75% {
+    color: #fff799;
+    text-shadow: 0 0 12px #fff799, 0 0 22px #fff799;
+  }
+  100% {
+    color: var(--neon-pink);
+    text-shadow: 0 0 12px var(--neon-pink), 0 0 22px var(--neon-pink);
+  }
 }
 
 .neon-hero {
@@ -828,30 +991,69 @@ nav .group > a {
 }
 
 @keyframes glowPink {
-  0%   { text-shadow: 0 0 10px var(--neon-pink); }
-  25%  { text-shadow: 0 0 12px var(--neon-cyan); }
-  50%  { text-shadow: 0 0 14px #c084fc; }
-  75%  { text-shadow: 0 0 12px #fff799; }
-  100% { text-shadow: 0 0 10px var(--neon-pink); }
+  0% {
+    text-shadow: 0 0 10px var(--neon-pink);
+  }
+  25% {
+    text-shadow: 0 0 12px var(--neon-cyan);
+  }
+  50% {
+    text-shadow: 0 0 14px #c084fc;
+  }
+  75% {
+    text-shadow: 0 0 12px #fff799;
+  }
+  100% {
+    text-shadow: 0 0 10px var(--neon-pink);
+  }
 }
 @keyframes glowYellow {
-  0%   { text-shadow: 0 0 10px var(--neon-yellow); }
-  25%  { text-shadow: 0 0 12px var(--neon-cyan); }
-  50%  { text-shadow: 0 0 14px #c084fc; }
-  75%  { text-shadow: 0 0 12px var(--neon-pink); }
-  100% { text-shadow: 0 0 10px var(--neon-yellow); }
+  0% {
+    text-shadow: 0 0 10px var(--neon-yellow);
+  }
+  25% {
+    text-shadow: 0 0 12px var(--neon-cyan);
+  }
+  50% {
+    text-shadow: 0 0 14px #c084fc;
+  }
+  75% {
+    text-shadow: 0 0 12px var(--neon-pink);
+  }
+  100% {
+    text-shadow: 0 0 10px var(--neon-yellow);
+  }
 }
 @keyframes glowCyan {
-  0%   { text-shadow: 0 0 10px var(--neon-cyan); }
-  25%  { text-shadow: 0 0 12px #c084fc; }
-  50%  { text-shadow: 0 0 14px var(--neon-pink); }
-  75%  { text-shadow: 0 0 12px var(--neon-yellow); }
-  100% { text-shadow: 0 0 10px var(--neon-cyan); }
+  0% {
+    text-shadow: 0 0 10px var(--neon-cyan);
+  }
+  25% {
+    text-shadow: 0 0 12px #c084fc;
+  }
+  50% {
+    text-shadow: 0 0 14px var(--neon-pink);
+  }
+  75% {
+    text-shadow: 0 0 12px var(--neon-yellow);
+  }
+  100% {
+    text-shadow: 0 0 10px var(--neon-cyan);
+  }
 }
 
-.neon-pink { color: var(--neon-pink); animation-name: glowPink; }
-.neon-yellow { color: var(--neon-yellow); animation-name: glowYellow; }
-.neon-cyan { color: var(--neon-cyan); animation-name: glowCyan; }
+.neon-pink {
+  color: var(--neon-pink);
+  animation-name: glowPink;
+}
+.neon-yellow {
+  color: var(--neon-yellow);
+  animation-name: glowYellow;
+}
+.neon-cyan {
+  color: var(--neon-cyan);
+  animation-name: glowCyan;
+}
 
 /*************************************************************
   HERO VIDEO CTA — solid rainbow + cyan glow
@@ -877,7 +1079,12 @@ nav .group > a {
   text-align: center;
   text-decoration: none;
 
-  background-image: linear-gradient(45deg, #ff00ff, #c084fc, #00ffff) !important;
+  background-image: linear-gradient(
+    45deg,
+    #ff00ff,
+    #c084fc,
+    #00ffff
+  ) !important;
   color: #000 !important;
   border: none !important;
 
@@ -892,9 +1099,7 @@ nav .group > a {
   color: #000 !important;
 
   transform: scale(1.05) !important;
-  box-shadow:
-    0 0 25px rgba(0, 255, 255, 0.9),
-    0 0 60px rgba(0, 255, 255, 0.6),
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.9), 0 0 60px rgba(0, 255, 255, 0.6),
     0 0 100px rgba(0, 255, 255, 0.4) !important;
 }
 
@@ -931,7 +1136,9 @@ nav .group > a {
   }
 
   /* your existing safety */
-  body { overflow-x: hidden !important; }
+  body {
+    overflow-x: hidden !important;
+  }
 }
 
 /* =========================================================
@@ -940,10 +1147,9 @@ nav .group > a {
    Paste at VERY BOTTOM of style.css
    ========================================================= */
 
-@media (max-width: 899.98px){
-
+@media (max-width: 899.98px) {
   /* Force the neon viewport to actually scroll */
-  .sga-carousel--neon .sga-viewport.carousel-container{
+  .sga-carousel--neon .sga-viewport.carousel-container {
     overflow-x: auto !important;
     overflow-y: visible !important;
     -webkit-overflow-scrolling: touch;
@@ -951,14 +1157,14 @@ nav .group > a {
   }
 
   /* Stop the neon auto-scroll animation on mobile so swipe can win */
-  .sga-carousel--neon .sga-track.carousel-track{
+  .sga-carousel--neon .sga-track.carousel-track {
     animation: none !important;
     transform: none !important;
     will-change: auto !important;
   }
 
   /* Make touch gestures prioritize horizontal panning */
-  .sga-carousel--neon .sga-viewport{
+  .sga-carousel--neon .sga-viewport {
     touch-action: pan-x;
   }
 }
@@ -967,14 +1173,16 @@ nav .group > a {
   EZFacility Styles
 *************************************************************/
 /* EZFacility iframe sizing */
-.ez-iframe{ height: clamp(900px, 85vh, 1300px); }
+.ez-iframe {
+  height: clamp(900px, 85vh, 1300px);
+}
 
 @media (max-width: 900px) {
   #mobile-menu a[href="skate-night.html"] {
-    display: block;      /* forces its own line */
-    width: fit-content;  /* keeps pill sized */
-    margin-left: auto;   /* keeps it right-aligned */
-    margin-top: 10px;    /* optional: adds breathing room */
+    display: block; /* forces its own line */
+    width: fit-content; /* keeps pill sized */
+    margin-left: auto; /* keeps it right-aligned */
+    margin-top: 10px; /* optional: adds breathing room */
   }
 }
 
@@ -982,12 +1190,19 @@ nav .group > a {
   LIVESTREAM
 *************************************************************/
 .livestream-glow {
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.25), 0 18px 45px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.25),
+    0 18px 45px rgba(0, 0, 0, 0.18);
 }
 
 @keyframes livePop {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .liveBadge {
