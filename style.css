@@ -664,7 +664,7 @@ nav .group > a {
 }
 
 /* -------------------- SKATE NIGHT NAV BUTTON (specific) -------------------- */
-.neon-page a[href="skate-night.html"] {
+.neon-page a[href="skate-night"] {
   background: transparent !important;
   border: 2px solid #ff00c8 !important;
   color: #ff00c8 !important;
@@ -674,7 +674,7 @@ nav .group > a {
   transition: 0.25s ease;
 }
 
-.neon-page a[href="skate-night.html"]:hover {
+.neon-page a[href="skate-night"]:hover {
   background: #ff00c8 !important;
   color: #000 !important;
   box-shadow: 0 0 25px #ff00c8;
@@ -1178,7 +1178,7 @@ nav .group > a {
 }
 
 @media (max-width: 900px) {
-  #mobile-menu a[href="skate-night.html"] {
+  #mobile-menu a[href="skate-night"] {
     display: block; /* forces its own line */
     width: fit-content; /* keeps pill sized */
     margin-left: auto; /* keeps it right-aligned */

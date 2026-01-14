@@ -70,7 +70,7 @@
           <!-- Desktop Menu -->
           <div class="hidden md:flex items-center space-x-8">
             <!-- HOME -->
-            <a href="index.html" class="nav-link font-semibold" id="home-link"
+            <a href="index" class="nav-link font-semibold" id="home-link"
               >Home</a
             >
 
@@ -84,14 +84,16 @@
               <div
                 class="absolute left-0 top-full mt-0 w-56 bg-white shadow-lg rounded-lg z-[999] opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-150"
               >
-                <a href="inline-hockey.html" class="block px-4 py-2 hover:bg-gray-100"
+                <a
+                  href="inline-hockey"
+                  class="block px-4 py-2 hover:bg-gray-100"
                   >Inline Hockey</a
                 >
-                <a href="derby.html" class="block px-4 py-2 hover:bg-gray-100"
+                <a href="derby" class="block px-4 py-2 hover:bg-gray-100"
                   >Roller Derby</a
                 >
                 <a
-                  href="volleyball.html"
+                  href="volleyball"
                   class="block px-4 py-2 hover:bg-gray-100 rounded-b-lg"
                   >Volleyball</a
                 >
@@ -108,13 +110,11 @@
               <div
                 class="absolute left-0 top-full mt-0 w-56 bg-white shadow-lg rounded-lg z-[999] opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-150"
               >
-                <a
-                  href="birthdays.html"
-                  class="block px-4 py-2 hover:bg-gray-100"
+                <a href="birthdays" class="block px-4 py-2 hover:bg-gray-100"
                   >Birthday Parties</a
                 >
                 <a
-                  href="arena-rental.html"
+                  href="arena-rental"
                   class="block px-4 py-2 hover:bg-gray-100 rounded-b-lg"
                   >Public Events</a
                 >
@@ -122,11 +122,11 @@
             </div>
 
             <!-- CONTACT -->
-            <a href="contact.html" class="nav-link font-semibold">Contact</a>
+            <a href="contact" class="nav-link font-semibold">Contact</a>
 
             <!-- SKATE NIGHT BUTTON -->
             <a
-              href="skate-night.html"
+              href="skate-night"
               class="px-6 py-2 rounded-full font-bold text-white bg-gradient-to-r from-sky-400 to-blue-600 shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl hover:ring hover:ring-blue-300"
             >
               SKATE NIGHT
@@ -146,9 +146,7 @@
           id="mobile-menu"
           class="hidden md:hidden mt-4 pb-4 pr-6 space-y-2 text-right"
         >
-          <a href="index.html" class="block py-2 nav-link font-semibold"
-            >Home</a
-          >
+          <a href="index" class="block py-2 nav-link font-semibold">Home</a>
 
           <!-- MOBILE DROPDOWN: SPORTS -->
           <div class="mobile-dropdown">
@@ -160,9 +158,9 @@
             </button>
 
             <div class="submenu hidden pr-2 space-y-1 text-sm">
-              <a href="inline-hockey.html" class="block py-1">Inline Hockey</a>
-              <a href="derby.html" class="block py-1">Roller Derby</a>
-              <a href="volleyball.html" class="block py-1">Volleyball</a>
+              <a href="inline-hockey" class="block py-1">Inline Hockey</a>
+              <a href="derby" class="block py-1">Roller Derby</a>
+              <a href="volleyball" class="block py-1">Volleyball</a>
             </div>
           </div>
 
@@ -176,17 +174,15 @@
             </button>
 
             <div class="submenu hidden pr-2 space-y-1 text-sm">
-              <a href="birthdays.html" class="block py-1"
-                >Birthday Parties</a
-              >
-              <a href="arena-rental.html" class="block py-1">Public Events</a>
+              <a href="birthdays" class="block py-1">Birthday Parties</a>
+              <a href="arena-rental" class="block py-1">Public Events</a>
             </div>
           </div>
 
-          <a href="contact.html" class="block py-2 nav-link font-semibold"
+          <a href="contact" class="block py-2 nav-link font-semibold"
             >Contact</a
           >
-          <a href="skate-night.html" class="skate-now-btn">SKATE NIGHT</a>
+          <a href="skate-night" class="skate-now-btn">SKATE NIGHT</a>
         </div>
       </div>
     </nav>
@@ -212,7 +208,7 @@
           ></iframe>
         </div>
         <div id="delayed-cta" class="video-button-wrapper hidden-before-show">
-          <a href="skate-night.html" class="cta-main">GET YOUR SKATE ON!</a>
+          <a href="skate-night" class="cta-main">GET YOUR SKATE ON!</a>
         </div>
       </div>
     </header>
@@ -237,87 +233,96 @@
       </p>
     </section>
 
-<!-- Themed Nights Section -->
-<section class="carousel-section mt-24 mb-24">
-  <h2 class="neon-heading neon-pink text-center text-4xl md:text-5xl mb-12">
-    🎉 Themed Nights
-  </h2>
+    <!-- Themed Nights Section -->
+    <section class="carousel-section mt-24 mb-24">
+      <h2 class="neon-heading neon-pink text-center text-4xl md:text-5xl mb-12">
+        🎉 Themed Nights
+      </h2>
 
-  <div
-    class="sga-carousel sga-carousel--neon"
-    data-carousel
-    data-breakpoint="900"
-    data-mobile-advance="0"
-    data-desktop-speed="0.50"
-  >
-    <!-- Viewport (keep carousel-container class if you're using it for fade/mask) -->
-    <div class="sga-viewport carousel-container">
-      <!-- Track (keep carousel-track class if you want your existing neon animation hooks) -->
-      <div class="sga-track carousel-track">
-        
-        <!-- Card 1 -->
-        <a
-          class="sga-card theme-card"
-          href="https://your-checkout-link-here.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <div class="theme-content">
-            <h3>🌈 Glow Party</h3>
-            <p class="theme-date">Every Saturday | 8:00 PM – 12:00 AM</p>
-            <p>Lights, glow sticks, and UV-active gear! Shine bright all night long.</p>
+      <div
+        class="sga-carousel sga-carousel--neon"
+        data-carousel
+        data-breakpoint="900"
+        data-mobile-advance="0"
+        data-desktop-speed="0.50"
+      >
+        <!-- Viewport (keep carousel-container class if you're using it for fade/mask) -->
+        <div class="sga-viewport carousel-container">
+          <!-- Track (keep carousel-track class if you want your existing neon animation hooks) -->
+          <div class="sga-track carousel-track">
+            <!-- Card 1 -->
+            <a
+              class="sga-card theme-card"
+              href="https://your-checkout-link-here.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div class="theme-content">
+                <h3>🌈 Glow Party</h3>
+                <p class="theme-date">Every Saturday | 8:00 PM – 12:00 AM</p>
+                <p>
+                  Lights, glow sticks, and UV-active gear! Shine bright all
+                  night long.
+                </p>
+              </div>
+            </a>
+
+            <!-- Card 2 -->
+            <a
+              class="sga-card theme-card"
+              href="https://your-checkout-link-here.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div class="theme-content">
+                <h3>🎸 Rock & Roll</h3>
+                <p class="theme-date">Second Friday | 7:00 PM – 11:00 PM</p>
+                <p>
+                  Skate to the greatest rock anthems and headbang on wheels.
+                </p>
+              </div>
+            </a>
+
+            <!-- Card 3 -->
+            <a
+              class="sga-card theme-card"
+              href="https://your-checkout-link-here.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div class="theme-content">
+                <h3>⭐ Disco Fever</h3>
+                <p class="theme-date">Every Friday | 7:00 PM – 11:00 PM</p>
+                <p>
+                  Bell bottoms, platform shoes, and mirror balls! Boogie all
+                  night long.
+                </p>
+              </div>
+            </a>
+
+            <!-- Card 4 -->
+            <a
+              class="sga-card theme-card"
+              href="https://your-checkout-link-here.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div class="theme-content">
+                <h3>🕺 Retro Vibes</h3>
+                <p class="theme-date">Every Saturday | 6:00 PM – 10:00 PM</p>
+                <p>
+                  Throwback classics from the 70s–90s. Bring your best retro
+                  outfit!
+                </p>
+              </div>
+            </a>
           </div>
-        </a>
+        </div>
 
-        <!-- Card 2 -->
-        <a
-          class="sga-card theme-card"
-          href="https://your-checkout-link-here.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <div class="theme-content">
-            <h3>🎸 Rock & Roll</h3>
-            <p class="theme-date">Second Friday | 7:00 PM – 11:00 PM</p>
-            <p>Skate to the greatest rock anthems and headbang on wheels.</p>
-          </div>
-        </a>
-
-        <!-- Card 3 -->
-        <a
-          class="sga-card theme-card"
-          href="https://your-checkout-link-here.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <div class="theme-content">
-            <h3>⭐ Disco Fever</h3>
-            <p class="theme-date">Every Friday | 7:00 PM – 11:00 PM</p>
-            <p>Bell bottoms, platform shoes, and mirror balls! Boogie all night long.</p>
-          </div>
-        </a>
-
-        <!-- Card 4 -->
-        <a
-          class="sga-card theme-card"
-          href="https://your-checkout-link-here.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <div class="theme-content">
-            <h3>🕺 Retro Vibes</h3>
-            <p class="theme-date">Every Saturday | 6:00 PM – 10:00 PM</p>
-            <p>Throwback classics from the 70s–90s. Bring your best retro outfit!</p>
-          </div>
-        </a>
-
+        <!-- Dots (JS fills these) -->
+        <div class="sga-dots" aria-label="Themed nights pagination"></div>
       </div>
-    </div>
-
-    <!-- Dots (JS fills these) -->
-    <div class="sga-dots" aria-label="Themed nights pagination"></div>
-  </div>
-</section>
+    </section>
 
     <!-- Photo Gallery -->
     <section class="mt-24 mb-24 text-center">
@@ -396,13 +401,13 @@
           </p>
           <div class="flex flex-col sm:flex-row justify-center gap-4">
             <a
-              href="skate-night.html"
+              href="skate-night"
               class="inline-block bg-gradient-to-r from-sky-400 to-blue-600 text-white text-xl font-bold px-10 py-5 rounded-full shadow-lg hover:scale-105 transition transform !rounded-full"
             >
               EXPLORE
             </a>
             <a
-              href="contact.html"
+              href="contact"
               class="bg-transparent border-2 border-white px-8 py-4 rounded-full text-white text-xl font-bold hover:bg-white hover:text-gray-900 transition-all duration-300 inline-block"
             >
               CONTACT US
@@ -488,17 +493,13 @@
             <h3 class="font-bebas text-2xl mb-4">QUICK LINKS</h3>
             <ul class="space-y-2">
               <li>
-                <a href="sports.html" class="hover:text-yellow-400"
-                  >Roller Sports</a
-                >
+                <a href="sports" class="hover:text-yellow-400">Roller Sports</a>
               </li>
               <li>
-                <a href="arena-rental.html" class="hover:text-yellow-400"
-                  >Arena</a
-                >
+                <a href="arena-rental" class="hover:text-yellow-400">Arena</a>
               </li>
               <li>
-                <a href="shop.html" class="hover:text-yellow-400">Shop</a>
+                <a href="shop" class="hover:text-yellow-400">Shop</a>
               </li>
             </ul>
           </div>
@@ -529,7 +530,7 @@
               </a>
             </p>
             <a
-              href="contact.html"
+              href="contact"
               class="text-white hover:text-yellow-400 block mb-6"
             >
               Contact Us
