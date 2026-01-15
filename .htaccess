@@ -1,10 +1,9 @@
-# =========================
-# Solid Ground Arena .htaccess
-# Canonical URLs + clean routes
-# =========================
+
 
 Options -MultiViews
 RewriteEngine On
+RewriteRule ^__htaccess_test$ /index.html?htaccess=working [R=302,L]
+
 
 # --------------------------------------------------
 # 1 FORCE HTTPS  (UNCOMMENT ONLY after SSL is confirmed working)
