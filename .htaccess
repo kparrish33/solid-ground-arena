@@ -1,9 +1,9 @@
 Options -MultiViews
+RewriteEngine On
 
 # ==================================================
-# Canonical domain (force no-www)
-# ==================================================
-RewriteEngine On
+# Force non-www (canonical)
+# ===================================================
 RewriteCond %{HTTP_HOST} ^www\.solidgroundarena\.com$ [NC]
 RewriteRule ^ https://solidgroundarena.com%{REQUEST_URI} [R=301,L]
 
@@ -16,22 +16,22 @@ RewriteRule ^ https://solidgroundarena.com%{REQUEST_URI} [R=301,L]
 # ==================================================
 # Canonical homepage
 # ==================================================
-Redirect 301 /index.html /
-Redirect 301 /index /
+RewriteRule ^index/?$ / [R=301,L]
+RewriteRule ^index\.html$ / [R=301,L]
 
 # ==================================================
-# Legacy .html URLs -> clean URLs (SEO-critical)
+# Legacy .html -> clean (EXPLICIT, no parentheses)
 # ==================================================
-Redirect 301 /sports.html /sports
-Redirect 301 /shop.html /shop
-Redirect 301 /volleyball.html /volleyball
-Redirect 301 /derby.html /derby
-Redirect 301 /arena-rental.html /arena-rental
-Redirect 301 /birthdays.html /birthdays
-Redirect 301 /contact.html /contact
-Redirect 301 /inline-hockey.html /inline-hockey
-Redirect 301 /skate-night.html /skate-night
-Redirect 301 /ARCHIVE.html /ARCHIVE
+RewriteRule ^sports\.html$ /sports [R=301,L]
+RewriteRule ^shop\.html$ /shop [R=301,L]
+RewriteRule ^volleyball\.html$ /volleyball [R=301,L]
+RewriteRule ^derby\.html$ /derby [R=301,L]
+RewriteRule ^arena-rental\.html$ /arena-rental [R=301,L]
+RewriteRule ^birthdays\.html$ /birthdays [R=301,L]
+RewriteRule ^contact\.html$ /contact [R=301,L]
+RewriteRule ^inline-hockey\.html$ /inline-hockey [R=301,L]
+RewriteRule ^skate-night\.html$ /skate-night [R=301,L]
+RewriteRule ^ARCHIVE\.html$ /ARCHIVE [R=301,L]
 
 # ==================================================
 # Clean URLs: /page -> page.html (internal rewrite)
