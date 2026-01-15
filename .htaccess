@@ -1,0 +1,44 @@
+# =========================
+# Solid Ground Arena .htaccess
+# Canonical URLs + clean routes
+# =========================
+
+Options -MultiViews
+RewriteEngine On
+
+# --------------------------------------------------
+# 1 FORCE HTTPS  (UNCOMMENT ONLY after SSL is confirmed working)
+# --------------------------------------------------
+# RewriteCond %{HTTPS} !=on
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# --------------------------------------------------
+# 2 FORCE NON-WWW (canonical domain)
+# --------------------------------------------------
+RewriteCond %{HTTP_HOST} ^www\.solidgroundarena\.com$ [NC]
+RewriteRule ^ https://solidgroundarena.com%{REQUEST_URI} [R=301,L]
+
+# --------------------------------------------------
+# 3 CANONICAL HOMEPAGE (no /index or /index/)
+# --------------------------------------------------
+RewriteRule ^index/?$ / [R=301,L]
+RewriteRule ^index\.html$ / [R=301,L]
+
+# --------------------------------------------------
+# 4 REDIRECT .html -> extensionless (SEO: legacy URLs)
+# Example: /sports.html -> /sports
+# --------------------------------------------------
+RewriteRule ^(.+)\.html$ /$1 [R=301,L]
+
+# --------------------------------------------------
+# 5 SERVE extensionless routes from .html files (internal rewrite)
+# Example: /sports -> sports.html
+# --------------------------------------------------
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+?)/?$ $1.html [L]
+
+# --------------------------------------------------
+# 6 CUSTOM 404
+# --------------------------------------------------
+ErrorDocument 404 /404.html
