@@ -446,7 +446,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (response.ok) {
           form.reset();
           thankYou.classList.remove("hidden", "text-red-500");
-          thankYou.textContent = "Thanks! Your message has been sent. 🛼";
+          thankYou.textContent = "Thanks! Your message has been sent.";
         } else {
           thankYou.classList.remove("hidden");
           thankYou.classList.add("text-red-500");
