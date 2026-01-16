@@ -66,7 +66,10 @@ function initCarousels() {
     if (!viewport || !track) return;
 
     const breakpoint = parseInt(carousel.dataset.breakpoint || "900", 10);
-    const mobileAdvanceMs = parseInt(carousel.dataset.mobileAdvance || "4500", 10);
+    const mobileAdvanceMs = parseInt(
+      carousel.dataset.mobileAdvance || "4500",
+      10
+    );
     const desktopSpeed = parseFloat(carousel.dataset.desktopSpeed || "0.45"); // px per frame-ish scaled below
 
     // Original (real) cards are those present at load
@@ -77,7 +80,10 @@ function initCarousels() {
     // If someone accidentally uses divs later, this prevents silent failures.
     originalCards.forEach((card) => {
       if (card.tagName !== "A") {
-        console.warn("Carousel card is not an <a>. Whole-card click requires anchor.", card);
+        console.warn(
+          "Carousel card is not an <a>. Whole-card click requires anchor.",
+          card
+        );
       }
     });
 
@@ -172,7 +178,9 @@ function initCarousels() {
     function scrollToIndex(originalIdx) {
       // Find the first matching card in the current DOM (works even if we duplicated)
       const cards = qsa(".sga-card", track);
-      const target = cards.find((c) => parseInt(c.dataset.originalIndex || "0", 10) === originalIdx);
+      const target = cards.find(
+        (c) => parseInt(c.dataset.originalIndex || "0", 10) === originalIdx
+      );
       if (!target) return;
 
       // Center it
@@ -199,7 +207,9 @@ function initCarousels() {
       mobileTimer = null;
     }
 
-    /* ---------- Desktop helpers ---------- */
+    /* ---------------------------
+    3) Desktop Helpers
+  --------------------------- */
     function ensureDesktopLoop() {
       // Build duplicates ONCE so we can loop seamlessly
       // Desktop loop uses transform translateX; duplicates are necessary.
@@ -221,7 +231,10 @@ function initCarousels() {
       requestAnimationFrame(() => {
         const cards = qsa(".sga-card", track);
         const firstSet = cards.slice(0, originalCount);
-        loopWidth = firstSet.reduce((sum, el) => sum + el.getBoundingClientRect().width, 0);
+        loopWidth = firstSet.reduce(
+          (sum, el) => sum + el.getBoundingClientRect().width,
+          0
+        );
 
         // Include gap between cards (flex gap)
         // Easiest reliable method: measure offset between first two cards
@@ -346,7 +359,7 @@ function initCarousels() {
 }
 
 /* ---------------------------
-   3) Main DOM Ready
+   4) Main DOM Ready
 --------------------------- */
 document.addEventListener("DOMContentLoaded", function () {
   // Flip logo on page load
@@ -364,16 +377,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // 4. Feather icons
+  // 5. Feather icons
   if (window.feather) feather.replace();
 
-  // 5. Mobile menu toggle
+  // 6. Mobile menu toggle
   const menuBtn = qs("#menu-btn");
   const mobileMenu = qs("#mobile-menu");
 
   function setIcon(isOpen) {
     if (!menuBtn) return;
-    menuBtn.innerHTML = isOpen ? '<i data-feather="x"></i>' : '<i data-feather="menu"></i>';
+    menuBtn.innerHTML = isOpen
+      ? '<i data-feather="x"></i>'
+      : '<i data-feather="menu"></i>';
     if (window.feather) feather.replace();
     menuBtn.setAttribute("aria-expanded", String(isOpen));
   }
@@ -386,18 +401,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // 6. Auto-update footer year
+  // 7. Auto-update footer year
   const yearSpan = qs("#year");
   if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-  // 7. Highlight active nav link
+  // 8. Highlight active nav link
   const currentPage = window.location.pathname.split("/").pop();
   qsa(".nav-link").forEach((link) => {
     const href = link.getAttribute("href");
     if (href === currentPage) link.classList.add("text-[#5fbcff]");
   });
 
-  // 8. Form animation on scroll
+  // 9. Form animation on scroll
   const formSection = qs("#contact-form .animate-slide-up");
   if (formSection) {
     const observer = new IntersectionObserver(
@@ -414,7 +429,7 @@ document.addEventListener("DOMContentLoaded", function () {
     observer.observe(formSection);
   }
 
-  // 9. Thank-you message logic (contact form)
+  // 10. Thank-you message logic (contact form)
   const form = qs("#contactForm");
   const thankYou = qs("#thankYouMessage");
 
@@ -441,7 +456,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // 10. Facility Event Form submission feedback
+  // 11. Facility Event Form submission feedback
   const facilityForm = qs("#eventApplicationForm");
   const facilityThankYou = qs("#thankYouMsg");
   if (facilityForm && facilityThankYou) {
@@ -452,7 +467,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Expanding Stripes on Hover Animation
+  // 12. Expanding Stripes on Hover Animation
   qsa(".stripe-container").forEach((stripe) => {
     stripe.addEventListener("mouseenter", () => {
       stripe.style.transform = "skewY(-12deg) scale(1.02)";
@@ -462,143 +477,142 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-// 11. Livestream Auto-Detection & Glow Animation (FULL REWRITE)
-(function initLivestreamBadge() {
-  const LIVE_PORTAL_URL = "https://impactenvi.watch.pixellot.tv/";
-  const LIVE_LIST_URL = "https://impactenvi.watch.pixellot.tv/api/event/list";
-  const POLL_MS = 90000;
+  // 13. Livestream Auto-Detection & Glow Animation (FULL REWRITE)
+  (function initLivestreamBadge() {
+    const LIVE_PORTAL_URL = "https://impactenvi.watch.pixellot.tv/";
+    const LIVE_LIST_URL = "https://impactenvi.watch.pixellot.tv/api/event/list";
+    const POLL_MS = 90000;
 
-  let liveEventUrl = LIVE_PORTAL_URL;
-  let pollId = null;
+    let liveEventUrl = LIVE_PORTAL_URL;
+    let pollId = null;
 
-function getEls() {
-  return {
-    cards: document.querySelectorAll("#livestreamCard"),
-    inlineBadges: document.querySelectorAll("#liveBadge"),
-  };
-}
+    function getEls() {
+      return {
+        cards: document.querySelectorAll("#livestreamCard"),
+        inlineBadges: document.querySelectorAll("#liveBadge"),
+      };
+    }
 
-function showUI() {
-  const { cards, inlineBadges } = getEls();
+    function showUI() {
+      const { cards, inlineBadges } = getEls();
 
-  cards.forEach((card) => card.classList.add("livestream-glow"));
+      cards.forEach((card) => card.classList.add("livestream-glow"));
 
-  inlineBadges.forEach((badge) => {
-    badge.classList.remove("hidden");
-    badge.classList.add("flex");
-  });
+      inlineBadges.forEach((badge) => {
+        badge.classList.remove("hidden");
+        badge.classList.add("flex");
+      });
 
-  if (window.feather) feather.replace();
-}
+      if (window.feather) feather.replace();
+    }
 
-function hideUI() {
-  const { card, inlineBadge } = getEls();
+    function hideUI() {
+      const { card, inlineBadge } = getEls();
 
-  if (card) card.classList.remove("livestream-glow");
+      if (card) card.classList.remove("livestream-glow");
 
-  if (inlineBadge) {
-    inlineBadge.classList.add("hidden");
-    inlineBadge.classList.remove("flex", "opacity-100");
-  }
-}
-
-  async function fetchLiveEvent() {
-    const payload = {
-      page: 0,
-      size: 20,
-      next: true,
-      count: false,
-      filters: { status: "live" },
-      isHomePage: true,
-    };
-
-    const res = await fetch(LIVE_LIST_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(payload),
-      cache: "no-store",
-    });
-
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-    const data = await res.json();
-    const entries = data?.content?.entries || [];
-    return entries[0] || null; // filtered to live, so first is enough
-  }
-
-  async function checkLivestream() {
-    try {
-      console.log("[LIVE] check start");
-
-      const liveEvent = await fetchLiveEvent();
-      console.log("[LIVE] result:", liveEvent ? liveEvent.status : "none");
-
-      if (liveEvent) {
-        const eventId = liveEvent.event_id || liveEvent._id;
-        liveEventUrl = eventId
-          ? `https://impactenvi.watch.pixellot.tv/events/${eventId}`
-          : LIVE_PORTAL_URL;
-
-        showUI();
-      } else {
-        liveEventUrl = LIVE_PORTAL_URL;
-
-        // If you want the badges to disappear when not live, uncomment:
-        // hideUI();
+      if (inlineBadge) {
+        inlineBadge.classList.add("hidden");
+        inlineBadge.classList.remove("flex", "opacity-100");
       }
-    } catch (err) {
-      console.warn("[LIVE] check failed:", err);
     }
-  }
 
-  function wireClicksOnce() {
-    const { floatingBadge, closeBtn } = getEls();
+    async function fetchLiveEvent() {
+      const payload = {
+        page: 0,
+        size: 20,
+        next: true,
+        count: false,
+        filters: { status: "live" },
+        isHomePage: true,
+      };
 
-    if (floatingBadge && !floatingBadge.dataset.liveWired) {
-      floatingBadge.dataset.liveWired = "1";
-
-      floatingBadge.addEventListener("click", () => {
-        window.open(liveEventUrl || LIVE_PORTAL_URL, "_blank");
+      const res = await fetch(LIVE_LIST_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+        cache: "no-store",
       });
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      const data = await res.json();
+      const entries = data?.content?.entries || [];
+      return entries[0] || null; // filtered to live, so first is enough
     }
 
-    if (closeBtn && !closeBtn.dataset.liveWired) {
-      closeBtn.dataset.liveWired = "1";
+    async function checkLivestream() {
+      try {
+        console.log("[LIVE] check start");
 
-      closeBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const { floatingBadge: fb } = getEls();
-        if (fb) fb.classList.add("hidden");
-      });
+        const liveEvent = await fetchLiveEvent();
+        console.log("[LIVE] result:", liveEvent ? liveEvent.status : "none");
+
+        if (liveEvent) {
+          const eventId = liveEvent.event_id || liveEvent._id;
+          liveEventUrl = eventId
+            ? `https://impactenvi.watch.pixellot.tv/events/${eventId}`
+            : LIVE_PORTAL_URL;
+
+          showUI();
+        } else {
+          liveEventUrl = LIVE_PORTAL_URL;
+
+          // If you want the badges to disappear when not live, uncomment:
+          // hideUI();
+        }
+      } catch (err) {
+        console.warn("[LIVE] check failed:", err);
+      }
     }
-  }
 
-  function start() {
-    console.log("[LIVE] script init");
+    function wireClicksOnce() {
+      const { floatingBadge, closeBtn } = getEls();
 
-    wireClicksOnce();
-    checkLivestream();
+      if (floatingBadge && !floatingBadge.dataset.liveWired) {
+        floatingBadge.dataset.liveWired = "1";
 
-    if (pollId) clearInterval(pollId);
-    pollId = setInterval(() => {
-      wireClicksOnce();   // in case DOM is injected later
+        floatingBadge.addEventListener("click", () => {
+          window.open(liveEventUrl || LIVE_PORTAL_URL, "_blank");
+        });
+      }
+
+      if (closeBtn && !closeBtn.dataset.liveWired) {
+        closeBtn.dataset.liveWired = "1";
+
+        closeBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const { floatingBadge: fb } = getEls();
+          if (fb) fb.classList.add("hidden");
+        });
+      }
+    }
+
+    function start() {
+      console.log("[LIVE] script init");
+
+      wireClicksOnce();
       checkLivestream();
-    }, POLL_MS);
-  }
 
-  // Start after DOM is ready
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", start);
-  } else {
-    start();
-  }
-})();
+      if (pollId) clearInterval(pollId);
+      pollId = setInterval(() => {
+        wireClicksOnce(); // in case DOM is injected later
+        checkLivestream();
+      }, POLL_MS);
+    }
 
+    // Start after DOM is ready
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", start);
+    } else {
+      start();
+    }
+  })();
 
-  // 12. Smooth Scroll
+  // 14. Smooth Scroll
   const SCROLL_OFFSET = -500;
   qsa('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
@@ -609,12 +623,15 @@ function hideUI() {
       if (!targetEl) return;
 
       e.preventDefault();
-      const y = targetEl.getBoundingClientRect().top + window.pageYOffset - SCROLL_OFFSET;
+      const y =
+        targetEl.getBoundingClientRect().top +
+        window.pageYOffset -
+        SCROLL_OFFSET;
       window.scrollTo({ top: y, behavior: "smooth" });
     });
   });
 
-  // 13. Mobile Dropdown Logic
+  // 15. Mobile Dropdown Logic
   qsa(".mobile-dropdown").forEach((dropdown) => {
     const btn = qs("button", dropdown);
     const submenu = qs(".submenu", dropdown);
@@ -627,7 +644,7 @@ function hideUI() {
     });
   });
 
-  // 14. Delayed CTA show (if present)
+  // 16. Delayed CTA show (if present)
   const delayedCTA = qs("#delayed-cta");
   if (delayedCTA) {
     setTimeout(() => delayedCTA.classList.add("show-cta"), 2500);
@@ -636,54 +653,135 @@ function hideUI() {
   // ✅ Init the unified carousels LAST (so layout is stable)
   initCarousels();
 
-// ✅ DOTS CLICK (horizontal-only) — works with duplicated cards, no scrollIntoView
-(function wireCarouselDotsHorizontalOnly() {
-  document.querySelectorAll("[data-carousel]").forEach((carousel) => {
-    const viewport = carousel.querySelector(".sga-viewport");
-    const track = carousel.querySelector(".sga-track");
-    const dotsWrap = carousel.querySelector(".sga-dots");
-    if (!viewport || !track || !dotsWrap) return;
+  // ✅ DOTS CLICK (horizontal-only) — works with duplicated cards, no scrollIntoView
+  (function wireCarouselDotsHorizontalOnly() {
+    document.querySelectorAll("[data-carousel]").forEach((carousel) => {
+      const viewport = carousel.querySelector(".sga-viewport");
+      const track = carousel.querySelector(".sga-track");
+      const dotsWrap = carousel.querySelector(".sga-dots");
+      if (!viewport || !track || !dotsWrap) return;
 
-    function centerCard(card) {
-      const left = card.offsetLeft - (viewport.clientWidth - card.offsetWidth) / 2;
-      viewport.scrollTo({ left, behavior: "smooth" });
-    }
+      function centerCard(card) {
+        const left =
+          card.offsetLeft - (viewport.clientWidth - card.offsetWidth) / 2;
+        viewport.scrollTo({ left, behavior: "smooth" });
+      }
 
-    function getMiddleDuplicate(originalIdx) {
-      const cards = Array.from(track.querySelectorAll(".sga-card")).filter((c) => {
-        const v = c.getAttribute("data-original-index") ?? c.dataset.originalIndex;
-        return Number(v) === Number(originalIdx);
-      });
+      function getMiddleDuplicate(originalIdx) {
+        const cards = Array.from(track.querySelectorAll(".sga-card")).filter(
+          (c) => {
+            const v =
+              c.getAttribute("data-original-index") ?? c.dataset.originalIndex;
+            return Number(v) === Number(originalIdx);
+          }
+        );
 
-      if (!cards.length) return null;
+        if (!cards.length) return null;
 
-      // Choose the MIDDLE copy (index ≈ cards.length / 2)
-      return cards[Math.floor(cards.length / 2)];
-    }
+        // Choose the MIDDLE copy (index ≈ cards.length / 2)
+        return cards[Math.floor(cards.length / 2)];
+      }
 
+      dotsWrap.onclick = (e) => {
+        const btn = e.target.closest(".sga-dot");
+        if (!btn) return;
 
-    dotsWrap.onclick = (e) => {
-      const btn = e.target.closest(".sga-dot");
-      if (!btn) return;
+        e.preventDefault();
 
-      e.preventDefault();
+        // Determine the intended index
+        const idx =
+          btn.dataset.index != null
+            ? Number(btn.dataset.index)
+            : Array.from(dotsWrap.children).indexOf(btn);
 
-      // Determine the intended index
-      const idx =
-        btn.dataset.index != null
-          ? Number(btn.dataset.index)
-          : Array.from(dotsWrap.children).indexOf(btn);
+        if (idx < 0) return;
 
-      if (idx < 0) return;
+        const target = getMiddleDuplicate(idx);
+        if (!target) return;
 
-      const target = getMiddleDuplicate(idx);
-      if (!target) return;
-
-      centerCard(target);
-    };
-  });
-})();
+        centerCard(target);
+      };
+    });
+  })();
 
   // Feather icons again (in case cards were cloned)
   if (window.feather) feather.replace();
 });
+
+// 17. PDF filename display
+const birthdayPdfInput = document.getElementById("birthdayPdf");
+const birthdayPdfName = document.getElementById("birthdayPdfName");
+const birthdayPdfForm = document.getElementById("birthdayPdfForm");
+const birthdayPdfMsg = document.getElementById("birthdayPdfMsg");
+
+if (birthdayPdfInput) {
+  birthdayPdfInput.addEventListener("change", () => {
+    if (birthdayPdfInput.files[0]) {
+      birthdayPdfName.textContent = `Attached: ${birthdayPdfInput.files[0].name}`;
+      birthdayPdfName.classList.remove("hidden");
+    }
+  });
+}
+
+if (birthdayPdfForm) {
+  birthdayPdfForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    birthdayPdfMsg.textContent = "Submitting...";
+    birthdayPdfMsg.classList.remove("hidden");
+
+    const res = await fetch(birthdayPdfForm.action, {
+      method: "POST",
+      body: new FormData(birthdayPdfForm),
+      headers: { Accept: "application/json" },
+    });
+
+    if (res.ok) {
+      birthdayPdfForm.reset();
+      birthdayPdfName.classList.add("hidden");
+      birthdayPdfMsg.textContent = "Thanks! Your PDF was submitted.";
+    } else {
+      birthdayPdfMsg.textContent = "Something went wrong.";
+    }
+  });
+}
+
+// 18. ONLINE FORM
+const birthdayOnlineForm = qs("#birthdayOnlineForm");
+const birthdayOnlineMsg = qs("#birthdayOnlineMsg");
+
+if (birthdayOnlineForm && birthdayOnlineMsg) {
+  birthdayOnlineForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // show browser bubbles for missing required fields
+    if (!birthdayOnlineForm.checkValidity()) {
+      birthdayOnlineForm.reportValidity();
+      return;
+    }
+
+    birthdayOnlineMsg.classList.remove("hidden", "text-red-500");
+    birthdayOnlineMsg.textContent = "Submitting...";
+
+    try {
+      const res = await fetch(birthdayOnlineForm.action, {
+        method: "POST",
+        body: new FormData(birthdayOnlineForm),
+        headers: { Accept: "application/json" },
+      });
+
+      if (res.ok) {
+        birthdayOnlineForm.reset();
+        birthdayOnlineMsg.classList.remove("text-red-500");
+        birthdayOnlineMsg.textContent =
+          "Thank you! Your request has been submitted.";
+      } else {
+        birthdayOnlineMsg.classList.add("text-red-500");
+        birthdayOnlineMsg.textContent = "Oops! Something went wrong.";
+      }
+    } catch (err) {
+      birthdayOnlineMsg.classList.add("text-red-500");
+      birthdayOnlineMsg.textContent = "Network error — please try again.";
+    }
+  });
+}
