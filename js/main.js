@@ -785,3 +785,101 @@ if (birthdayOnlineForm && birthdayOnlineMsg) {
     }
   });
 }
+
+// ===== Facility ONLINE form (AJAX submit, no redirect) =====
+const facilityOnlineForm = qs("#facilityOnlineForm");
+const facilityOnlineMsg = qs("#facilityOnlineMsg");
+
+if (facilityOnlineForm && facilityOnlineMsg) {
+  facilityOnlineForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    if (!facilityOnlineForm.checkValidity()) {
+      facilityOnlineForm.reportValidity();
+      return;
+    }
+
+    facilityOnlineMsg.classList.remove("hidden", "text-red-500");
+    facilityOnlineMsg.textContent = "Submitting...";
+
+    try {
+      const res = await fetch(facilityOnlineForm.action, {
+        method: "POST",
+        body: new FormData(facilityOnlineForm),
+        headers: { Accept: "application/json" },
+      });
+
+      if (res.ok) {
+        facilityOnlineForm.reset();
+        facilityOnlineMsg.classList.remove("text-red-500");
+        facilityOnlineMsg.textContent =
+          "Thank you! Your request has been submitted.";
+      } else {
+        facilityOnlineMsg.classList.add("text-red-500");
+        facilityOnlineMsg.textContent = "Oops! Something went wrong.";
+      }
+    } catch (err) {
+      facilityOnlineMsg.classList.add("text-red-500");
+      facilityOnlineMsg.textContent = "Network error — please try again.";
+    }
+  });
+}
+
+// ===== Facility PDF filename display =====
+const facilityPdfInput = qs("#facilityPdf");
+const facilityPdfName = qs("#facilityPdfName");
+
+if (facilityPdfInput && facilityPdfName) {
+  facilityPdfInput.addEventListener("change", () => {
+    const file = facilityPdfInput.files && facilityPdfInput.files[0];
+    if (file) {
+      facilityPdfName.textContent = `Attached: ${file.name}`;
+      facilityPdfName.classList.remove("hidden");
+    } else {
+      facilityPdfName.textContent = "";
+      facilityPdfName.classList.add("hidden");
+    }
+  });
+}
+
+// ===== Facility PDF form submit (AJAX submit, no redirect) =====
+const facilityPdfForm = qs("#facilityPdfForm");
+const facilityPdfMsg = qs("#facilityPdfMsg");
+
+if (facilityPdfForm && facilityPdfMsg) {
+  facilityPdfForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    if (!facilityPdfForm.checkValidity()) {
+      facilityPdfForm.reportValidity();
+      return;
+    }
+
+    facilityPdfMsg.classList.remove("hidden", "text-red-500");
+    facilityPdfMsg.textContent = "Submitting...";
+
+    try {
+      const res = await fetch(facilityPdfForm.action, {
+        method: "POST",
+        body: new FormData(facilityPdfForm),
+        headers: { Accept: "application/json" },
+      });
+
+      if (res.ok) {
+        facilityPdfForm.reset();
+        if (facilityPdfName) {
+          facilityPdfName.textContent = "";
+          facilityPdfName.classList.add("hidden");
+        }
+        facilityPdfMsg.classList.remove("text-red-500");
+        facilityPdfMsg.textContent = "Thanks! Your PDF was submitted.";
+      } else {
+        facilityPdfMsg.classList.add("text-red-500");
+        facilityPdfMsg.textContent = "Oops! Something went wrong.";
+      }
+    } catch (err) {
+      facilityPdfMsg.classList.add("text-red-500");
+      facilityPdfMsg.textContent = "Network error — please try again.";
+    }
+  });
+}

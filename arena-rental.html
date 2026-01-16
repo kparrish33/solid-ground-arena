@@ -276,40 +276,82 @@
           </div>
         </div>
 
-        <!-- PDF Download/Upload Option -->
-        <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center mb-12">
-          <h3 class="text-2xl font-semibold mb-2 font-bebas">Event Rental Application</h3>
+        <!-- PDF Upload Option (PDF-ONLY submission) -->
+        <form
+          action="https://formspree.io/f/maqqnzaz"
+          method="POST"
+          enctype="multipart/form-data"
+          class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center mb-12"
+          id="facilityPdfForm"
+        >
+          <h3 class="text-2xl font-semibold mb-2 font-bebas">Facility Rental Form</h3>
           <p class="text-gray-600 mb-6">Download, fill out, and upload the PDF form below</p>
 
+          <input type="hidden" name="_subject" value="Facility Rental PDF Upload - Solid Ground Arena" />
+          <input type="hidden" name="submission_type" value="pdf_upload" />
+
           <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a 
-              href="forms/EVENT_APPLICATION.pdf" 
+            <a
+              href="forms/FACILITY_RENTAL.pdf"
               class="bg-[#5fbcff] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-500 transition duration-300 inline-flex items-center justify-center"
               download
             >
               <i data-feather="download" class="mr-2"></i> Download Form
             </a>
-            
-            <label for="uploadFile" class="cursor-pointer border border-[#5fbcff] text-[#5fbcff] px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition duration-300 inline-flex items-center justify-center">
-              <i data-feather="upload" class="mr-2"></i> Upload Completed Form
-              <input type="file" id="uploadFile" class="hidden" />
+
+            <label
+              for="facilityPdf"
+              class="cursor-pointer border border-[#5fbcff] text-[#5fbcff] px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition duration-300 inline-flex items-center justify-center"
+            >
+              <i data-feather="upload" class="mr-2"></i> Upload Completed PDF
+
+              <!-- IMPORTANT: sr-only (NOT hidden) so browser can enforce required -->
+              <input
+                type="file"
+                id="facilityPdf"
+                name="completed_pdf"
+                accept="application/pdf,.pdf"
+                class="sr-only"
+                required
+              />
             </label>
+
+            <button
+              type="submit"
+              class="bg-[#5fbcff] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-600 transition duration-300 inline-flex items-center justify-center"
+              id="facilityPdfSubmit"
+            >
+              Submit PDF
+            </button>
           </div>
-        </div>
+
+          <p id="facilityPdfName" class="mt-4 text-base font-semibold text-yellow-400 hidden"></p>
+
+          <p id="facilityPdfMsg" class="text-green-600 font-semibold mt-4 hidden">
+            Thanks! Your PDF was submitted.
+          </p>
+        </form>
 
         <!-- Or text -->
         <h4 class="text-lg font-semibold mb-6 text-center">Or fill out our online form</h4>
 
         <!-- Facility Rental Form Section -->
-         <form action="https://formspree.io/f/xldpzpqa" method="POST" id="eventApplicationForm">
-          <input type="hidden" name="_subject" value="New Facility Rental Request from Solid Ground Arena!">
-           <section id="rental-form" class="py-16 bg-gray-100 text-gray-800">
-          <div class="container mx-auto px-6 max-w-4xl">
-            <form id="eventApplicationForm" class="space-y-8">
+         <form
+          id="facilityOnlineForm"
+          action="https://formspree.io/f/maqqnzaz"
+          method="POST"
+          class="space-y-6"
+        >
+          <input type="hidden" name="_subject" value="Facility Rental Online Form - Solid Ground Arena" />
+          <input type="hidden" name="submission_type" value="online_form" />
 
-            <h2 class="font-bebas text-4xl md:text-5xl mb-6 text-center text-gray-800">
-              RENTAL STATEMENT OF TERMS AND APPLICATION FOR SOLID GROUND ARENA
-            </h2>
+          <section id="facility-rental-form" class="py-16 bg-gray-100 text-gray-800">
+            <div class="container mx-auto px-6 max-w-4xl">
+              <div class="max-w-4xl mx-auto">
+                <!-- TITLE -->
+                <h2 class="font-bebas text-4xl md:text-5xl mb-6 text-center text-gray-800">
+                  FACILITY RENTAL STATEMENT OF TERMS AND APPLICATION FOR SOLID GROUND ARENA
+                </h2>
 
         <!-- Intro Text -->
         <div class="text-gray-800 leading-relaxed space-y-4 mb-10">
@@ -615,16 +657,17 @@ pyrotechnics, firearms, and any use inconsistent with City of Peoria C-1/2 zonin
 
       <!-- Submit Button -->
       <div class="text-center mt-10">
-        <button
-          type="submit"
-          class="bg-[#5fbcff] text-white font-bold py-3 px-8 rounded-full hover:bg-blue-600 transition"
-        >
-          Submit Application
-        </button>
-        <p id="thankYouMsg" class="text-green-600 font-semibold mt-4 hidden">
-          Thank you! Your application has been submitted.
-        </p>
-      </div>
+          <button
+            type="submit"
+            class="bg-[#5fbcff] text-white font-bold py-3 px-8 rounded-full hover:bg-blue-600 transition"
+          >
+            Submit Application
+          </button>
+
+          <p id="facilityOnlineMsg" class="text-green-600 font-semibold mt-4 hidden">
+            Thanks! Your facility rental request was submitted.
+          </p>
+        </div>
     </form>
   </div>
 </section>
