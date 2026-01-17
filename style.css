@@ -68,11 +68,14 @@ nav .group > a {
   border-radius: 1rem;
   text-align: center;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 .feature-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 .feature-icon {
@@ -114,7 +117,9 @@ nav .group > a {
   width: 100%;
   transform: skewY(-12deg);
   transform-origin: left;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -189,7 +194,8 @@ nav .group > a {
   top: 0;
   bottom: 0;
   width: 140px;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       60px 160px at 65% 18%,
       rgba(255, 255, 255, 0.92) 0%,
       rgba(255, 255, 255, 0) 70%
@@ -514,7 +520,9 @@ nav .group > a {
   .event-card,
   .theme-card {
     transform: none !important;
-    transition: transform 220ms ease, opacity 220ms ease;
+    transition:
+      transform 220ms ease,
+      opacity 220ms ease;
   }
 
   /* centered card emphasis */
@@ -535,7 +543,10 @@ nav .group > a {
    Your existing homepage card look (kept)
    ========================================================= */
 .event-card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    opacity 0.25s ease;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08) !important;
 }
 
@@ -664,7 +675,7 @@ nav .group > a {
 }
 
 /* -------------------- SKATE NIGHT NAV BUTTON (specific) -------------------- */
-.neon-page a[href="skate-night"] {
+.neon-page a[href="shop"] {
   background: transparent !important;
   border: 2px solid #ff00c8 !important;
   color: #ff00c8 !important;
@@ -674,7 +685,7 @@ nav .group > a {
   transition: 0.25s ease;
 }
 
-.neon-page a[href="skate-night"]:hover {
+.neon-page a[href="shop"]:hover {
   background: #ff00c8 !important;
   color: #000 !important;
   box-shadow: 0 0 25px #ff00c8;
@@ -724,37 +735,55 @@ nav .group > a {
 *************************************************************/
 @keyframes neonPulsePink {
   0% {
-    text-shadow: 0 0 8px #ff00c8, 0 0 20px #ff00c8aa;
+    text-shadow:
+      0 0 8px #ff00c8,
+      0 0 20px #ff00c8aa;
   }
   50% {
-    text-shadow: 0 0 14px #ff4de6, 0 0 28px #ff00c8ff;
+    text-shadow:
+      0 0 14px #ff4de6,
+      0 0 28px #ff00c8ff;
   }
   100% {
-    text-shadow: 0 0 8px #ff00c8, 0 0 20px #ff00c8aa;
+    text-shadow:
+      0 0 8px #ff00c8,
+      0 0 20px #ff00c8aa;
   }
 }
 
 @keyframes neonPulseCyan {
   0% {
-    text-shadow: 0 0 10px #08e8ff, 0 0 20px #08e8ff88;
+    text-shadow:
+      0 0 10px #08e8ff,
+      0 0 20px #08e8ff88;
   }
   50% {
-    text-shadow: 0 0 16px #4cffff, 0 0 32px #08e8ffff;
+    text-shadow:
+      0 0 16px #4cffff,
+      0 0 32px #08e8ffff;
   }
   100% {
-    text-shadow: 0 0 10px #08e8ff, 0 0 20px #08e8ff88;
+    text-shadow:
+      0 0 10px #08e8ff,
+      0 0 20px #08e8ff88;
   }
 }
 
 @keyframes neonPulseYellow {
   0% {
-    text-shadow: 0 0 10px #ffea00, 0 0 20px #ffea0099;
+    text-shadow:
+      0 0 10px #ffea00,
+      0 0 20px #ffea0099;
   }
   50% {
-    text-shadow: 0 0 14px #fff066, 0 0 30px #ffea00ff;
+    text-shadow:
+      0 0 14px #fff066,
+      0 0 30px #ffea00ff;
   }
   100% {
-    text-shadow: 0 0 10px #ffea00, 0 0 20px #ffea0099;
+    text-shadow:
+      0 0 10px #ffea00,
+      0 0 20px #ffea0099;
   }
 }
 
@@ -812,17 +841,23 @@ nav .group > a {
   font-family: "Bebas Neue", sans-serif;
   letter-spacing: 2px;
   color: var(--neon-pink);
-  text-shadow: 0 0 8px var(--neon-pink), 0 0 16px var(--neon-pink);
+  text-shadow:
+    0 0 8px var(--neon-pink),
+    0 0 16px var(--neon-pink);
   animation: neonTitlePulse 3s ease-in-out infinite;
 }
 
 @keyframes neonTitlePulse {
   0%,
   100% {
-    text-shadow: 0 0 6px var(--neon-pink), 0 0 14px var(--neon-pink);
+    text-shadow:
+      0 0 6px var(--neon-pink),
+      0 0 14px var(--neon-pink);
   }
   50% {
-    text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+    text-shadow:
+      0 0 10px var(--neon-cyan),
+      0 0 20px var(--neon-cyan);
   }
 }
 
@@ -889,7 +924,9 @@ nav .group > a {
   border-radius: 18px;
   padding: 24px;
   text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
   box-shadow: 0 6px 26px rgba(100, 245, 255, 0.25);
 }
 
@@ -925,7 +962,9 @@ nav .group > a {
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 6px 26px rgba(255, 79, 224, 0.25);
-  transition: transform 0.25s, box-shadow 0.25s;
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
 }
 
 .neon-page .gallery-item:hover {
@@ -958,23 +997,33 @@ nav .group > a {
 @keyframes heroMulticolorGlow {
   0% {
     color: var(--neon-pink);
-    text-shadow: 0 0 12px var(--neon-pink), 0 0 22px var(--neon-pink);
+    text-shadow:
+      0 0 12px var(--neon-pink),
+      0 0 22px var(--neon-pink);
   }
   25% {
     color: var(--neon-cyan);
-    text-shadow: 0 0 12px var(--neon-cyan), 0 0 22px var(--neon-cyan);
+    text-shadow:
+      0 0 12px var(--neon-cyan),
+      0 0 22px var(--neon-cyan);
   }
   50% {
     color: #c084fc;
-    text-shadow: 0 0 12px #c084fc, 0 0 22px #c084fc;
+    text-shadow:
+      0 0 12px #c084fc,
+      0 0 22px #c084fc;
   }
   75% {
     color: #fff799;
-    text-shadow: 0 0 12px #fff799, 0 0 22px #fff799;
+    text-shadow:
+      0 0 12px #fff799,
+      0 0 22px #fff799;
   }
   100% {
     color: var(--neon-pink);
-    text-shadow: 0 0 12px var(--neon-pink), 0 0 22px var(--neon-pink);
+    text-shadow:
+      0 0 12px var(--neon-pink),
+      0 0 22px var(--neon-pink);
   }
 }
 
@@ -1089,7 +1138,9 @@ nav .group > a {
   border: none !important;
 
   box-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 /* IMPORTANT: keep CTA hover clean (overrides the global neon-page a:hover) */
@@ -1099,14 +1150,18 @@ nav .group > a {
   color: #000 !important;
 
   transform: scale(1.05) !important;
-  box-shadow: 0 0 25px rgba(0, 255, 255, 0.9), 0 0 60px rgba(0, 255, 255, 0.6),
+  box-shadow:
+    0 0 25px rgba(0, 255, 255, 0.9),
+    0 0 60px rgba(0, 255, 255, 0.6),
     0 0 100px rgba(0, 255, 255, 0.4) !important;
 }
 
 .hidden-before-show {
   opacity: 0;
   transform: translate(-50%, -60%);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
 }
 
 .show-cta {
@@ -1190,7 +1245,8 @@ nav .group > a {
   LIVESTREAM
 *************************************************************/
 .livestream-glow {
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.25),
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.25),
     0 18px 45px rgba(0, 0, 0, 0.18);
 }
 

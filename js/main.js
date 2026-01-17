@@ -68,7 +68,7 @@ function initCarousels() {
     const breakpoint = parseInt(carousel.dataset.breakpoint || "900", 10);
     const mobileAdvanceMs = parseInt(
       carousel.dataset.mobileAdvance || "4500",
-      10
+      10,
     );
     const desktopSpeed = parseFloat(carousel.dataset.desktopSpeed || "0.45"); // px per frame-ish scaled below
 
@@ -82,7 +82,7 @@ function initCarousels() {
       if (card.tagName !== "A") {
         console.warn(
           "Carousel card is not an <a>. Whole-card click requires anchor.",
-          card
+          card,
         );
       }
     });
@@ -179,7 +179,7 @@ function initCarousels() {
       // Find the first matching card in the current DOM (works even if we duplicated)
       const cards = qsa(".sga-card", track);
       const target = cards.find(
-        (c) => parseInt(c.dataset.originalIndex || "0", 10) === originalIdx
+        (c) => parseInt(c.dataset.originalIndex || "0", 10) === originalIdx,
       );
       if (!target) return;
 
@@ -233,7 +233,7 @@ function initCarousels() {
         const firstSet = cards.slice(0, originalCount);
         loopWidth = firstSet.reduce(
           (sum, el) => sum + el.getBoundingClientRect().width,
-          0
+          0,
         );
 
         // Include gap between cards (flex gap)
@@ -303,7 +303,7 @@ function initCarousels() {
       viewport.addEventListener(
         "scroll",
         rafThrottle(() => updateMobileActive()),
-        { passive: true }
+        { passive: true },
       );
 
       // Touch / pointer pause
@@ -424,7 +424,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.15 },
     );
     observer.observe(formSection);
   }
@@ -673,7 +673,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const v =
               c.getAttribute("data-original-index") ?? c.dataset.originalIndex;
             return Number(v) === Number(originalIdx);
-          }
+          },
         );
 
         if (!cards.length) return null;
@@ -786,7 +786,7 @@ if (birthdayOnlineForm && birthdayOnlineMsg) {
   });
 }
 
-// ===== Facility ONLINE form (AJAX submit, no redirect) =====
+// 19. ===== Facility ONLINE form (AJAX submit, no redirect) =====
 const facilityOnlineForm = qs("#facilityOnlineForm");
 const facilityOnlineMsg = qs("#facilityOnlineMsg");
 
@@ -825,7 +825,7 @@ if (facilityOnlineForm && facilityOnlineMsg) {
   });
 }
 
-// ===== Facility PDF filename display =====
+// 20. ===== Facility PDF filename display =====
 const facilityPdfInput = qs("#facilityPdf");
 const facilityPdfName = qs("#facilityPdfName");
 
@@ -842,7 +842,7 @@ if (facilityPdfInput && facilityPdfName) {
   });
 }
 
-// ===== Facility PDF form submit (AJAX submit, no redirect) =====
+// 21. ===== Facility PDF form submit (AJAX submit, no redirect) =====
 const facilityPdfForm = qs("#facilityPdfForm");
 const facilityPdfMsg = qs("#facilityPdfMsg");
 
@@ -883,3 +883,218 @@ if (facilityPdfForm && facilityPdfMsg) {
     }
   });
 }
+
+// =====================
+// SHOP PAGE (HTML products + cart + mobile scroll)
+// Requirements:
+// - Shop page has: #productsGrid, #cartPanel, #cartItems, #cartSubtotal, #cartCount, #checkoutBtn
+// - Each product card has: [data-product][data-id][data-title][data-session][data-description][data-price]
+// - Each product button calls: onclick="addToCartFromHtml(this)"
+// =====================
+(function () {
+  // --- 0) Only run on Shop page ---
+  const grid = document.getElementById("productsGrid");
+  if (!grid) return;
+
+  // --- 1) Required cart UI elements ---
+  const cartPanelEl = document.getElementById("cartPanel");
+  const cartItemsEl = document.getElementById("cartItems");
+  const cartSubtotalEl = document.getElementById("cartSubtotal");
+  const cartCountEl = document.getElementById("cartCount");
+  const checkoutBtn = document.getElementById("checkoutBtn");
+  if (
+    !cartPanelEl ||
+    !cartItemsEl ||
+    !cartSubtotalEl ||
+    !cartCountEl ||
+    !checkoutBtn
+  )
+    return;
+
+  const STORAGE_KEY = "sga_cart_v1";
+  const cart = new Map(); // id -> { product, qty }
+  const fmt = (n) => `$${Number(n).toFixed(2)}`;
+
+  // --- 2) Helpers ---
+  function scrollToCartOnMobile() {
+    if (!window.matchMedia("(max-width: 1024px)").matches) return; // only mobile/tablet
+    cartPanelEl.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function productFromCard(card) {
+    if (!card) return null;
+    const id = (card.dataset.id || "").trim();
+    const title = (card.dataset.title || "").trim();
+    const session = (card.dataset.session || "").trim();
+    const description = (card.dataset.description || "").trim();
+    const price = Number(card.dataset.price || 0);
+
+    if (!id || !title || !price) return null;
+    return { id, title, session, description, price };
+  }
+
+  function saveCart() {
+    const arr = Array.from(cart.values()).map(({ product, qty }) => ({
+      id: product.id,
+      title: product.title,
+      session: product.session,
+      description: product.description,
+      price: product.price,
+      qty,
+    }));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+  }
+
+  function loadCart() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const arr = JSON.parse(raw);
+      if (!Array.isArray(arr)) return;
+
+      arr.forEach((i) => {
+        if (!i?.id || !i?.title || !i?.price || !i?.qty) return;
+        cart.set(i.id, {
+          product: {
+            id: i.id,
+            title: i.title,
+            session: i.session || "",
+            description: i.description || "",
+            price: Number(i.price),
+          },
+          qty: Number(i.qty),
+        });
+      });
+    } catch {
+      // ignore
+    }
+  }
+
+  // --- 3) Render cart UI (ONLY place this once) ---
+  function renderCart() {
+    const items = Array.from(cart.values());
+    const count = items.reduce((sum, i) => sum + i.qty, 0);
+    const subtotal = items.reduce((sum, i) => sum + i.qty * i.product.price, 0);
+
+    cartCountEl.textContent = `${count} ${count === 1 ? "item" : "items"}`;
+    cartSubtotalEl.textContent = fmt(subtotal);
+
+    if (items.length === 0) {
+      cartItemsEl.innerHTML = `<p class="text-gray-500">Your cart is empty.</p>`;
+      checkoutBtn.disabled = true;
+      return;
+    }
+
+    checkoutBtn.disabled = false;
+
+    cartItemsEl.innerHTML = items
+      .map(({ product, qty }) => {
+        const lineTotal = product.price * qty;
+
+        return `
+          <div class="border border-gray-200 rounded-2xl p-4">
+            <div class="flex justify-between items-start gap-3">
+              <div>
+                <p class="font-semibold text-gray-900">${product.title}</p>
+                <p class="text-sm text-gray-600">${product.session || ""}</p>
+              </div>
+              <p class="font-semibold">${fmt(lineTotal)}</p>
+            </div>
+
+            <div class="mt-3 flex items-center justify-between">
+              <div class="inline-flex items-center gap-2">
+                <button type="button"
+                  class="w-9 h-9 rounded-full border border-gray-300 hover:bg-gray-50"
+                  onclick="updateQty('${product.id}', -1)"
+                  aria-label="Decrease quantity">−</button>
+
+                <span class="min-w-[2ch] text-center font-semibold">${qty}</span>
+
+                <button type="button"
+                  class="w-9 h-9 rounded-full border border-gray-300 hover:bg-gray-50"
+                  onclick="updateQty('${product.id}', 1)"
+                  aria-label="Increase quantity">+</button>
+              </div>
+
+              <button type="button"
+                class="text-sm underline text-gray-600 hover:text-gray-900"
+                onclick="removeItem('${product.id}')">Remove</button>
+            </div>
+          </div>
+        `;
+      })
+      .join("");
+  }
+
+  // --- 4) Expose button handlers (inline onclick needs window.*) ---
+  window.addToCartFromHtml = function (btn) {
+    const card = btn?.closest?.("[data-product]");
+    const product = productFromCard(card);
+    if (!product) return;
+
+    const current = cart.get(product.id);
+    cart.set(product.id, { product, qty: current ? current.qty + 1 : 1 });
+
+    saveCart();
+    renderCart();
+    scrollToCartOnMobile(); // ✅ mobile: jump user to cart after add
+  };
+
+  window.updateQty = function (id, delta) {
+    const current = cart.get(id);
+    if (!current) return;
+
+    const next = current.qty + delta;
+    if (next <= 0) cart.delete(id);
+    else cart.set(id, { product: current.product, qty: next });
+
+    saveCart();
+    renderCart();
+  };
+
+  window.removeItem = function (id) {
+    cart.delete(id);
+    saveCart();
+    renderCart();
+  };
+
+  // --- 5) Auto-add from URL (?add=PRODUCT_ID) ---
+  function autoAddFromUrlOnce() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("add");
+    if (!id) return;
+
+    const card = document.querySelector(
+      `[data-product][data-id="${CSS.escape(id)}"]`,
+    );
+    const product = productFromCard(card);
+    if (!product) return;
+
+    const current = cart.get(product.id);
+    cart.set(product.id, { product, qty: current ? current.qty + 1 : 1 });
+
+    saveCart();
+    renderCart();
+    scrollToCartOnMobile(); // ✅ mobile: jump to cart on deep link too
+
+    // clean URL so refresh doesn't keep re-adding
+    params.delete("add");
+    const next = params.toString();
+    history.replaceState(
+      {},
+      "",
+      window.location.pathname + (next ? `?${next}` : ""),
+    );
+  }
+
+  // --- 6) Checkout button ---
+  checkoutBtn.addEventListener("click", () => {
+    saveCart();
+    window.location.href = "/checkout.html";
+  });
+
+  // --- 7) Start ---
+  loadCart();
+  renderCart();
+  autoAddFromUrlOnce();
+})();
