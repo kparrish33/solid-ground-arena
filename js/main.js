@@ -713,6 +713,7 @@ const birthdayPdfInput = document.getElementById("birthdayPdf");
 const birthdayPdfName = document.getElementById("birthdayPdfName");
 const birthdayPdfForm = document.getElementById("birthdayPdfForm");
 const birthdayPdfMsg = document.getElementById("birthdayPdfMsg");
+const birthdayPdfErr = document.getElementById("birthdayPdfErr")
 
 if (birthdayPdfInput) {
   birthdayPdfInput.addEventListener("change", () => {
@@ -720,6 +721,9 @@ if (birthdayPdfInput) {
       birthdayPdfName.textContent = `Attached: ${birthdayPdfInput.files[0].name}`;
       birthdayPdfName.classList.remove("hidden");
     }
+
+    // hide error once user selects a file
+    if (birthdayPdfErr) birthdayPdfErr.classList.add("hidden");
   });
 }
 
@@ -727,6 +731,40 @@ if (birthdayPdfForm) {
   birthdayPdfForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    // --- mobile-safe PDF validation ---
+    if (birthdayPdfErr) {
+      birthdayPdfErr.textContent = "";
+      birthdayPdfErr.classList.add("hidden");
+    }
+
+    const file =
+      birthdayPdfInput && birthdayPdfInput.files && birthdayPdfInput.files[0];
+
+    if (!file) {
+      if (birthdayPdfErr) {
+        birthdayPdfErr.textContent =
+          "Please upload your completed PDF before submitting.";
+        birthdayPdfErr.classList.remove("hidden");
+      } else {
+        birthdayPdfForm.reportValidity();
+      }
+      return;
+    }
+
+    const isPdf =
+      file.type === "application/pdf" ||
+      (file.name && file.name.toLowerCase().endsWith(".pdf"));
+
+    if (!isPdf) {
+      if (birthdayPdfErr) {
+        birthdayPdfErr.textContent =
+          "That file isn’t a PDF. Please upload a .pdf file.";
+        birthdayPdfErr.classList.remove("hidden");
+      }
+      return;
+    }
+
+    // ===== existing submit logic (unchanged) =====
     birthdayPdfMsg.textContent = "Submitting...";
     birthdayPdfMsg.classList.remove("hidden");
 
@@ -739,6 +777,7 @@ if (birthdayPdfForm) {
     if (res.ok) {
       birthdayPdfForm.reset();
       birthdayPdfName.classList.add("hidden");
+      if (birthdayPdfErr) birthdayPdfErr.classList.add("hidden");
       birthdayPdfMsg.textContent = "Thanks! Your PDF was submitted.";
     } else {
       birthdayPdfMsg.textContent = "Something went wrong.";
@@ -845,15 +884,50 @@ if (facilityPdfInput && facilityPdfName) {
 // 21. ===== Facility PDF form submit (AJAX submit, no redirect) =====
 const facilityPdfForm = qs("#facilityPdfForm");
 const facilityPdfMsg = qs("#facilityPdfMsg");
+const facilityPdfErr = qs("#facilityPdfErr");
 
 if (facilityPdfForm && facilityPdfMsg) {
   facilityPdfForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    if (!facilityPdfForm.checkValidity()) {
-      facilityPdfForm.reportValidity();
-      return;
-    }
+    // --- custom mobile-safe PDF validation ---
+if (facilityPdfErr) {
+  facilityPdfErr.textContent = "";
+  facilityPdfErr.classList.add("hidden");
+}
+
+const file =
+  facilityPdfInput && facilityPdfInput.files && facilityPdfInput.files[0];
+
+if (!file) {
+  if (facilityPdfErr) {
+    facilityPdfErr.textContent =
+      "Please upload your completed PDF before submitting.";
+    facilityPdfErr.classList.remove("hidden");
+  } else {
+    facilityPdfForm.reportValidity();
+  }
+  return;
+}
+
+const isPdf =
+  file.type === "application/pdf" ||
+  file.name.toLowerCase().endsWith(".pdf");
+
+if (!isPdf) {
+  if (facilityPdfErr) {
+    facilityPdfErr.textContent =
+      "That file isn’t a PDF. Please upload a .pdf file.";
+    facilityPdfErr.classList.remove("hidden");
+  }
+  return;
+}
+
+// keep browser validation for all other required fields
+if (!facilityPdfForm.checkValidity()) {
+  facilityPdfForm.reportValidity();
+  return;
+}
 
     facilityPdfMsg.classList.remove("hidden", "text-red-500");
     facilityPdfMsg.textContent = "Submitting...";
