@@ -612,9 +612,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   })();
 
-  // HOME-only popup badge that follows your EXISTING live UI state
-(function initHomeLivePopupBadge() {
-  // home page only
+  // HOME-only popup: delay before showing + one-time fade-in per "go live"
+(function homeLivePopup() {
   const path = window.location.pathname.replace(/\/+$/, "");
   const isHome = path === "" || path === "/" || path.endsWith("/index.html");
   if (!isHome) return;
@@ -625,47 +624,93 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const DISMISS_KEY = "liveBadgePopupDismissed";
 
-  function show() {
-    if (sessionStorage.getItem(DISMISS_KEY) === "1") return;
-    badge.classList.remove("hidden");
-    badge.classList.add("flex");
-  }
+  // tweak these
+  const SHOW_DELAY_MS = 6000;   // <-- delay before showing after LIVE
+  const POLL_MS = 2000;         // UI check interval (no API calls)
 
-  function hide() {
-    badge.classList.add("hidden");
-    badge.classList.remove("flex");
-  }
+  let prevLive = false;
+  let showTimer = null;
 
-  // If your existing logic marks LIVE by adding this class:
-  // cards.forEach(card => card.classList.add("livestream-glow"))
-  function isLiveNow() {
-    // safest: check if ANY livestream card is glowing
+  function isLive() {
+    // Mirrors your existing live UI state
     return !!document.querySelector("#livestreamCard.livestream-glow");
   }
 
-  // keep it simple: periodically reflect existing UI state
-  function tick() {
-    if (isLiveNow()) show();
-    else hide();
+  function hardHide() {
+    // cancel any pending delayed show
+    if (showTimer) {
+      clearTimeout(showTimer);
+      showTimer = null;
+    }
+
+    badge.classList.add("hidden");
+    badge.classList.remove("flex");
+
+    // reset to invisible for next fade-in
+    badge.classList.add("opacity-0");
+    badge.classList.remove("opacity-100");
   }
 
-  // close button
-  if (closeBtn) {
-    closeBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      sessionStorage.setItem(DISMISS_KEY, "1");
-      hide();
+  function fadeInOnce() {
+    if (sessionStorage.getItem(DISMISS_KEY) === "1") return;
+
+    // ensure it's displayed but still transparent first
+    badge.classList.remove("hidden");
+    badge.classList.add("flex");
+
+    // next frame → fade to visible
+    requestAnimationFrame(() => {
+      badge.classList.remove("opacity-0");
+      badge.classList.add("opacity-100");
     });
   }
 
-  // clicking badge opens the live portal (safe default)
+  function scheduleShow() {
+    if (showTimer) return; // already scheduled
+    showTimer = setTimeout(() => {
+      showTimer = null;
+      // only show if still live at the moment delay finishes
+      if (isLive()) fadeInOnce();
+    }, SHOW_DELAY_MS);
+  }
+
+  function tick() {
+    const liveNow = isLive();
+
+    // LIVE just started (edge: false -> true)
+    if (liveNow && !prevLive) {
+      scheduleShow(); // delay, then fade in once
+    }
+
+    // LIVE ended (true -> false)
+    if (!liveNow && prevLive) {
+      hardHide();
+    }
+
+    // If not live and badge is somehow visible, keep it hidden
+    if (!liveNow) {
+      // (don’t re-hide constantly; hardHide already does it on transition)
+    }
+
+    prevLive = liveNow;
+  }
+
+  // Dismiss button
+  closeBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    sessionStorage.setItem(DISMISS_KEY, "1");
+    hardHide();
+  });
+
+  // Clicking badge opens stream portal (or change URL)
   badge.addEventListener("click", () => {
     window.open("https://impactenvi.watch.pixellot.tv/", "_blank");
   });
 
-  // start
+  // init: start hidden
+  hardHide();
   tick();
-  setInterval(tick, 5000); // light polling; doesn't touch your API
+  setInterval(tick, POLL_MS);
 })();
 
   // 14. Smooth Scroll
