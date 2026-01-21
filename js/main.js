@@ -612,6 +612,62 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   })();
 
+  // HOME-only popup badge that follows your EXISTING live UI state
+(function initHomeLivePopupBadge() {
+  // home page only
+  const path = window.location.pathname.replace(/\/+$/, "");
+  const isHome = path === "" || path === "/" || path.endsWith("/index.html");
+  if (!isHome) return;
+
+  const badge = document.getElementById("liveBadgePopup");
+  const closeBtn = document.getElementById("dismissLiveBadgePopup");
+  if (!badge) return;
+
+  const DISMISS_KEY = "liveBadgePopupDismissed";
+
+  function show() {
+    if (sessionStorage.getItem(DISMISS_KEY) === "1") return;
+    badge.classList.remove("hidden");
+    badge.classList.add("flex");
+  }
+
+  function hide() {
+    badge.classList.add("hidden");
+    badge.classList.remove("flex");
+  }
+
+  // If your existing logic marks LIVE by adding this class:
+  // cards.forEach(card => card.classList.add("livestream-glow"))
+  function isLiveNow() {
+    // safest: check if ANY livestream card is glowing
+    return !!document.querySelector("#livestreamCard.livestream-glow");
+  }
+
+  // keep it simple: periodically reflect existing UI state
+  function tick() {
+    if (isLiveNow()) show();
+    else hide();
+  }
+
+  // close button
+  if (closeBtn) {
+    closeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      sessionStorage.setItem(DISMISS_KEY, "1");
+      hide();
+    });
+  }
+
+  // clicking badge opens the live portal (safe default)
+  badge.addEventListener("click", () => {
+    window.open("https://impactenvi.watch.pixellot.tv/", "_blank");
+  });
+
+  // start
+  tick();
+  setInterval(tick, 5000); // light polling; doesn't touch your API
+})();
+
   // 14. Smooth Scroll
   const SCROLL_OFFSET = -500;
   qsa('a[href^="#"]').forEach((anchor) => {
