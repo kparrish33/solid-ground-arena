@@ -68,7 +68,7 @@
         </span>
       </div>
 
-      <!-- Desktop Menu -->
+            <!-- Desktop Menu -->
       <div class="hidden md:flex items-center space-x-8">
 
           <!-- HOME -->
@@ -115,22 +115,23 @@
            <!-- SHOP -->
             <a href="shop" class="nav-link font-semibold">Shop</a>
 
-          <!-- SKATE NIGHT BUTTON -->
-          <a
-          href="skate-night"
-          class="inline-flex items-center justify-center text-center
-                px-6 py-2 md:px-8 md:py-3
-                rounded-full font-bold text-white
-                bg-gradient-to-r from-sky-400 to-blue-600 shadow-md
-                leading-normal
-                transition-all duration-300 hover:scale-105 hover:shadow-xl hover:ring hover:ring-blue-300"
-        >
-          SKATE NIGHT
-        </a>
-        </div>
+      <!-- SKATE NIGHT BUTTON -->
+      <a
+        href="skate-night"
+        class="hidden md:inline-flex items-center justify-center text-center
+              px-6 py-2 md:px-8 md:py-3
+              rounded-full font-bold text-white
+              bg-gradient-to-r from-sky-400 to-blue-600 shadow-md
+              leading-normal
+              transition-all duration-300 hover:scale-105 hover:shadow-xl hover:ring hover:ring-blue-300
+              whitespace-nowrap shrink-0"
+      >
+        SKATE NIGHT
+      </a>
+    </div>
 
       <!-- Mobile Menu Button -->
-      <div class="md:hidden">
+      <div class="md:hidden shrink-0">
         <button id="menu-btn" class="text-gray-800 focus:outline-none">
           <i data-feather="menu"></i>
         </button>
@@ -141,7 +142,7 @@
     <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 pr-6 space-y-2 text-right">
 
       <a href="/" class="block py-2 nav-link font-semibold">Home</a>
-
+      
       <!-- MOBILE DROPDOWN: SPORTS -->
       <div class="mobile-dropdown">
         <button class="w-full text-right py-2 font-semibold flex justify-end items-center gap-2">

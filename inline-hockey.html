@@ -67,88 +67,81 @@
             </span>
           </div>
 
-          <!-- Desktop Menu -->
-          <div class="hidden md:flex items-center space-x-8">
-            <!-- HOME -->
-            <a href="/" class="nav-link font-semibold" id="home-link">Home</a>
+                <!-- Desktop Menu -->
+      <div class="hidden md:flex items-center space-x-8">
 
-            <!-- SPORTS DROPDOWN -->
-            <div class="relative group">
-              <button class="nav-link font-semibold flex items-center gap-1">
-                Sports
-                <i data-feather="chevron-down" class="w-4 h-4"></i>
-              </button>
+          <!-- HOME -->
+          <a href="/" class="nav-link font-semibold" id="home-link">Home</a>
 
-              <div
-                class="absolute left-0 top-full mt-0 w-56 bg-white shadow-lg rounded-lg z-[999] opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-150"
-              >
-                <a
-                  href="inline-hockey"
-                  class="block px-4 py-2 hover:bg-gray-100"
-                  >Inline Hockey</a
-                >
-                <a href="derby" class="block px-4 py-2 hover:bg-gray-100"
-                  >Roller Derby</a
-                >
-                <a
-                  href="volleyball"
-                  class="block px-4 py-2 hover:bg-gray-100 rounded-b-lg"
-                  >Volleyball</a
-                >
-              </div>
+          <!-- SPORTS DROPDOWN -->
+          <div class="relative group">
+            <button class="nav-link font-semibold flex items-center gap-1">
+              Sports
+              <i data-feather="chevron-down" class="w-4 h-4"></i>
+            </button>
+
+            <div class="absolute left-0 top-full mt-0
+              w-56 bg-white shadow-lg rounded-lg z-[999]
+              opacity-0 pointer-events-none
+              group-hover:opacity-100 group-hover:pointer-events-auto
+              transition-opacity duration-150">
+              <a href="inline-hockey" class="block px-4 py-2 hover:bg-gray-100">Inline Hockey</a>
+              <a href="derby" class="block px-4 py-2 hover:bg-gray-100">Roller Derby</a>
+              <a href="volleyball" class="block px-4 py-2 hover:bg-gray-100 rounded-b-lg">Volleyball</a>
             </div>
+          </div>
 
-            <!-- ARENA RENTAL DROPDOWN -->
-            <div class="relative group">
-              <button class="nav-link font-semibold flex items-center gap-1">
-                Arena Rental
-                <i data-feather="chevron-down" class="w-4 h-4"></i>
-              </button>
+          <!-- ARENA RENTAL DROPDOWN -->
+          <div class="relative group">
+            <button class="nav-link font-semibold flex items-center gap-1">
+              Arena Rental
+              <i data-feather="chevron-down" class="w-4 h-4"></i>
+            </button>
 
-              <div
-                class="absolute left-0 top-full mt-0 w-56 bg-white shadow-lg rounded-lg z-[999] opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-150"
-              >
-                <a href="birthdays" class="block px-4 py-2 hover:bg-gray-100"
-                  >Birthday Parties</a
-                >
-                <a
-                  href="arena-rental"
-                  class="block px-4 py-2 hover:bg-gray-100 rounded-b-lg"
-                  >Public Events</a
-                >
-              </div>
+            <div class="absolute left-0 top-full mt-0
+              w-56 bg-white shadow-lg rounded-lg z-[999]
+              opacity-0 pointer-events-none
+              group-hover:opacity-100 group-hover:pointer-events-auto
+              transition-opacity duration-150">
+              <a href="birthdays" class="block px-4 py-2 hover:bg-gray-100">Birthday Parties</a>
+              <a href="arena-rental" class="block px-4 py-2 hover:bg-gray-100 rounded-b-lg">Public Events</a>
             </div>
+          </div>
 
-            <!-- CONTACT -->
-            <a href="contact" class="nav-link font-semibold">Contact</a>
+          <!-- CONTACT -->
+          <a href="contact" class="nav-link font-semibold">Contact</a>
 
-            <!-- SHOP -->
+           <!-- SHOP -->
             <a href="shop" class="nav-link font-semibold">Shop</a>
 
-            <!-- SKATE NIGHT BUTTON -->
-            <a
-              href="skate-night"
-              class="inline-flex items-center justify-center text-center px-6 py-2 md:px-8 md:py-3 rounded-full font-bold text-white bg-gradient-to-r from-sky-400 to-blue-600 shadow-md leading-normal transition-all duration-300 hover:scale-105 hover:shadow-xl hover:ring hover:ring-blue-300"
-            >
-              SKATE NIGHT
-            </a>
-          </div>
+      <!-- SKATE NIGHT BUTTON -->
+      <a
+        href="skate-night"
+        class="hidden md:inline-flex items-center justify-center text-center
+              px-6 py-2 md:px-8 md:py-3
+              rounded-full font-bold text-white
+              bg-gradient-to-r from-sky-400 to-blue-600 shadow-md
+              leading-normal
+              transition-all duration-300 hover:scale-105 hover:shadow-xl hover:ring hover:ring-blue-300
+              whitespace-nowrap shrink-0"
+      >
+        SKATE NIGHT
+      </a>
+    </div>
 
-          <!-- Mobile Menu Button -->
-          <div class="md:hidden">
-            <button id="menu-btn" class="text-gray-800 focus:outline-none">
-              <i data-feather="menu"></i>
-            </button>
-          </div>
-        </div>
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden shrink-0">
+        <button id="menu-btn" class="text-gray-800 focus:outline-none">
+          <i data-feather="menu"></i>
+        </button>
+      </div>
+    </div>
 
-        <!-- Mobile Menu -->
-        <div
-          id="mobile-menu"
-          class="hidden md:hidden mt-4 pb-4 pr-6 space-y-2 text-right"
-        >
-          <a href="/" class="block py-2 nav-link font-semibold">Home</a>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 pr-6 space-y-2 text-right">
 
+      <a href="/" class="block py-2 nav-link font-semibold">Home</a>
+      
           <!-- MOBILE DROPDOWN: SPORTS -->
           <div class="mobile-dropdown">
             <button
