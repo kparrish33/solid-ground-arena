@@ -922,6 +922,24 @@ if (birthdayOnlineForm && birthdayOnlineMsg) {
   });
 }
 
+// ===== Birthday ONLINE form toggle =====
+(() => {
+  const btn = document.getElementById("toggleBirthdayOnlineForm");
+  const wrap = document.getElementById("birthdayOnlineWrap");
+  if (!btn || !wrap) return;
+
+  btn.addEventListener("click", () => {
+    wrap.classList.remove("hidden");
+
+    wrap.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    btn.disabled = true;
+    btn.classList.add("opacity-60", "cursor-not-allowed");
+    btn.textContent = "Online Form Below ↓";
+  });
+})();
+
+
 // 19. ===== Facility ONLINE form (AJAX submit, no redirect) =====
 const facilityOnlineForm = qs("#facilityOnlineForm");
 const facilityOnlineMsg = qs("#facilityOnlineMsg");
@@ -1054,6 +1072,25 @@ if (!facilityPdfForm.checkValidity()) {
     }
   });
 }
+
+// ===== Facility ONLINE form toggle (show/hide) =====
+(() => {
+  const btn = document.getElementById("toggleFacilityOnlineForm");
+  const wrap = document.getElementById("facilityOnlineWrap");
+  if (!btn || !wrap) return;
+
+  btn.addEventListener("click", () => {
+    wrap.classList.remove("hidden");
+
+    // optional: scroll into view so user sees it immediately
+    wrap.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    // optional: disable button after opening (prevents re-click confusion)
+    btn.disabled = true;
+    btn.classList.add("opacity-60", "cursor-not-allowed");
+    btn.textContent = "Online Form Below ↓";
+  });
+})();
 
 // =====================
 // SHOP PAGE (HTML products + cart + mobile scroll)

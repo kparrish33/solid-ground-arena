@@ -807,6 +807,13 @@ nav .group > a {
   box-shadow: 0 0 25px #ff00c8 !important;
 }
 
+.neon-page .neon-policy-badge {
+  box-shadow:
+    0 0 10px rgba(255, 234, 0, 0.75),
+    0 0 22px rgba(255, 234, 0, 0.55),
+    0 0 40px rgba(255, 234, 0, 0.35);
+}
+
 /*************************************************************
   NEON PULSING EFFECTS
   NOTE: We keep this scoped to neon links, but avoid applying

@@ -323,7 +323,7 @@
               class="bg-[#5fbcff] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-500 transition duration-300 inline-flex items-center justify-center"
               download
             >
-              <i data-feather="download" class="mr-2"></i> Download Form
+              <i data-feather="download" class="mr-2"></i> Download PDF Form
             </a>
 
             <label
@@ -362,10 +362,24 @@
         </form>
 
         <!-- Or text -->
-        <h4 class="text-lg font-semibold mb-6 text-center">Or fill out our online form</h4>
+        <div class="text-center mb-10">
+          <button
+            type="button"
+            id="toggleFacilityOnlineForm"
+            class="inline-flex items-center gap-2
+                  border-2 border-[#5fbcff] text-[#5fbcff]
+                  px-8 py-3 rounded-full font-semibold
+                  hover:bg-[#5fbcff] hover:text-white
+                  transition-all duration-300"
+          >
+            COMPLETE OUR ONLINE FORM INSTEAD
+            <span class="text-lg leading-none">▾</span>
+          </button>
+        </div>
 
         <!-- Facility Rental Form Section -->
-         <form
+        <div id="facilityOnlineWrap" class="hidden">
+        <form
           id="facilityOnlineForm"
           action="https://formspree.io/f/maqqnzaz"
           method="POST"
@@ -724,6 +738,7 @@ pyrotechnics, firearms, and any use inconsistent with City of Peoria C-1/2 zonin
           >
             CONTACT US
           </a>
+          </div>
         </div>
       </div>
     </section>
@@ -871,7 +886,6 @@ pyrotechnics, firearms, and any use inconsistent with City of Peoria C-1/2 zonin
         </div>
       </div>
     </footer>
-    <script src="js/main.js"></script>
     
     <!-- Floating Policy Badge (NO OUTSIDE FOOD/DRINK) -->
     <div
@@ -896,6 +910,6 @@ pyrotechnics, firearms, and any use inconsistent with City of Peoria C-1/2 zonin
         &times;
       </button>
     </div>
-
+    <script src="js/main.js"></script>
   </body>
 </html>
