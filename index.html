@@ -90,20 +90,6 @@
 
   <body class="bg-white text-gray-800">
 
-      <!-- Floating Live Badge (HOME ONLY) -->
-      <div
-        id="liveBadgePopup"
-        class="hidden fixed right-4 z-50 bg-red-600 text-white font-bold px-4 py-2 rounded-full shadow-lg
-              flex items-center gap-2 cursor-pointer select-none
-              top-[max(1rem,env(safe-area-inset-top))]
-              opacity-0 transition-opacity duration-700 ease-out"
-      >
-        <span>🔴 LIVE Now</span>
-        <button id="dismissLiveBadgePopup" class="text-white text-lg leading-none">
-          &times;
-        </button>
-      </div>
-
     <!-- Navigation -->
 <nav class="bg-white shadow-md sticky top-0 z-50 overflow-visible">
   <div class="container mx-auto px-6 py-4">
@@ -235,6 +221,7 @@
     </div>
   </div>
 </nav>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -477,6 +464,29 @@
     <script>
     feather.replace();
   </script>
+
+  <!-- Floating Live Badge (HOME ONLY) -->
+<div
+  id="liveBadgePopup"
+  class="hidden fixed z-[9999]
+         right-6 bottom-6
+         bg-red-600 text-white font-bold px-4 py-2 rounded-full shadow-lg
+         flex items-center gap-2 cursor-pointer select-none
+         opacity-0 transition-opacity duration-700 ease-out"
+>
+  <!-- pulsing dot -->
+  <span class="relative flex h-3 w-3">
+    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-300 opacity-75"></span>
+    <span class="relative inline-flex rounded-full h-3 w-3 bg-red-900"></span>
+  </span>
+
+  <span>LIVE Now</span>
+
+  <button id="dismissLiveBadgePopup" class="text-white text-lg leading-none">
+    &times;
+  </button>
+</div>
+
 </body>
 
 <!-- Livestream Card -->

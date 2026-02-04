@@ -622,8 +622,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const closeBtn = document.getElementById("dismissLiveBadgePopup");
   if (!badge) return;
 
-  const DISMISS_KEY = "liveBadgePopupDismissed";
-
   // tweak these
   const SHOW_DELAY_MS = 6000;   // <-- delay before showing after LIVE
   const POLL_MS = 2000;         // UI check interval (no API calls)
@@ -652,7 +650,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function fadeInOnce() {
-    if (sessionStorage.getItem(DISMISS_KEY) === "1") return;
 
     // ensure it's displayed but still transparent first
     badge.classList.remove("hidden");
@@ -698,7 +695,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Dismiss button
   closeBtn?.addEventListener("click", (e) => {
     e.stopPropagation();
-    sessionStorage.setItem(DISMISS_KEY, "1");
     hardHide();
   });
 
