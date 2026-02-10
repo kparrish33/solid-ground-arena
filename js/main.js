@@ -1093,14 +1093,14 @@ if (!facilityPdfForm.checkValidity()) {
 })();
 
 // =====================
-// SHOP PAGE (HTML products + cart + mobile scroll)
+// TICKETS PAGE (HTML products + cart + mobile scroll)
 // Requirements:
-// - Shop page has: #productsGrid, #cartPanel, #cartItems, #cartSubtotal, #cartCount, #checkoutBtn
+// - Tickets page has: #productsGrid, #cartPanel, #cartItems, #cartSubtotal, #cartCount, #checkoutBtn
 // - Each product card has: [data-product][data-id][data-title][data-session][data-description][data-price]
 // - Each product button calls: onclick="addToCartFromHtml(this)"
 // =====================
 (function () {
-  // --- 0) Only run on Shop page ---
+  // --- 0) Only run on Tickets page ---
   const grid = document.getElementById("productsGrid");
   if (!grid) return;
 
@@ -1296,10 +1296,57 @@ if (!facilityPdfForm.checkValidity()) {
   }
 
   // --- 6) Checkout button ---
-  checkoutBtn.addEventListener("click", () => {
-    saveCart();
-    window.location.href = "/checkout.html";
-  });
+  checkoutBtn.addEventListener("click", async () => {
+  // persist cart (good for your records + future confirmation page)
+  saveCart();
+
+  // calculate total
+  const items = Array.from(cart.values());
+  if (!items.length) return;
+
+  const amount = items.reduce((sum, i) => sum + i.qty * i.product.price, 0);
+
+  checkoutBtn.disabled = true;
+  const originalText = checkoutBtn.textContent;
+  checkoutBtn.textContent = "LOADING...";
+
+  try {
+    // Ask your server (PHP) to create the Accept Hosted token
+    const r = await fetch("/api/anet_create_token.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount }),
+    });
+
+    const out = await r.json();
+
+    if (!r.ok || !out.token) {
+      console.error("Token error:", out);
+      alert("Checkout is not ready yet. Please try again.");
+      return;
+    }
+
+    // Post token to Authorize.Net hosted payment page (SANDBOX)
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "https://test.authorize.net/payment/payment";
+
+    const inp = document.createElement("input");
+    inp.type = "hidden";
+    inp.name = "token";
+    inp.value = out.token;
+
+    form.appendChild(inp);
+    document.body.appendChild(form);
+    form.submit();
+  } catch (err) {
+    console.error(err);
+    alert("Checkout failed to start. Please try again.");
+  } finally {
+    checkoutBtn.disabled = false;
+    checkoutBtn.textContent = originalText;
+  }
+})
 
   // --- 7) Start ---
   loadCart();
