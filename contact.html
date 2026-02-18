@@ -332,7 +332,7 @@
       Send Us a Message
     </h2>
     <form
-      action="https://formspree.io/f/mykkzake"
+      action="action=/api/contact.php"
       method="POST"
       class="space-y-6"
       id="contactForm"
@@ -345,6 +345,12 @@
             name="_subject"
             value="New contact form submission from Solid Ground Arena!"
           />
+
+          <!-- Honeypot (spam trap) -->
+          <div style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;">
+            <label for="website">Website</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
 
           <!-- Name -->
           <div>

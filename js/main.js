@@ -439,20 +439,22 @@ document.addEventListener("DOMContentLoaded", function () {
       const data = new FormData(form);
 
       fetch(form.action, {
-        method: form.method,
-        body: data,
-        headers: { Accept: "application/json" },
-      }).then((response) => {
-        if (response.ok) {
-          form.reset();
-          thankYou.classList.remove("hidden", "text-red-500");
-          thankYou.textContent = "Thanks! Your message has been sent.";
-        } else {
-          thankYou.classList.remove("hidden");
-          thankYou.classList.add("text-red-500");
-          thankYou.textContent = "Oops! Something went wrong.";
-        }
-      });
+      method: form.method,
+      body: data,
+    }).then(async (response) => {
+      const result = await response.json().catch(() => ({}));
+
+      if (response.ok && result.ok) {
+        form.reset();
+        thankYou.classList.remove("hidden", "text-red-500");
+        thankYou.textContent = "Thanks! Your message has been sent.";
+      } else {
+        thankYou.classList.remove("hidden");
+        thankYou.classList.add("text-red-500");
+        thankYou.textContent = "Oops! Something went wrong.";
+      }
+    });
+
     });
   }
 
