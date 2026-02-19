@@ -711,7 +711,55 @@ document.addEventListener("DOMContentLoaded", function () {
   setInterval(tick, POLL_MS);
 })();
 
-  // 14. Smooth Scroll
+// ===== 14. Climate Control Banner (delayed slide-in + auto-hide + dismiss) =====
+(function climateBannerInit() {
+  const banner = document.getElementById("climateBanner");
+  const closeBtn = document.getElementById("climateBannerClose");
+  
+   if (!banner) return; // Only runs on pages that include banner HTML
+
+  const SHOW_DELAY_MS = 4000;  // show after 4s
+  const AUTO_HIDE_MS = 8000;   // hide after 8s visible
+  const SESSION_KEY = "climateBannerDismissed";
+
+  if (sessionStorage.getItem(SESSION_KEY) === "1") return;
+
+  function hideBanner() {
+    banner.classList.add("-translate-y-full");
+    banner.classList.remove("translate-y-0");
+
+    setTimeout(() => {
+      banner.classList.add("hidden");
+    }, 700);
+  }
+
+  function showBanner() {
+    banner.classList.remove("hidden");
+
+    requestAnimationFrame(() => {
+      banner.classList.remove("-translate-y-full");
+      banner.classList.add("translate-y-0");
+    });
+
+    // auto-hide timer
+    setTimeout(() => {
+      hideBanner();
+    }, AUTO_HIDE_MS);
+  }
+
+  window.addEventListener("load", () => {
+    setTimeout(showBanner, SHOW_DELAY_MS);
+  });
+
+  closeBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    sessionStorage.setItem(SESSION_KEY, "1");
+    hideBanner();
+  });
+})();
+
+
+  // 15. Smooth Scroll
   const SCROLL_OFFSET = -500;
   qsa('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
@@ -730,7 +778,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 15. Mobile Dropdown Logic
+  // 16. Mobile Dropdown Logic
   qsa(".mobile-dropdown").forEach((dropdown) => {
     const btn = qs("button", dropdown);
     const submenu = qs(".submenu", dropdown);
@@ -743,7 +791,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 16. Delayed CTA show (if present)
+  // 17. Delayed CTA show (if present)
   const delayedCTA = qs("#delayed-cta");
   if (delayedCTA) {
     setTimeout(() => delayedCTA.classList.add("show-cta"), 2500);
@@ -807,7 +855,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (window.feather) feather.replace();
 });
 
-// 17. PDF filename display
+// 18. PDF filename display
 const birthdayPdfInput = document.getElementById("birthdayPdf");
 const birthdayPdfName = document.getElementById("birthdayPdfName");
 const birthdayPdfForm = document.getElementById("birthdayPdfForm");
@@ -884,7 +932,7 @@ if (birthdayPdfForm) {
   });
 }
 
-// 18. ONLINE FORM
+// 19. ONLINE FORM
 const birthdayOnlineForm = qs("#birthdayOnlineForm");
 const birthdayOnlineMsg = qs("#birthdayOnlineMsg");
 
@@ -942,7 +990,7 @@ if (birthdayOnlineForm && birthdayOnlineMsg) {
 })();
 
 
-// 19. ===== Facility ONLINE form (AJAX submit, no redirect) =====
+// 20. ===== Facility ONLINE form (AJAX submit, no redirect) =====
 const facilityOnlineForm = qs("#facilityOnlineForm");
 const facilityOnlineMsg = qs("#facilityOnlineMsg");
 
@@ -981,7 +1029,7 @@ if (facilityOnlineForm && facilityOnlineMsg) {
   });
 }
 
-// 20. ===== Facility PDF filename display =====
+// 21. ===== Facility PDF filename display =====
 const facilityPdfInput = qs("#facilityPdf");
 const facilityPdfName = qs("#facilityPdfName");
 
@@ -998,7 +1046,7 @@ if (facilityPdfInput && facilityPdfName) {
   });
 }
 
-// 21. ===== Facility PDF form submit (AJAX submit, no redirect) =====
+// 22. ===== Facility PDF form submit (AJAX submit, no redirect) =====
 const facilityPdfForm = qs("#facilityPdfForm");
 const facilityPdfMsg = qs("#facilityPdfMsg");
 const facilityPdfErr = qs("#facilityPdfErr");

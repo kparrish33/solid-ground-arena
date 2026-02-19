@@ -465,6 +465,31 @@
     feather.replace();
   </script>
 
+<!-- Climate Control Banner -->
+<div
+  id="climateBanner"
+  class="hidden fixed top-0 left-0 w-full z-[9999]
+         bg-gradient-to-r from-sky-400 to-blue-600
+         text-white text-center font-semibold
+         px-6 py-3 shadow-lg
+         flex items-center justify-center gap-4
+         transform -translate-y-full
+         transition-all duration-700 ease-out"
+>
+  <span>
+    ❄️ Fully Climate-Controlled Building — Stay Cool All Summer
+  </span>
+
+  <button
+    id="climateBannerClose"
+    class="text-white text-xl leading-none opacity-80 hover:opacity-100"
+    aria-label="Dismiss"
+  >
+    &times;
+  </button>
+</div>
+
+
   <!-- Floating Live Badge (HOME ONLY) -->
 <div
   id="liveBadgePopup"
