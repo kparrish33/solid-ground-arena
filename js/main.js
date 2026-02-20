@@ -711,51 +711,51 @@ document.addEventListener("DOMContentLoaded", function () {
   setInterval(tick, POLL_MS);
 })();
 
-// ===== 14. Climate Control Banner (delayed slide-in + auto-hide + dismiss) =====
+// ===== 14. Climate Control Banner (delayed slide-in + auto-hide + dismiss; per-page) =====
 (function climateBannerInit() {
-  const banner = document.getElementById("climateBanner");
-  const closeBtn = document.getElementById("climateBannerClose");
-  
-   if (!banner) return; // Only runs on pages that include banner HTML
+  function start() {
+    const banner = document.getElementById("climateBanner");
+    const closeBtn = document.getElementById("climateBannerClose");
+    if (!banner) return;
 
-  const SHOW_DELAY_MS = 4000;  // show after 4s
-  const AUTO_HIDE_MS = 8000;   // hide after 8s visible
-  const SESSION_KEY = "climateBannerDismissed";
+    const SHOW_DELAY_MS = 2500;
+    const AUTO_HIDE_MS = 6000;
 
-  if (sessionStorage.getItem(SESSION_KEY) === "1") return;
+    // ✅ page-specific key so each page can show independently
+    const key = "climateBannerDismissed::" + window.location.pathname;
 
-  function hideBanner() {
-    banner.classList.add("-translate-y-full");
-    banner.classList.remove("translate-y-0");
+    if (sessionStorage.getItem(key) === "1") return;
 
-    setTimeout(() => {
-      banner.classList.add("hidden");
-    }, 700);
-  }
+    function hideBanner(setDismissed) {
+      if (setDismissed) sessionStorage.setItem(key, "1");
 
-  function showBanner() {
-    banner.classList.remove("hidden");
+      banner.classList.remove("translate-y-0");
+      banner.classList.add("-translate-y-full");
+      setTimeout(() => banner.classList.add("hidden"), 700);
+    }
 
-    requestAnimationFrame(() => {
-      banner.classList.remove("-translate-y-full");
-      banner.classList.add("translate-y-0");
+    function showBanner() {
+      banner.classList.remove("hidden");
+      requestAnimationFrame(() => {
+        banner.classList.remove("-translate-y-full");
+        banner.classList.add("translate-y-0");
+      });
+      setTimeout(() => hideBanner(false), AUTO_HIDE_MS);
+    }
+
+    closeBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      hideBanner(true);
     });
 
-    // auto-hide timer
-    setTimeout(() => {
-      hideBanner();
-    }, AUTO_HIDE_MS);
+    setTimeout(showBanner, SHOW_DELAY_MS);
   }
 
-  window.addEventListener("load", () => {
-    setTimeout(showBanner, SHOW_DELAY_MS);
-  });
-
-  closeBtn?.addEventListener("click", (e) => {
-    e.stopPropagation();
-    sessionStorage.setItem(SESSION_KEY, "1");
-    hideBanner();
-  });
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start);
+  } else {
+    start();
+  }
 })();
 
 
