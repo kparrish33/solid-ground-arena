@@ -855,84 +855,9 @@ document.addEventListener("DOMContentLoaded", function () {
   if (window.feather) feather.replace();
 });
 
-// 18. PDF filename display
-const birthdayPdfInput = document.getElementById("birthdayPdf");
-const birthdayPdfName = document.getElementById("birthdayPdfName");
-const birthdayPdfForm = document.getElementById("birthdayPdfForm");
-const birthdayPdfMsg = document.getElementById("birthdayPdfMsg");
-const birthdayPdfErr = document.getElementById("birthdayPdfErr")
+/* ====== 18. BIRTHDAY FORMS (PHP) START ====== */
 
-if (birthdayPdfInput) {
-  birthdayPdfInput.addEventListener("change", () => {
-    if (birthdayPdfInput.files[0]) {
-      birthdayPdfName.textContent = `Attached: ${birthdayPdfInput.files[0].name}`;
-      birthdayPdfName.classList.remove("hidden");
-    }
-
-    // hide error once user selects a file
-    if (birthdayPdfErr) birthdayPdfErr.classList.add("hidden");
-  });
-}
-
-if (birthdayPdfForm) {
-  birthdayPdfForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    // --- mobile-safe PDF validation ---
-    if (birthdayPdfErr) {
-      birthdayPdfErr.textContent = "";
-      birthdayPdfErr.classList.add("hidden");
-    }
-
-    const file =
-      birthdayPdfInput && birthdayPdfInput.files && birthdayPdfInput.files[0];
-
-    if (!file) {
-      if (birthdayPdfErr) {
-        birthdayPdfErr.textContent =
-          "Please upload your completed PDF before submitting.";
-        birthdayPdfErr.classList.remove("hidden");
-      } else {
-        birthdayPdfForm.reportValidity();
-      }
-      return;
-    }
-
-    const isPdf =
-      file.type === "application/pdf" ||
-      (file.name && file.name.toLowerCase().endsWith(".pdf"));
-
-    if (!isPdf) {
-      if (birthdayPdfErr) {
-        birthdayPdfErr.textContent =
-          "That file isn’t a PDF. Please upload a .pdf file.";
-        birthdayPdfErr.classList.remove("hidden");
-      }
-      return;
-    }
-
-    // ===== existing submit logic (unchanged) =====
-    birthdayPdfMsg.textContent = "Submitting...";
-    birthdayPdfMsg.classList.remove("hidden");
-
-    const res = await fetch(birthdayPdfForm.action, {
-      method: "POST",
-      body: new FormData(birthdayPdfForm),
-      headers: { Accept: "application/json" },
-    });
-
-    if (res.ok) {
-      birthdayPdfForm.reset();
-      birthdayPdfName.classList.add("hidden");
-      if (birthdayPdfErr) birthdayPdfErr.classList.add("hidden");
-      birthdayPdfMsg.textContent = "Thanks! Your PDF was submitted.";
-    } else {
-      birthdayPdfMsg.textContent = "Something went wrong.";
-    }
-  });
-}
-
-// 19. ONLINE FORM
+// ===== Birthday ONLINE submit (AJAX) =====
 const birthdayOnlineForm = qs("#birthdayOnlineForm");
 const birthdayOnlineMsg = qs("#birthdayOnlineMsg");
 
@@ -940,7 +865,6 @@ if (birthdayOnlineForm && birthdayOnlineMsg) {
   birthdayOnlineForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // show browser bubbles for missing required fields
     if (!birthdayOnlineForm.checkValidity()) {
       birthdayOnlineForm.reportValidity();
       return;
@@ -956,14 +880,15 @@ if (birthdayOnlineForm && birthdayOnlineMsg) {
         headers: { Accept: "application/json" },
       });
 
-      if (res.ok) {
+      const data = await res.json().catch(() => null);
+
+      if (res.ok && data?.ok) {
         birthdayOnlineForm.reset();
         birthdayOnlineMsg.classList.remove("text-red-500");
-        birthdayOnlineMsg.textContent =
-          "Thank you! Your request has been submitted.";
+        birthdayOnlineMsg.textContent = data.message || "Submitted!";
       } else {
         birthdayOnlineMsg.classList.add("text-red-500");
-        birthdayOnlineMsg.textContent = "Oops! Something went wrong.";
+        birthdayOnlineMsg.textContent = data?.message || "Oops! Something went wrong.";
       }
     } catch (err) {
       birthdayOnlineMsg.classList.add("text-red-500");
@@ -972,25 +897,104 @@ if (birthdayOnlineForm && birthdayOnlineMsg) {
   });
 }
 
-// ===== Birthday ONLINE form toggle =====
-(() => {
-  const btn = document.getElementById("toggleBirthdayOnlineForm");
-  const wrap = document.getElementById("birthdayOnlineWrap");
-  if (!btn || !wrap) return;
+// ===== Birthday PDF filename display =====
+const birthdayPdfInput = qs("#birthdayPdf");
+const birthdayPdfName = qs("#birthdayPdfName");
 
-  btn.addEventListener("click", () => {
-    wrap.classList.remove("hidden");
-
-    wrap.scrollIntoView({ behavior: "smooth", block: "start" });
-
-    btn.disabled = true;
-    btn.classList.add("opacity-60", "cursor-not-allowed");
-    btn.textContent = "Online Form Below ↓";
+if (birthdayPdfInput && birthdayPdfName) {
+  birthdayPdfInput.addEventListener("change", () => {
+    const file = birthdayPdfInput.files && birthdayPdfInput.files[0];
+    if (file) {
+      birthdayPdfName.textContent = `Attached: ${file.name}`;
+      birthdayPdfName.classList.remove("hidden");
+    } else {
+      birthdayPdfName.textContent = "";
+      birthdayPdfName.classList.add("hidden");
+    }
   });
-})();
+}
+
+// ===== Birthday PDF submit (AJAX) =====
+const birthdayPdfForm = qs("#birthdayPdfForm");
+const birthdayPdfMsg = qs("#birthdayPdfMsg");
+const birthdayPdfErr = qs("#birthdayPdfErr");
+
+if (birthdayPdfForm && birthdayPdfMsg) {
+  birthdayPdfForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    if (birthdayPdfErr) {
+      birthdayPdfErr.textContent = "";
+      birthdayPdfErr.classList.add("hidden");
+    }
+
+    if (!birthdayPdfForm.checkValidity()) {
+      birthdayPdfForm.reportValidity();
+      return;
+    }
+
+    birthdayPdfMsg.classList.remove("hidden", "text-red-500");
+    birthdayPdfMsg.textContent = "Submitting...";
+
+    try {
+      const res = await fetch(birthdayPdfForm.action, {
+        method: "POST",
+        body: new FormData(birthdayPdfForm),
+        headers: { Accept: "application/json" },
+      });
+
+      const data = await res.json().catch(() => null);
+
+      if (res.ok && data?.ok) {
+        birthdayPdfForm.reset();
+        if (birthdayPdfName) {
+          birthdayPdfName.textContent = "";
+          birthdayPdfName.classList.add("hidden");
+        }
+        birthdayPdfMsg.classList.remove("text-red-500");
+        birthdayPdfMsg.textContent = data.message || "Thanks! Your PDF was submitted.";
+      } else {
+        const msg = data?.message || "Oops! Something went wrong.";
+        if (birthdayPdfErr) {
+          birthdayPdfErr.textContent = msg;
+          birthdayPdfErr.classList.remove("hidden");
+        } else {
+          birthdayPdfMsg.classList.add("text-red-500");
+          birthdayPdfMsg.textContent = msg;
+        }
+      }
+    } catch (err) {
+      const msg = "Network error — please try again.";
+      if (birthdayPdfErr) {
+        birthdayPdfErr.textContent = msg;
+        birthdayPdfErr.classList.remove("hidden");
+      } else {
+        birthdayPdfMsg.classList.add("text-red-500");
+        birthdayPdfMsg.textContent = msg;
+      }
+    }
+  });
+}
+
+// ===== Birthday ONLINE form toggle (dropdown) =====
+const toggleBirthdayBtn = qs("#toggleBirthdayOnlineForm");
+const birthdayOnlineWrap = qs("#birthdayOnlineWrap");
+
+if (toggleBirthdayBtn && birthdayOnlineWrap) {
+  toggleBirthdayBtn.addEventListener("click", () => {
+    birthdayOnlineWrap.classList.toggle("hidden");
+
+    // optional: flip the arrow
+    const arrow = toggleBirthdayBtn.querySelector("span");
+    if (arrow) arrow.textContent = birthdayOnlineWrap.classList.contains("hidden") ? "▾" : "▴";
+  });
+}
 
 
-// 20. ===== Facility ONLINE form (AJAX submit, no redirect) =====
+/* ====== BIRTHDAY FORMS END ====== */
+
+
+// 19. ===== Facility ONLINE form (AJAX submit, no redirect) =====
 const facilityOnlineForm = qs("#facilityOnlineForm");
 const facilityOnlineMsg = qs("#facilityOnlineMsg");
 
@@ -1029,7 +1033,7 @@ if (facilityOnlineForm && facilityOnlineMsg) {
   });
 }
 
-// 21. ===== Facility PDF filename display =====
+//  ===== Facility PDF filename display =====
 const facilityPdfInput = qs("#facilityPdf");
 const facilityPdfName = qs("#facilityPdfName");
 
@@ -1046,7 +1050,7 @@ if (facilityPdfInput && facilityPdfName) {
   });
 }
 
-// 22. ===== Facility PDF form submit (AJAX submit, no redirect) =====
+//  ===== Facility PDF form submit (AJAX submit, no redirect) =====
 const facilityPdfForm = qs("#facilityPdfForm");
 const facilityPdfMsg = qs("#facilityPdfMsg");
 const facilityPdfErr = qs("#facilityPdfErr");

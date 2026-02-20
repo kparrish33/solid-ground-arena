@@ -304,7 +304,7 @@
 
       <!-- PDF Upload Option (PDF-ONLY submission) -->
       <form
-        action="https://formspree.io/f/xbddlede"
+        action="/api/submit.php"
         method="POST"
         enctype="multipart/form-data"
         class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center mb-12"
@@ -384,7 +384,7 @@
       <div id="birthdayOnlineWrap" class="hidden">
       <form
         id="birthdayOnlineForm"
-        action="https://formspree.io/f/xbddlede"
+        action="/api/submit.php"
         method="POST"
         class="space-y-6"
       >
@@ -456,6 +456,12 @@ pyrotechnics, firearms, and any use inconsistent with City of Peoria C-1/2 zonin
         <h3 class="text-xl font-semibold mb-4">Section A – Event Information</h3>
         <label class="block mb-2">Applicant Name *</label>
         <input type="text" name="applicantName" required class="w-full border rounded p-2">
+
+        <label class="block mt-4 mb-2">Applicant Email *</label>
+        <input type="email" name="applicantEmail" required class="w-full border rounded p-2">
+        
+        <label class="block mt-4 mb-2">Applicant Phone *</label>
+        <input type="tel" name="applicantPhone" required class="w-full border rounded p-2">
 
         <label class="block mt-4 mb-2">Is the Applicant a 501(C) organization? *</label>
         <select name="is501c" required class="w-full border rounded p-2">
@@ -600,7 +606,7 @@ pyrotechnics, firearms, and any use inconsistent with City of Peoria C-1/2 zonin
         <label class="block mt-4 mb-2">Date *</label>
         <input type="date" name="signatureDate" required class="w-full border rounded p-2">
       </div>
-      </form>
+     
 
       <!-- Submit Button -->
       <div class="text-center mt-10">
@@ -619,6 +625,7 @@ pyrotechnics, firearms, and any use inconsistent with City of Peoria C-1/2 zonin
     </div>
   </div>
 </section>
+ </form>
 </section>
 
     <!-- CTA Section -->
