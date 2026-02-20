@@ -224,8 +224,14 @@
     <section class="py-16 text-gray-900">
   <div class="container mx-auto px-6">
 
-     <!-- IMAGE -->
-    <div class="rounded-2xl overflow-hidden bg-white shadow-lg ring-1 ring-black/5 mb-10">
+ <!-- IMAGE (clickable + logo overlay) -->
+<a
+  href="https://www.phxrollerderby.com/"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="block rounded-2xl overflow-hidden bg-white shadow-lg ring-1 ring-black/5 mb-10
+         relative"
+>
   <img
     src="images/derby_02.jpg"
     alt="Derby matches at Solid Ground Arena"
@@ -234,7 +240,21 @@
            object-[50%_15%] sm:object-[50%_18%] lg:object-[50%_20%]"
     loading="lazy"
   />
-</div>
+
+  <!-- Phoenix Roller Derby logo (top-right) -->
+  <img
+  src="images/derbylogo_02.png"
+  alt="Phoenix Roller Derby"
+  class="absolute bottom-4 right-4
+         w-32 sm:w-40 md:w-48 lg:w-56
+         h-auto object-contain
+         bg-black/40 backdrop-blur-lg
+         p-3 sm:p-4
+         rounded-2xl
+         drop-shadow-2xl
+         transition-transform duration-300 hover:scale-105"
+/>
+</a>
 
       <!-- Schedule - Top EZFacility Iframe -->
       <h2 class="text-2xl md:text-3xl font-semibold mb-4">Schedule</h2>
@@ -555,19 +575,20 @@
       </div>
     </footer>
 
-    <!-- Climate Control Banner -->
+<!-- Climate Control Banner -->
 <div
   id="climateBanner"
-  class="hidden fixed top-0 left-0 w-full z-[9999]
-         bg-gradient-to-r from-sky-400 to-blue-600
-         text-white text-center font-semibold
-         px-6 py-3 shadow-lg
-         flex items-center justify-center gap-4
-         transform -translate-y-full
+  class="hidden fixed z-[9999]
+         top-6 left-1/2 -translate-x-1/2
+         bg-[#ff5a4f] text-white
+         px-8 py-4 rounded-full shadow-2xl
+         font-semibold text-sm sm:text-base
+         flex items-center gap-4
+         transform -translate-y-10
          transition-all duration-700 ease-out"
 >
-  <span>
-    ❄️ Fully Climate-Controlled Building — Stay Cool All Summer
+  <span class="whitespace-nowrap">
+    ❄️ Fully Climate-Controlled Building - Stay Cool All Summer
   </span>
 
   <button

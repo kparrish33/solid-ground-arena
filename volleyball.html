@@ -223,23 +223,53 @@
   </div>
 </nav>
 
-    <!-- Hero Section -->
-    <header class="hero-gradient text-white">
-      <div
-        class="container mx-auto px-6 py-20"
-      >
-        <div class="w-full mb-12 md:mb-0">
-          <h1 class="font-bebas text-5xl md:text-7xl mb-6 text-yellow-400">
-            VOLLEYBALL COURTS
-          </h1>
-          <p class="text-xl mb-4">
-            Serve, set, and spike with us!
-          </p>
-        </div>
-        <div class="md:w-1/2">
-        </div>
+<!-- Hero Section -->
+<header class="hero-gradient text-white">
+  <div class="container mx-auto px-6 py-20">
+    
+    <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+      
+      <!-- LEFT: Text -->
+      <div class="w-full md:w-1/2">
+        <h1 class="font-bebas text-5xl md:text-7xl mb-6 text-yellow-400">
+          VOLLEYBALL COURTS
+        </h1>
+        <p class="text-xl mb-4">
+          Serve, set, and spike with us!
+        </p>
       </div>
-    </header>
+
+      <!-- RIGHT: Logos -->
+      <div class="w-full md:w-1/2 flex justify-center md:justify-end items-center gap-8">
+        
+        <!-- ACES -->
+        <a href="https://azacesvolleyball.com/" target="_blank" rel="noopener noreferrer">
+          <img
+            src="images/ACES_Volleyball_1.png"
+            alt="Aces Volleyball Club"
+            class="h-28 sm:h-32 md:h-40 lg:h-48 w-auto object-contain
+                   drop-shadow-2xl
+                   transition-transform duration-300 hover:scale-105"
+          />
+        </a>
+
+        <!-- REBELS -->
+        <a href="https://azrebelsvolleyball.com/" target="_blank" rel="noopener noreferrer">
+          <img
+            src="images/rebels_02.png"
+            alt="Rebels Volleyball Club"
+            class="h-40 sm:h-44 md:h-52 lg:h-60 w-auto object-contain
+                   drop-shadow-2xl
+                   transition-transform duration-300 hover:scale-105"
+          />
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+</header>
      
     <section class="py-16 text-gray-900">
   <div class="container mx-auto px-6">
@@ -578,19 +608,20 @@
       </div>
     </footer>
 
-    <!-- Climate Control Banner -->
+<!-- Climate Control Banner -->
 <div
   id="climateBanner"
-  class="hidden fixed top-0 left-0 w-full z-[9999]
-         bg-gradient-to-r from-sky-400 to-blue-600
-         text-white text-center font-semibold
-         px-6 py-3 shadow-lg
-         flex items-center justify-center gap-4
-         transform -translate-y-full
+  class="hidden fixed z-[9999]
+         top-6 left-1/2 -translate-x-1/2
+         bg-[#ff5a4f] text-white
+         px-8 py-4 rounded-full shadow-2xl
+         font-semibold text-sm sm:text-base
+         flex items-center gap-4
+         transform -translate-y-10
          transition-all duration-700 ease-out"
 >
-  <span>
-    ❄️ Fully Climate-Controlled Building — Stay Cool All Summer
+  <span class="whitespace-nowrap">
+    ❄️ Fully Climate-Controlled Building - Stay Cool All Summer
   </span>
 
   <button

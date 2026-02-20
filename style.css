@@ -1322,3 +1322,10 @@ nav .group > a {
 #birthdayPdfForm {
   overflow: visible;
 }
+
+/*************************************************************
+  Iframe Locks
+*************************************************************/
+
+#schedule, #leagues, #registration { scroll-margin-top: 120px; }
+html { scroll-behavior: smooth; }
