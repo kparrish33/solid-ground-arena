@@ -305,7 +305,7 @@
 
         <!-- PDF Upload Option (PDF-ONLY submission) -->
         <form
-          action="https://formspree.io/f/maqqnzaz"
+          action="/api/submit.php"
           method="POST"
           enctype="multipart/form-data"
           class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center mb-12"
@@ -381,7 +381,7 @@
         <div id="facilityOnlineWrap" class="hidden">
         <form
           id="facilityOnlineForm"
-          action="https://formspree.io/f/maqqnzaz"
+          action="/api/submit.php"
           method="POST"
           class="space-y-6"
         >
@@ -453,6 +453,12 @@ pyrotechnics, firearms, and any use inconsistent with City of Peoria C-1/2 zonin
         <label class="block mb-2">Applicant Name *</label>
         <input type="text" name="applicantName" required class="w-full border rounded p-2">
 
+        <label class="block mt-4 mb-2">Applicant Email *</label>
+        <input type="email" name="applicantEmail" required class="w-full border rounded p-2">
+
+        <label class="block mt-4 mb-2">Applicant Phone *</label>
+        <input type="tel" name="applicantPhone" required class="w-full border rounded p-2">
+        
         <label class="block mt-4 mb-2">Is the Applicant a 501(C) organization? *</label>
         <select name="is501c" required class="w-full border rounded p-2">
           <option value="">Select</option>

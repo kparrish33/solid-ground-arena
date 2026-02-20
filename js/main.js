@@ -994,9 +994,25 @@ if (toggleBirthdayBtn && birthdayOnlineWrap) {
 /* ====== BIRTHDAY FORMS END ====== */
 
 
-// 19. ===== Facility ONLINE form (AJAX submit, no redirect) =====
+/* ====== 19. FACILITY RENTAL FORMS (PHP) START ====== */
+
+// ===== Facility ONLINE form toggle (dropdown) =====
+const toggleFacilityBtn = qs("#toggleFacilityOnlineForm");
+const facilityOnlineWrap = qs("#facilityOnlineWrap");
+
+if (toggleFacilityBtn && facilityOnlineWrap) {
+  toggleFacilityBtn.addEventListener("click", () => {
+    facilityOnlineWrap.classList.toggle("hidden");
+
+    // flip arrow
+    const arrow = toggleFacilityBtn.querySelector("span");
+    if (arrow) arrow.textContent = facilityOnlineWrap.classList.contains("hidden") ? "▾" : "▴";
+  });
+}
+
+// ===== Facility ONLINE submit (AJAX -> PHP) =====
 const facilityOnlineForm = qs("#facilityOnlineForm");
-const facilityOnlineMsg = qs("#facilityOnlineMsg");
+const facilityOnlineMsg = qs("#facilityOnlineMsg"); // make sure you have this <p> in the form
 
 if (facilityOnlineForm && facilityOnlineMsg) {
   facilityOnlineForm.addEventListener("submit", async (e) => {
@@ -1017,14 +1033,15 @@ if (facilityOnlineForm && facilityOnlineMsg) {
         headers: { Accept: "application/json" },
       });
 
-      if (res.ok) {
+      const data = await res.json().catch(() => null);
+
+      if (res.ok && data?.ok) {
         facilityOnlineForm.reset();
         facilityOnlineMsg.classList.remove("text-red-500");
-        facilityOnlineMsg.textContent =
-          "Thank you! Your request has been submitted.";
+        facilityOnlineMsg.textContent = data.message || "Thank you! Your request has been submitted.";
       } else {
         facilityOnlineMsg.classList.add("text-red-500");
-        facilityOnlineMsg.textContent = "Oops! Something went wrong.";
+        facilityOnlineMsg.textContent = data?.message || "Oops! Something went wrong.";
       }
     } catch (err) {
       facilityOnlineMsg.classList.add("text-red-500");
@@ -1033,7 +1050,7 @@ if (facilityOnlineForm && facilityOnlineMsg) {
   });
 }
 
-//  ===== Facility PDF filename display =====
+// ===== Facility PDF filename display =====
 const facilityPdfInput = qs("#facilityPdf");
 const facilityPdfName = qs("#facilityPdfName");
 
@@ -1050,7 +1067,7 @@ if (facilityPdfInput && facilityPdfName) {
   });
 }
 
-//  ===== Facility PDF form submit (AJAX submit, no redirect) =====
+// ===== Facility PDF submit (AJAX -> PHP) =====
 const facilityPdfForm = qs("#facilityPdfForm");
 const facilityPdfMsg = qs("#facilityPdfMsg");
 const facilityPdfErr = qs("#facilityPdfErr");
@@ -1059,44 +1076,17 @@ if (facilityPdfForm && facilityPdfMsg) {
   facilityPdfForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // --- custom mobile-safe PDF validation ---
-if (facilityPdfErr) {
-  facilityPdfErr.textContent = "";
-  facilityPdfErr.classList.add("hidden");
-}
+    // clear error
+    if (facilityPdfErr) {
+      facilityPdfErr.textContent = "";
+      facilityPdfErr.classList.add("hidden");
+    }
 
-const file =
-  facilityPdfInput && facilityPdfInput.files && facilityPdfInput.files[0];
-
-if (!file) {
-  if (facilityPdfErr) {
-    facilityPdfErr.textContent =
-      "Please upload your completed PDF before submitting.";
-    facilityPdfErr.classList.remove("hidden");
-  } else {
-    facilityPdfForm.reportValidity();
-  }
-  return;
-}
-
-const isPdf =
-  file.type === "application/pdf" ||
-  file.name.toLowerCase().endsWith(".pdf");
-
-if (!isPdf) {
-  if (facilityPdfErr) {
-    facilityPdfErr.textContent =
-      "That file isn’t a PDF. Please upload a .pdf file.";
-    facilityPdfErr.classList.remove("hidden");
-  }
-  return;
-}
-
-// keep browser validation for all other required fields
-if (!facilityPdfForm.checkValidity()) {
-  facilityPdfForm.reportValidity();
-  return;
-}
+    // native validation (required pdf)
+    if (!facilityPdfForm.checkValidity()) {
+      facilityPdfForm.reportValidity();
+      return;
+    }
 
     facilityPdfMsg.classList.remove("hidden", "text-red-500");
     facilityPdfMsg.textContent = "Submitting...";
@@ -1108,43 +1098,41 @@ if (!facilityPdfForm.checkValidity()) {
         headers: { Accept: "application/json" },
       });
 
-      if (res.ok) {
+      const data = await res.json().catch(() => null);
+
+      if (res.ok && data?.ok) {
         facilityPdfForm.reset();
         if (facilityPdfName) {
           facilityPdfName.textContent = "";
           facilityPdfName.classList.add("hidden");
         }
         facilityPdfMsg.classList.remove("text-red-500");
-        facilityPdfMsg.textContent = "Thanks! Your PDF was submitted.";
+        facilityPdfMsg.textContent = data.message || "Thanks! Your PDF was submitted.";
       } else {
-        facilityPdfMsg.classList.add("text-red-500");
-        facilityPdfMsg.textContent = "Oops! Something went wrong.";
+        const msg = data?.message || "Oops! Something went wrong.";
+        if (facilityPdfErr) {
+          facilityPdfErr.textContent = msg;
+          facilityPdfErr.classList.remove("hidden");
+        } else {
+          facilityPdfMsg.classList.add("text-red-500");
+          facilityPdfMsg.textContent = msg;
+        }
       }
     } catch (err) {
-      facilityPdfMsg.classList.add("text-red-500");
-      facilityPdfMsg.textContent = "Network error — please try again.";
+      const msg = "Network error — please try again.";
+      if (facilityPdfErr) {
+        facilityPdfErr.textContent = msg;
+        facilityPdfErr.classList.remove("hidden");
+      } else {
+        facilityPdfMsg.classList.add("text-red-500");
+        facilityPdfMsg.textContent = msg;
+      }
     }
   });
 }
 
-// ===== Facility ONLINE form toggle (show/hide) =====
-(() => {
-  const btn = document.getElementById("toggleFacilityOnlineForm");
-  const wrap = document.getElementById("facilityOnlineWrap");
-  if (!btn || !wrap) return;
+/* ====== FACILITY RENTAL FORMS END ====== */
 
-  btn.addEventListener("click", () => {
-    wrap.classList.remove("hidden");
-
-    // optional: scroll into view so user sees it immediately
-    wrap.scrollIntoView({ behavior: "smooth", block: "start" });
-
-    // optional: disable button after opening (prevents re-click confusion)
-    btn.disabled = true;
-    btn.classList.add("opacity-60", "cursor-not-allowed");
-    btn.textContent = "Online Form Below ↓";
-  });
-})();
 
 // =====================
 // TICKETS PAGE (HTML products + cart + mobile scroll)
