@@ -997,15 +997,14 @@ if (toggleBirthdayBtn && birthdayOnlineWrap) {
 /* ====== 19. FACILITY RENTAL FORMS (PHP) START ====== */
 
 // ===== Facility ONLINE form toggle (dropdown) =====
-const toggleFacilityBtn = qs("#toggleFacilityOnlineForm");
-const facilityOnlineWrap = qs("#facilityOnlineWrap");
+const toggleFacilityBtn = document.querySelector("#toggleFacilityOnlineForm");
+const facilityOnlineWrap = document.querySelector("#facilityOnlineWrap");
 
 if (toggleFacilityBtn && facilityOnlineWrap) {
-  toggleFacilityBtn.addEventListener("click", () => {
+  toggleFacilityBtn.addEventListener("click", function(e) {
+    e.stopPropagation();
     facilityOnlineWrap.classList.toggle("hidden");
-
-    // flip arrow
-    const arrow = toggleFacilityBtn.querySelector("span");
+    const arrow = toggleFacilityBtn.querySelector("span:last-child");
     if (arrow) arrow.textContent = facilityOnlineWrap.classList.contains("hidden") ? "▾" : "▴";
   });
 }

@@ -832,30 +832,32 @@ pyrotechnics, firearms, and any use inconsistent with City of Peoria C-1/2 zonin
 </div>
 
 
-<!-- Floating Policy Badge (NO OUTSIDE FOOD/DRINK) -->
+<!-- Floating Policy Badge (Regular Pages) -->
 <div
   id="noOutsideFoodBadge"
-class="fixed z-[9999]
-       md:right-6 md:bottom-6
-       left-1/2 -translate-x-1/2
-       bottom-[calc(env(safe-area-inset-bottom,0px)+16px)]
-       max-w-[calc(100vw-24px)]
-       bg-yellow-400 text-black font-extrabold
-       px-5 py-3 rounded-full shadow-lg
-       flex items-center gap-3
-       cursor-default select-none"
+  class="fixed z-[9999]
+         left-1/2 -translate-x-1/2
+         bottom-[calc(env(safe-area-inset-bottom,0px)+16px)]
+         max-w-[calc(100vw-24px)]
+         md:left-auto md:right-6 md:bottom-6 md:translate-x-0 md:max-w-none
+         bg-yellow-400 text-black font-extrabold
+         px-5 py-3 rounded-full shadow-lg
+         flex items-center gap-3
+         cursor-default select-none"
 >
+  <span class="whitespace-nowrap text-sm sm:text-base">
+    NO OUTSIDE FOOD OR DRINK PERMITTED
+  </span>
 
-      <!-- Optional dismiss (remove this button if you don't want dismiss) -->
-      <button
-        type="button"
-        aria-label="Dismiss"
-        class="text-black text-xl leading-none opacity-70 hover:opacity-100"
-        onclick="this.parentElement.classList.add('hidden')"
-      >
-        &times;
-      </button>
-    </div>
+  <button
+    type="button"
+    aria-label="Dismiss"
+    class="text-black text-xl leading-none opacity-70 hover:opacity-100"
+    onclick="this.parentElement.classList.add('hidden')"
+  >
+    &times;
+  </button>
+</div>
     <script src="js/main.js"></script>
   </body>
 </html>

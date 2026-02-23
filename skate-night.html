@@ -567,30 +567,34 @@
       </div>
     </footer>
     
-    <!-- Floating Policy Badge (Skate Night – Neon Page) -->
-    <div
-      id="noOutsideFoodBadge"
-      class="fixed z-[9999] right-6 bottom-6
-            bg-yellow-400 text-black font-extrabold
-            px-5 py-3 rounded-full shadow-lg
-            flex items-center gap-3
-            cursor-default select-none
-            ring-2 ring-yellow-300/60
-            neon-policy-badge"
-    >
-      <span class="whitespace-nowrap text-sm sm:text-base max-w-[92vw] overflow-hidden text-ellipsis">
-        NO OUTSIDE FOOD OR DRINK PERMITTED
-      </span>
+<!-- Floating Policy Badge (Skate Night – Neon Page) -->
+<div
+  id="noOutsideFoodBadge"
+  class="fixed z-[9999]
+         left-1/2 -translate-x-1/2
+         bottom-[calc(env(safe-area-inset-bottom,0px)+16px)]
+         max-w-[calc(100vw-24px)]
+         md:left-auto md:right-6 md:bottom-6 md:translate-x-0 md:max-w-none
+         bg-yellow-400 text-black font-extrabold
+         px-5 py-3 rounded-full shadow-lg
+         flex items-center gap-3
+         cursor-default select-none
+         ring-2 ring-yellow-300/60
+         neon-policy-badge"
+>
+  <span class="whitespace-nowrap text-sm sm:text-base">
+    NO OUTSIDE FOOD OR DRINK PERMITTED
+  </span>
 
-      <button
-        type="button"
-        aria-label="Dismiss"
-        class="text-black text-xl leading-none opacity-70 hover:opacity-100"
-        onclick="this.parentElement.classList.add('hidden')"
-      >
-        &times;
-      </button>
-    </div>
+  <button
+    type="button"
+    aria-label="Dismiss"
+    class="text-black text-xl leading-none opacity-70 hover:opacity-100"
+    onclick="this.parentElement.classList.add('hidden')"
+  >
+    &times;
+  </button>
+</div>
     <script src="js/main.js"></script>
   </body>
 </html>
