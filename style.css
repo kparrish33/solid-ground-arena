@@ -1329,3 +1329,7 @@ nav .group > a {
 
 #schedule, #leagues, #registration { scroll-margin-top: 120px; }
 html { scroll-behavior: smooth; }
+
+button {
+  touch-action: manipulation;
+}
