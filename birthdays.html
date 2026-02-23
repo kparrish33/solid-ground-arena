@@ -836,24 +836,22 @@ pyrotechnics, firearms, and any use inconsistent with City of Peoria C-1/2 zonin
 <!-- Floating Policy Badge (Regular Pages) -->
 <div
   id="noOutsideFoodBadge"
-  class="fixed z-[9999]
-         left-3 right-3
-         bottom-[calc(env(safe-area-inset-bottom,0px)+88px)]
-         md:left-auto md:right-6 md:bottom-6
-         md:w-auto
-         bg-yellow-400 text-black font-extrabold
+  class="sg-popup bg-yellow-400 text-black font-extrabold
          px-5 py-3 rounded-full shadow-lg
          flex items-center justify-between gap-3
-         cursor-default select-none"
+         select-none"
 >
-  <span class="whitespace-nowrap text-sm sm:text-base">
+  <span
+    class="whitespace-nowrap overflow-hidden text-ellipsis"
+    style="font-size: clamp(12px, 3.2vw, 16px);"
+  >
     NO OUTSIDE FOOD OR DRINK PERMITTED
   </span>
 
   <button
     type="button"
     aria-label="Dismiss"
-    class="text-black text-xl leading-none opacity-70 hover:opacity-100"
+    class="shrink-0 text-black text-xl leading-none opacity-70 hover:opacity-100"
     onclick="this.parentElement.classList.add('hidden')"
   >
     &times;

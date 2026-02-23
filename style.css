@@ -1323,6 +1323,22 @@ nav .group > a {
   overflow: visible;
 }
 
+#toggleFacilityOnlineForm {
+  white-space: normal;
+  word-break: break-word;
+  height: auto;
+  min-height: 48px;
+  width: 100%;
+  padding: 12px 20px;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
 /*************************************************************
   Iframe Locks
 *************************************************************/
@@ -1330,3 +1346,29 @@ nav .group > a {
 #schedule, #leagues, #registration { scroll-margin-top: 120px; }
 html { scroll-behavior: smooth; }
 
+/*************************************************************
+  Mobile Popups 
+*************************************************************/
+.sg-popup {
+  position: fixed;
+  z-index: 9999;
+
+  /* MOBILE: never exceed viewport width */
+  left: 12px;
+  right: 12px;
+  width: auto;
+  box-sizing: border-box;
+
+  /* Keep your normal vertical position (change if needed) */
+  bottom: 24px;
+}
+
+@media (min-width: 768px) {
+  .sg-popup {
+    /* DESKTOP: your usual bottom-right behavior */
+    left: auto;
+    right: 24px;
+    bottom: 24px;
+    width: auto;
+  }
+}
