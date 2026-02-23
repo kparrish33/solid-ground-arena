@@ -571,13 +571,13 @@
 <div
   id="noOutsideFoodBadge"
   class="fixed z-[9999]
-         left-1/2 -translate-x-1/2
-         bottom-[calc(env(safe-area-inset-bottom,0px)+16px)]
-         max-w-[calc(100vw-24px)]
-         md:left-auto md:right-6 md:bottom-6 md:translate-x-0 md:max-w-none
+         left-3 right-3
+         bottom-[calc(env(safe-area-inset-bottom,0px)+88px)]
+         md:left-auto md:right-6 md:bottom-6
+         md:w-auto
          bg-yellow-400 text-black font-extrabold
          px-5 py-3 rounded-full shadow-lg
-         flex items-center gap-3
+         flex items-center justify-between gap-3
          cursor-default select-none
          ring-2 ring-yellow-300/60
          neon-policy-badge"
@@ -595,6 +595,7 @@
     &times;
   </button>
 </div>
+
     <script src="js/main.js"></script>
   </body>
 </html>
