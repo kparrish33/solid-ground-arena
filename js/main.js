@@ -712,49 +712,38 @@ document.addEventListener("DOMContentLoaded", function () {
 })();
 
 // ===== 14. Climate Control Banner (delayed slide-in + auto-hide + dismiss; per-page) =====
-(function climateBannerInit() {
-  function start() {
-    const banner = document.getElementById("climateBanner");
-    const closeBtn = document.getElementById("climateBannerClose");
-    if (!banner) return;
+(function () {
+  const el = document.getElementById("climatePopup");
+  if (!el) return;
 
-    const SHOW_DELAY_MS = 2500;
-    const AUTO_HIDE_MS = 6000;
+  const DELAY_MS = 2500;     // time before it appears
+  const AUTOHIDE_MS = 8000;  // time it stays visible after appearing
 
-    // ✅ page-specific key so each page can show independently
-    const key = "climateBannerDismissed::" + window.location.pathname;
+  let showTimer = null;
+  let hideTimer = null;
 
-    if (sessionStorage.getItem(key) === "1") return;
+  function show() {
+    el.classList.add("is-visible");
 
-    function hideBanner(setDismissed) {
-      if (setDismissed) sessionStorage.setItem(key, "1");
-
-      banner.classList.remove("translate-y-0");
-      banner.classList.add("-translate-y-full");
-      setTimeout(() => banner.classList.add("hidden"), 700);
-    }
-
-    function showBanner() {
-      banner.classList.remove("hidden");
-      requestAnimationFrame(() => {
-        banner.classList.remove("-translate-y-full");
-        banner.classList.add("translate-y-0");
-      });
-      setTimeout(() => hideBanner(false), AUTO_HIDE_MS);
-    }
-
-    closeBtn?.addEventListener("click", (e) => {
-      e.stopPropagation();
-      hideBanner(true);
-    });
-
-    setTimeout(showBanner, SHOW_DELAY_MS);
+    // auto-hide after a bit
+    hideTimer = setTimeout(() => {
+      el.classList.remove("is-visible");
+    }, AUTOHIDE_MS);
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", start);
-  } else {
-    start();
+  // show after delay
+  showTimer = setTimeout(show, DELAY_MS);
+
+  // If user dismisses manually, cancel auto-hide timers cleanly
+  const closeBtn = el.querySelector("[data-popup-close]");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      clearTimeout(showTimer);
+      clearTimeout(hideTimer);
+      el.classList.remove("is-visible");
+      el.classList.add("hidden"); // optional: remove from layout entirely
+    });
   }
 })();
 

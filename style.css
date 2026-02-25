@@ -1356,8 +1356,11 @@ html { scroll-behavior: smooth; }
 
   /* MOBILE */
   left: 50%;
-  transform: translateX(-50%);
-  bottom: 96px; /* <- visible above bottom UI + page elements */
+  --sg-x: -50%;
+  --sg-y: 0px;
+  transform: translateX(var(--sg-x)) translateY(var(--sg-y));
+
+  bottom: 96px;
   max-width: calc(100vw - 24px);
   width: max-content;
 }
@@ -1366,9 +1369,13 @@ html { scroll-behavior: smooth; }
   .sg-popup {
     /* DESKTOP */
     left: auto;
-    transform: none;
     right: 24px;
     bottom: 24px;
+
+    --sg-x: 0%;
+    --sg-y: 0px;
+    transform: translateX(var(--sg-x)) translateY(var(--sg-y));
+
     max-width: none;
     width: auto;
   }
@@ -1378,10 +1385,27 @@ html { scroll-behavior: smooth; }
 .sg-popup--top {
   bottom: auto;
   top: 18px;
+
+  /* keep centered (no separate transform needed) */
+  max-width: 94vw;
 }
 
 @media (min-width: 768px) {
   .sg-popup--top {
     top: 24px;
   }
+}
+
+/* Delayed slide/fade in (ONLY controls Y via variable, never overrides centering) */
+.sg-enter {
+  opacity: 0;
+  --sg-y: -10px;
+  pointer-events: none;
+}
+
+.sg-enter.is-visible {
+  opacity: 1;
+  --sg-y: 0px;
+  pointer-events: auto;
+  transition: opacity 320ms ease, transform 320ms ease;
 }
