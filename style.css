@@ -1349,26 +1349,27 @@ html { scroll-behavior: smooth; }
 /*************************************************************
   Mobile Popups 
 *************************************************************/
+/* SGA floating popup: mobile centered pill, desktop bottom-right */
 .sg-popup {
   position: fixed;
   z-index: 9999;
 
-  /* MOBILE: never exceed viewport width */
-  left: 12px;
-  right: 12px;
-  width: auto;
-  box-sizing: border-box;
-
-  /* Keep your normal vertical position (change if needed) */
-  bottom: 24px;
+  /* MOBILE */
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 96px; /* <- visible above bottom UI + page elements */
+  max-width: calc(100vw - 24px);
+  width: max-content;
 }
 
 @media (min-width: 768px) {
   .sg-popup {
-    /* DESKTOP: your usual bottom-right behavior */
+    /* DESKTOP */
     left: auto;
+    transform: none;
     right: 24px;
     bottom: 24px;
+    max-width: none;
     width: auto;
   }
 }
