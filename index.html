@@ -465,26 +465,26 @@
     feather.replace();
   </script>
 
-<!-- Climate Control Banner -->
+<!-- Climate Controlled Popup (TOP) -->
 <div
-  id="climateBanner"
-  class="hidden fixed z-[9999]
-         top-6 left-1/2 -translate-x-1/2
-         bg-[#ff5a4f] text-white
-         px-8 py-4 rounded-full shadow-2xl
-         font-semibold text-sm sm:text-base
-         flex items-center gap-4
-         transform -translate-y-10
-         transition-all duration-700 ease-out"
+  id="climatePopup"
+  class="sg-popup sg-popup--top
+         bg-[#ff5a4f] text-white font-extrabold
+         px-4 py-3 md:px-5 md:py-3
+         rounded-2xl md:rounded-full
+         shadow-lg
+         flex items-start md:items-center gap-3
+         max-w-[94vw] md:max-w-none"
 >
-  <span class="whitespace-nowrap">
-    ❄️ Fully Climate-Controlled Building - Stay Cool All Summer
+  <span class="text-xs sm:text-sm md:text-base leading-snug md:leading-none break-words">
+    ❄️ Fully Climate-Controlled Building – Stay Cool All Summer
   </span>
 
   <button
-    id="climateBannerClose"
-    class="text-white text-xl leading-none opacity-80 hover:opacity-100"
+    type="button"
     aria-label="Dismiss"
+    class="shrink-0 text-white text-xl leading-none opacity-80 hover:opacity-100"
+    onclick="this.parentElement.classList.add('hidden')"
   >
     &times;
   </button>

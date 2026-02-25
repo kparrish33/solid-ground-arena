@@ -1373,3 +1373,15 @@ html { scroll-behavior: smooth; }
     width: auto;
   }
 }
+
+/* Top popup variant */
+.sg-popup--top {
+  bottom: auto;
+  top: 18px;
+}
+
+@media (min-width: 768px) {
+  .sg-popup--top {
+    top: 24px;
+  }
+}
