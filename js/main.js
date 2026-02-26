@@ -970,13 +970,19 @@ const toggleBirthdayBtn = qs("#toggleBirthdayOnlineForm");
 const birthdayOnlineWrap = qs("#birthdayOnlineWrap");
 
 if (toggleBirthdayBtn && birthdayOnlineWrap) {
-  toggleBirthdayBtn.addEventListener("click", () => {
+  const toggle = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     birthdayOnlineWrap.classList.toggle("hidden");
 
-    // optional: flip the arrow
-    const arrow = toggleBirthdayBtn.querySelector("span");
+    // flip ONLY the arrow (last span)
+    const arrow = toggleBirthdayBtn.querySelector("span:last-child");
     if (arrow) arrow.textContent = birthdayOnlineWrap.classList.contains("hidden") ? "▾" : "▴";
-  });
+  };
+
+  toggleBirthdayBtn.addEventListener("click", toggle);
+  toggleBirthdayBtn.addEventListener("touchend", toggle, { passive: false });
 }
 
 

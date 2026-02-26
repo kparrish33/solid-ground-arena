@@ -372,25 +372,32 @@
 
       </form>
 
-      <!-- Or text -->
-      <div class="text-center mb-10">
-        <button
-        type="button"
-        id="toggleFacilityOnlineForm"
-        class="w-full sm:w-auto inline-flex items-center justify-center gap-2
-              whitespace-normal leading-tight text-center
-              border-2 border-[#5fbcff] text-[#5fbcff]
-              px-6 sm:px-8 py-3 rounded-full font-semibold
-              hover:bg-[#5fbcff] hover:text-white
-              transition-all duration-300"
-      >
-        <span class="text-center">COMPLETE OUR ONLINE FORM INSTEAD</span>
-        <span class="text-lg leading-none shrink-0"></span>
-      </button>
-      </div>
+<!-- Or text -->
+<div class="text-center mb-10">
+<button
+  type="button"
+  id="toggleBirthdayOnlineForm"
+  class="inline-flex items-center justify-center gap-3
+         border-2 border-[#5fbcff] text-[#5fbcff]
+         px-8 py-3 rounded-full font-extrabold
+         tracking-wide uppercase
+         hover:bg-[#5fbcff] hover:text-white
+         transition-all duration-300
+         select-none cursor-pointer touch-manipulation"
+>
+  <span>Complete our online form instead</span>
+  <span class="text-lg leading-none" aria-hidden="true">▾</span>
+</button>
+</div>
 
-      <!-- Birthday Online Form -->
-      <div id="birthdayOnlineWrap" class="hidden">
+<!-- Birthday Online Form -->
+<div id="birthdayOnlineWrap" class="hidden">
+  <section class="py-16 bg-gray-100 text-gray-800">
+    <div class="container mx-auto px-6 max-w-4xl">
+      <h2 class="font-bebas text-4xl md:text-5xl mb-6 text-center text-gray-800">
+        BIRTHDAY PARTY APPLICATION FOR SOLID GROUND ARENA
+      </h2>
+
       <form
         id="birthdayOnlineForm"
         action="/api/submit.php"
@@ -630,11 +637,10 @@ pyrotechnics, firearms, and any use inconsistent with City of Peoria C-1/2 zonin
             </p>
       </div>
     </form>
-    </div>
-    </div>
   </div>
+    </div>
+      </div>
 </section>
- </form>
 </section>
 
     <!-- CTA Section -->

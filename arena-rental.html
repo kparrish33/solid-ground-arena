@@ -369,36 +369,40 @@
 
         </form>
 
-        <!-- Or text -->
-        <div class="text-center mb-10">
-          <button
-            type="button"
-            id="toggleFacilityOnlineForm"
-            class="inline-flex items-center gap-2
-                  border-2 border-[#5fbcff] text-[#5fbcff]
-                  px-8 py-3 rounded-full font-semibold
-                  hover:bg-[#5fbcff] hover:text-white
-                  transition-all duration-300"
-          >
-            COMPLETE OUR ONLINE FORM INSTEAD
-            <span class="text-lg leading-none"></span>
-          </button>
-        </div>
+<div class="text-center mb-10">
+<button
+  type="button"
+  id="toggleFacilityOnlineForm"
+  class="inline-flex items-center justify-center gap-3
+         border-2 border-[#5fbcff] text-[#5fbcff]
+         px-8 py-3 rounded-full font-extrabold
+         tracking-wide uppercase
+         hover:bg-[#5fbcff] hover:text-white
+         transition-all duration-300
+         select-none cursor-pointer touch-manipulation
+         max-w-[520px] w-auto"
+>
+  <span>Complete our online form instead</span>
+  <span class="text-lg leading-none" aria-hidden="true">▾</span>
+</button>
+</div>
 
-        <!-- Facility Rental Form Section -->
-        <div id="facilityOnlineWrap" class="hidden">
-        <form
-          id="facilityOnlineForm"
-          action="/api/submit.php"
-          method="POST"
-          class="space-y-6"
-        >
-          <input type="hidden" name="_subject" value="Facility Rental Online Form - Solid Ground Arena" />
-          <input type="hidden" name="submission_type" value="online_form" />
+      <!-- Birthday Online Form -->
+      <div id="birthdayOnlineWrap" class="hidden">
+      <form
+        id="birthdayOnlineForm"
+        action="/api/submit.php"
+        method="POST"
+        class="space-y-6"
+      >
+        <input type="hidden" name="_subject" value="Birthday Party Online Form">
+        <input type="hidden" name="submission_type" value="online_form">
 
-          <section id="facility-rental-form" class="py-16 bg-gray-100 text-gray-800">
-            <div class="container mx-auto px-6 max-w-4xl">
-              <div class="max-w-4xl mx-auto">
+        <section id="rental-form" class="py-16 bg-gray-100 text-gray-800">
+          <div class="container mx-auto px-6 max-w-4xl">
+            <h2 class="font-bebas text-4xl md:text-5xl mb-6 text-center text-gray-800">
+              BIRTHDAY PARTY APPLICATION FOR SOLID GROUND ARENA
+            </h2>
                 <!-- TITLE -->
                 <h2 class="font-bebas text-4xl md:text-5xl mb-6 text-center text-gray-800">
                   FACILITY RENTAL STATEMENT OF TERMS AND APPLICATION FOR SOLID GROUND ARENA
@@ -728,7 +732,7 @@ pyrotechnics, firearms, and any use inconsistent with City of Peoria C-1/2 zonin
     </form>
   </div>
 </section>
-</section>
+ </div>
 
     <!-- CTA Section -->
     <section class="py-20 bg-yellow-400 text-white">
