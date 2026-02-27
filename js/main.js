@@ -989,143 +989,200 @@ if (toggleBirthdayBtn && birthdayOnlineWrap) {
 /* ====== BIRTHDAY FORMS END ====== */
 
 
-/* ====== 19. FACILITY RENTAL FORMS (PHP) START ====== */
+/* ====== 19. FACILITY RENTAL FORMS (PHP) START (REPLACEMENT) ====== */
 
-// ===== Facility ONLINE form toggle (dropdown) =====
-const toggleFacilityBtn = document.querySelector("#toggleFacilityOnlineForm");
-const facilityOnlineWrap = document.querySelector("#facilityOnlineWrap");
+/**
+ * Assumes you already have:
+ *   const qs = (s, scope=document) => scope.querySelector(s);
+ * If not, uncomment:
+ *   const qs = (s, scope=document) => scope.querySelector(s);
+ */
 
-if (toggleFacilityBtn && facilityOnlineWrap) {
-  toggleFacilityBtn.addEventListener("click", function(e) {
-    e.stopPropagation();
-    facilityOnlineWrap.classList.toggle("hidden");
-    const arrow = toggleFacilityBtn.querySelector("span:last-child");
-    if (arrow) arrow.textContent = facilityOnlineWrap.classList.contains("hidden") ? "▾" : "▴";
-  });
-}
+(function () {
+  // ---------- Helpers ----------
+  const setText = (el, txt) => { if (el) el.textContent = txt; };
+  const show = (el) => { if (el) el.classList.remove("hidden"); };
+  const hide = (el) => { if (el) el.classList.add("hidden"); };
+  const setErrorStyle = (el, isError) => {
+    if (!el) return;
+    el.classList.toggle("text-red-500", !!isError);
+  };
 
-// ===== Facility ONLINE submit (AJAX -> PHP) =====
-const facilityOnlineForm = qs("#facilityOnlineForm");
-const facilityOnlineMsg = qs("#facilityOnlineMsg"); // make sure you have this <p> in the form
+  // ---------- 1) ONLINE form toggle (dropdown) ----------
+  const toggleFacilityBtn = qs("#toggleFacilityOnlineForm");
+  const facilityOnlineWrap = qs("#facilityOnlineWrap");
 
-if (facilityOnlineForm && facilityOnlineMsg) {
-  facilityOnlineForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  if (toggleFacilityBtn && facilityOnlineWrap) {
+    const toggle = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-    if (!facilityOnlineForm.checkValidity()) {
-      facilityOnlineForm.reportValidity();
-      return;
-    }
+      facilityOnlineWrap.classList.toggle("hidden");
 
-    facilityOnlineMsg.classList.remove("hidden", "text-red-500");
-    facilityOnlineMsg.textContent = "Submitting...";
+      // Flip ONLY arrow span if present (expects 2 spans; last is arrow)
+      const arrow = toggleFacilityBtn.querySelector("span:last-child");
+      if (arrow) arrow.textContent = facilityOnlineWrap.classList.contains("hidden") ? "▾" : "▴";
+    };
 
-    try {
-      const res = await fetch(facilityOnlineForm.action, {
-        method: "POST",
-        body: new FormData(facilityOnlineForm),
-        headers: { Accept: "application/json" },
-      });
+    toggleFacilityBtn.addEventListener("click", toggle);
+    toggleFacilityBtn.addEventListener("touchend", toggle, { passive: false });
+  }
 
-      const data = await res.json().catch(() => null);
+  // ---------- 2) ONLINE submit (AJAX -> PHP) ----------
+  const facilityOnlineForm = qs("#facilityOnlineForm");
+  const facilityOnlineMsg = qs("#facilityOnlineMsg"); // optional but recommended
 
-      if (res.ok && data?.ok) {
-        facilityOnlineForm.reset();
-        facilityOnlineMsg.classList.remove("text-red-500");
-        facilityOnlineMsg.textContent = data.message || "Thank you! Your request has been submitted.";
-      } else {
-        facilityOnlineMsg.classList.add("text-red-500");
-        facilityOnlineMsg.textContent = data?.message || "Oops! Something went wrong.";
+  if (facilityOnlineForm) {
+    facilityOnlineForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Native validation UI
+      if (!facilityOnlineForm.checkValidity()) {
+        facilityOnlineForm.reportValidity();
+        return;
       }
-    } catch (err) {
-      facilityOnlineMsg.classList.add("text-red-500");
-      facilityOnlineMsg.textContent = "Network error — please try again.";
-    }
-  });
-}
 
-// ===== Facility PDF filename display =====
-const facilityPdfInput = qs("#facilityPdf");
-const facilityPdfName = qs("#facilityPdfName");
+      // Status message (optional)
+      if (facilityOnlineMsg) {
+        setErrorStyle(facilityOnlineMsg, false);
+        show(facilityOnlineMsg);
+        setText(facilityOnlineMsg, "Submitting...");
+      }
 
-if (facilityPdfInput && facilityPdfName) {
-  facilityPdfInput.addEventListener("change", () => {
-    const file = facilityPdfInput.files && facilityPdfInput.files[0];
-    if (file) {
-      facilityPdfName.textContent = `Attached: ${file.name}`;
-      facilityPdfName.classList.remove("hidden");
-    } else {
-      facilityPdfName.textContent = "";
-      facilityPdfName.classList.add("hidden");
-    }
-  });
-}
+      try {
+        const res = await fetch(facilityOnlineForm.action, {
+          method: "POST",
+          body: new FormData(facilityOnlineForm),
+          headers: { Accept: "application/json" },
+        });
 
-// ===== Facility PDF submit (AJAX -> PHP) =====
-const facilityPdfForm = qs("#facilityPdfForm");
-const facilityPdfMsg = qs("#facilityPdfMsg");
-const facilityPdfErr = qs("#facilityPdfErr");
+        const data = await res.json().catch(() => null);
 
-if (facilityPdfForm && facilityPdfMsg) {
-  facilityPdfForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    // clear error
-    if (facilityPdfErr) {
-      facilityPdfErr.textContent = "";
-      facilityPdfErr.classList.add("hidden");
-    }
-
-    // native validation (required pdf)
-    if (!facilityPdfForm.checkValidity()) {
-      facilityPdfForm.reportValidity();
-      return;
-    }
-
-    facilityPdfMsg.classList.remove("hidden", "text-red-500");
-    facilityPdfMsg.textContent = "Submitting...";
-
-    try {
-      const res = await fetch(facilityPdfForm.action, {
-        method: "POST",
-        body: new FormData(facilityPdfForm),
-        headers: { Accept: "application/json" },
-      });
-
-      const data = await res.json().catch(() => null);
-
-      if (res.ok && data?.ok) {
-        facilityPdfForm.reset();
-        if (facilityPdfName) {
-          facilityPdfName.textContent = "";
-          facilityPdfName.classList.add("hidden");
-        }
-        facilityPdfMsg.classList.remove("text-red-500");
-        facilityPdfMsg.textContent = data.message || "Thanks! Your PDF was submitted.";
-      } else {
-        const msg = data?.message || "Oops! Something went wrong.";
-        if (facilityPdfErr) {
-          facilityPdfErr.textContent = msg;
-          facilityPdfErr.classList.remove("hidden");
+        if (res.ok && data?.ok) {
+          facilityOnlineForm.reset();
+          if (facilityOnlineMsg) {
+            setErrorStyle(facilityOnlineMsg, false);
+            setText(facilityOnlineMsg, data.message || "Thank you! Your request has been submitted.");
+          }
         } else {
-          facilityPdfMsg.classList.add("text-red-500");
-          facilityPdfMsg.textContent = msg;
+          if (facilityOnlineMsg) {
+            setErrorStyle(facilityOnlineMsg, true);
+            setText(facilityOnlineMsg, data?.message || "Oops! Something went wrong.");
+          } else {
+            // Fallback so failures aren’t invisible
+            alert(data?.message || "Oops! Something went wrong.");
+          }
+        }
+      } catch (err) {
+        if (facilityOnlineMsg) {
+          setErrorStyle(facilityOnlineMsg, true);
+          setText(facilityOnlineMsg, "Network error — please try again.");
+        } else {
+          alert("Network error — please try again.");
         }
       }
-    } catch (err) {
-      const msg = "Network error — please try again.";
-      if (facilityPdfErr) {
-        facilityPdfErr.textContent = msg;
-        facilityPdfErr.classList.remove("hidden");
-      } else {
-        facilityPdfMsg.classList.add("text-red-500");
-        facilityPdfMsg.textContent = msg;
-      }
-    }
-  });
-}
+    });
+  }
 
-/* ====== FACILITY RENTAL FORMS END ====== */
+  // ---------- 3) PDF filename display ----------
+  const facilityPdfInput = qs("#facilityPdf");
+  const facilityPdfName = qs("#facilityPdfName"); // optional
+
+  if (facilityPdfInput) {
+    facilityPdfInput.addEventListener("change", () => {
+      const file = facilityPdfInput.files && facilityPdfInput.files[0];
+      if (facilityPdfName) {
+        if (file) {
+          setText(facilityPdfName, `Attached: ${file.name}`);
+          show(facilityPdfName);
+        } else {
+          setText(facilityPdfName, "");
+          hide(facilityPdfName);
+        }
+      }
+    });
+  }
+
+  // ---------- 4) PDF submit (AJAX -> PHP) ----------
+  const facilityPdfForm = qs("#facilityPdfForm");
+  const facilityPdfMsg = qs("#facilityPdfMsg");   // optional but recommended
+  const facilityPdfErr = qs("#facilityPdfErr");   // optional
+
+  if (facilityPdfForm) {
+    facilityPdfForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Clear old errors
+      if (facilityPdfErr) {
+        setText(facilityPdfErr, "");
+        hide(facilityPdfErr);
+      }
+
+      // Native validation UI (required pdf, required fields)
+      if (!facilityPdfForm.checkValidity()) {
+        facilityPdfForm.reportValidity();
+        return;
+      }
+
+      if (facilityPdfMsg) {
+        setErrorStyle(facilityPdfMsg, false);
+        show(facilityPdfMsg);
+        setText(facilityPdfMsg, "Submitting...");
+      }
+
+      try {
+        const res = await fetch(facilityPdfForm.action, {
+          method: "POST",
+          body: new FormData(facilityPdfForm),
+          headers: { Accept: "application/json" },
+        });
+
+        const data = await res.json().catch(() => null);
+
+        if (res.ok && data?.ok) {
+          facilityPdfForm.reset();
+
+          // Clear filename label if present
+          if (facilityPdfName) {
+            setText(facilityPdfName, "");
+            hide(facilityPdfName);
+          }
+
+          if (facilityPdfMsg) {
+            setErrorStyle(facilityPdfMsg, false);
+            setText(facilityPdfMsg, data.message || "Thanks! Your PDF was submitted.");
+          }
+        } else {
+          const msg = data?.message || "Oops! Something went wrong.";
+
+          if (facilityPdfErr) {
+            setText(facilityPdfErr, msg);
+            show(facilityPdfErr);
+          } else if (facilityPdfMsg) {
+            setErrorStyle(facilityPdfMsg, true);
+            setText(facilityPdfMsg, msg);
+          } else {
+            alert(msg);
+          }
+        }
+      } catch (err) {
+        const msg = "Network error — please try again.";
+
+        if (facilityPdfErr) {
+          setText(facilityPdfErr, msg);
+          show(facilityPdfErr);
+        } else if (facilityPdfMsg) {
+          setErrorStyle(facilityPdfMsg, true);
+          setText(facilityPdfMsg, msg);
+        } else {
+          alert(msg);
+        }
+      }
+    });
+  }
+})();
+
+/* ====== FACILITY RENTAL FORMS (PHP) END (REPLACEMENT) ====== */
 
 
 // =====================
