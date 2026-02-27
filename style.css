@@ -174,17 +174,21 @@ nav .group > a {
   top: 50%;
   right: 0;
   transform: translateY(-50%);
-  width: clamp(700px, 54vw, 900px);
-  height: clamp(960px, 100vh, 1260px);
+
+  width: clamp(360px, 28vw, 520px); /* narrower */
+  height: auto;                      /* let aspect-ratio control height */
   pointer-events: none;
 }
-
 .video-shell {
-  height: min(72vh, 560px);   /* mobile-friendly vertical viewing */
-  border-radius: 22px;
-  z-index: 1;
+  position: relative;
+  width: 100%;
+  height: auto;         
+  aspect-ratio: 9 / 16;
+  border-radius: 28px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
 }
-
 .video-shell::before {
   content: "";
   position: absolute;
@@ -290,10 +294,15 @@ nav .group > a {
     transform: none;
   }
   .video-shell {
-    height: 240px;
-    border-radius: 22px;
-    z-index: 1;
-  }
+  width: min(520px, 92vw);  /* wider than before */
+  margin: 0 auto;
+
+  aspect-ratio: 9 / 16;     /* keep vertical */
+  height: auto;
+
+  border-radius: 22px;
+  z-index: 1;
+}
   .video-shell::before {
     display: none;
   }
@@ -302,6 +311,20 @@ nav .group > a {
 @media (min-width: 900px) {
   .stripe-content {
     transform: translateX(-20px);
+  }
+}
+
+/* ===== Desktop: pin video bubble to the top (no vertical centering) ===== */
+@media (min-width: 901px) {
+  .video-overlay {
+    top: 0 !important;          /* move bubble to top */
+    bottom: 0 !important;       /* stretch downward */
+    transform: none !important; /* remove translateY(-50%) */
+    height: auto !important;    /* let top/bottom control height */
+  }
+
+  .video-shell {
+    height: 100% !important;    /* fill the overlay */
   }
 }
 
