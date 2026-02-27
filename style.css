@@ -321,13 +321,13 @@ nav .group > a {
     bottom: 0 !important;       /* stretch downward */
     transform: none !important; /* remove translateY(-50%) */
     height: auto !important;    /* let top/bottom control height */
+    width: clamp(480px, 38vw, 700px);
   }
 
   .video-shell {
     height: 100% !important;    /* fill the overlay */
   }
 }
-
 /* ========== LIVE BADGE ========== */
 #floatingLiveBadge {
   backdrop-filter: blur(4px);
