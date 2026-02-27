@@ -1,0 +1,25 @@
+deployment:
+  tasks:
+    # 1) Go to repo root (cpanel runs from repo root, but this is harmless)
+    - export DEPLOYPATH=~/public_html/
+
+    # 2) Sync repo -> public_html (delete removed files, but exclude repo-only stuff)
+    - /bin/rsync -av --delete \
+      --exclude ".git/" \
+      --exclude ".github/" \
+      --exclude ".vscode/" \
+      --exclude ".cpanel.yml" \
+      --exclude "README.md" \
+      --exclude ".DS_Store" \
+      --exclude "node_modules/" \
+      --exclude "package.json" \
+      --exclude "package-lock.json" \
+      --exclude "yarn.lock" \
+      ./ $DEPLOYPATH
+
+    # 3) Permissions (safe defaults)
+    - /bin/find $DEPLOYPATH -type d -exec chmod 755 {} \;
+    - /bin/find $DEPLOYPATH -type f -exec chmod 644 {} \;
+
+    # 4) Ensure PHP scripts in /api are readable/executable by server
+    - /bin/find $DEPLOYPATH/api -type f -name "*.php" -exec chmod 644 {} \; || true
