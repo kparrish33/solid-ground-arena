@@ -286,8 +286,16 @@
   <!-- Video overlay (KEEP your existing markup inside) -->
   <div class="video-overlay">
     <div class="video-shell">
-      <!-- your video/iframe element -->
-      <!-- <video class="video-el" ...></video> or iframe -->
+      <video
+        class="video-el"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+      >
+        <source src="/videos/home_01.mp4" type="video/mp4" />
+      </video>
       <div class="video-caption">
         <div class="video-kicker">WATCH</div>
         <div class="video-title">Solid Ground Highlights</div>

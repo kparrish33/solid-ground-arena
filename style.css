@@ -178,15 +178,13 @@ nav .group > a {
   height: clamp(960px, 100vh, 1260px);
   pointer-events: none;
 }
+
 .video-shell {
-  position: relative;
-  width: 100%;
-  height: calc(100% - 24px);
-  border-radius: 28px;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(6px);
+  height: min(72vh, 560px);   /* mobile-friendly vertical viewing */
+  border-radius: 22px;
+  z-index: 1;
 }
+
 .video-shell::before {
   content: "";
   position: absolute;
