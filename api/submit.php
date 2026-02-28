@@ -1,126 +1,173 @@
 <?php
-// api/submit.php
+declare(strict_types=1);
+
+// Always return JSON for AJAX
 header('Content-Type: application/json; charset=utf-8');
 
-require_once __DIR__ . '/config.php';
+// ---- Config ----
+// If you have api/config.php, we include it (optional).
+// You told me config.php currently just echoes text — REMOVE that echo.
+// config.php should NOT output anything.
+$configPath = __DIR__ . '/config.php';
+if (file_exists($configPath)) {
+  require_once $configPath;
+}
 
-// Only allow POST
+// Destination email (ONLY this)
+$TO_EMAIL = defined('SGA_TO_EMAIL') ? SGA_TO_EMAIL : 'info@solidgroundarena.com';
+
+// Basic guardrails
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   http_response_code(405);
-  echo json_encode(['ok' => false, 'message' => 'Method not allowed']);
+  echo json_encode(['ok' => false, 'message' => 'Method not allowed.']);
   exit;
 }
 
-$to = defined('FORM_TO_EMAIL') ? FORM_TO_EMAIL : 'info@solidgroundarena.com';
-
-// Basic anti-spam honeypot (add <input name="website" ...> hidden in forms if you want)
-if (!empty($_POST['website'])) {
-  echo json_encode(['ok' => true, 'message' => 'Submitted.']);
+// Optional: simple anti-spam honeypot (add <input name="website" class="hidden"> in forms if you want)
+if (!empty($_POST['website'] ?? '')) {
+  http_response_code(200);
+  echo json_encode(['ok' => true, 'message' => 'Submitted.']); // pretend success
   exit;
 }
 
-$subject = trim($_POST['_subject'] ?? 'Website Form Submission');
-$submissionType = trim($_POST['submission_type'] ?? 'online_form');
-
-function clean($v) {
-  if (is_array($v)) $v = implode(', ', $v);
-  $v = (string)$v;
-  $v = trim($v);
-  $v = str_replace(["\r", "\n"], ' ', $v);
+// ---- Helpers ----
+function clean($v): string {
+  if (is_array($v)) return '';
+  $v = trim((string)$v);
+  $v = str_replace(["\r", "\n"], ' ', $v); // prevent header injection
   return $v;
 }
 
-function wantsSkipKey($k) {
-  return in_array($k, ['_subject', 'submission_type'], true);
+function respond(int $code, bool $ok, string $msg): void {
+  http_response_code($code);
+  echo json_encode(['ok' => $ok, 'message' => $msg]);
+  exit;
 }
 
-// Try to find a reply-to email from common field names
-$replyTo = '';
-foreach (['email', 'Email', 'applicant_email', 'contact_email'] as $k) {
-  if (!empty($_POST[$k])) {
-    $candidate = filter_var($_POST[$k], FILTER_VALIDATE_EMAIL);
-    if ($candidate) { $replyTo = $candidate; break; }
-  }
-}
+// ---- Read meta fields ----
+$subject = clean($_POST['_subject'] ?? 'Website Form Submission - Solid Ground Arena');
+$submissionType = clean($_POST['submission_type'] ?? '');
 
-// Build message body from POST
+// ---- Build message body from POST (exclude internal fields) ----
 $lines = [];
-$lines[] = "Submission type: {$submissionType}";
-$lines[] = "Page: " . ($_SERVER['HTTP_REFERER'] ?? 'unknown');
-$lines[] = "Time: " . date('Y-m-d H:i:s');
-$lines[] = "";
-$lines[] = "---- Form Fields ----";
+$lines[] = "Solid Ground Arena - Form Submission";
+$lines[] = "Submitted: " . date('Y-m-d H:i:s');
+if ($submissionType !== '') $lines[] = "Type: " . $submissionType;
+$lines[] = "----------------------------------------";
 
 foreach ($_POST as $k => $v) {
-  if (wantsSkipKey($k)) continue;
-  $lines[] = $k . ": " . clean($v);
+  if ($k === '_subject' || $k === 'submission_type' || $k === 'website') continue;
+  $key = clean($k);
+  if (is_array($v)) {
+    $val = implode(', ', array_map('clean', $v));
+  } else {
+    $val = clean($v);
+  }
+  if ($val === '') continue;
+  $lines[] = "{$key}: {$val}";
 }
 
-$textBody = implode("\n", $lines);
+$bodyText = implode("\n", $lines);
 
-// Email headers
-$fromEmail = defined('FORM_FROM_EMAIL') ? FORM_FROM_EMAIL : $to;
-$fromName  = defined('FORM_FROM_NAME')  ? FORM_FROM_NAME  : 'Solid Ground Arena Website';
-$ccEmail   = defined('FORM_CC_EMAIL')   ? trim(FORM_CC_EMAIL) : '';
-
-$headers = [];
-$headers[] = 'From: ' . $fromName . ' <' . $fromEmail . '>';
-if ($replyTo) $headers[] = 'Reply-To: ' . $replyTo;
-if ($ccEmail) $headers[] = 'Cc: ' . $ccEmail;
-$headers[] = 'MIME-Version: 1.0';
-
-// Handle optional PDF upload
-$file = $_FILES['pdf'] ?? null; // IMPORTANT: make sure your <input type="file"> uses name="pdf"
-$hasFile = $file && isset($file['tmp_name']) && is_uploaded_file($file['tmp_name']) && ($file['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_OK;
-
-if ($hasFile) {
-  $maxBytes = 12 * 1024 * 1024; // 12MB
-  if (($file['size'] ?? 0) > $maxBytes) {
-    http_response_code(400);
-    echo json_encode(['ok' => false, 'message' => 'File too large (max 12MB).']);
-    exit;
+// Pick a reply-to if present
+$replyTo = '';
+foreach (['email', 'Email', 'applicant_email', 'contact_email'] as $emailKey) {
+  if (!empty($_POST[$emailKey])) {
+    $candidate = clean($_POST[$emailKey]);
+    if (filter_var($candidate, FILTER_VALIDATE_EMAIL)) {
+      $replyTo = $candidate;
+      break;
+    }
   }
+}
 
+// ---- Detect optional file upload (ANY field name) ----
+$file = null;
+foreach ($_FILES as $f) {
+  if (
+    is_array($f) &&
+    isset($f['tmp_name']) &&
+    is_uploaded_file($f['tmp_name']) &&
+    ($f['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_OK
+  ) {
+    $file = $f;
+    break;
+  }
+}
+
+// If there is a file, validate it is PDF and size is reasonable
+$attachmentPath = null;
+$attachmentName = null;
+
+if ($file) {
   $filename = $file['name'] ?? 'upload.pdf';
   $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+
   if ($ext !== 'pdf') {
-    http_response_code(400);
-    echo json_encode(['ok' => false, 'message' => 'Only PDF files are allowed.']);
-    exit;
+    respond(400, false, 'Only PDF files are allowed.');
   }
 
-  $fileData = file_get_contents($file['tmp_name']);
+  $maxBytes = 12 * 1024 * 1024; // 12MB
+  if (($file['size'] ?? 0) > $maxBytes) {
+    respond(400, false, 'File too large (max 12MB).');
+  }
+
+  // Move to temp location (safer for reading)
+  $tmpDir = sys_get_temp_dir();
+  $safeName = preg_replace('/[^a-zA-Z0-9._-]/', '_', basename($filename));
+  $dest = rtrim($tmpDir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . uniqid('sga_', true) . '_' . $safeName;
+
+  if (!move_uploaded_file($file['tmp_name'], $dest)) {
+    respond(500, false, 'Upload failed. Please try again.');
+  }
+
+  $attachmentPath = $dest;
+  $attachmentName = $safeName;
+}
+
+// ---- Send mail (with or without attachment) ----
+$fromEmail = 'no-reply@' . ($_SERVER['HTTP_HOST'] ?? 'solidgroundarena.com');
+$fromName  = 'Solid Ground Arena Website';
+
+$headers = [];
+$headers[] = "From: {$fromName} <{$fromEmail}>";
+$headers[] = "MIME-Version: 1.0";
+if ($replyTo) $headers[] = "Reply-To: {$replyTo}";
+
+$sent = false;
+
+if ($attachmentPath) {
+  $boundary = '==SGA_' . md5((string)microtime(true)) . '==';
+
+  $headers[] = "Content-Type: multipart/mixed; boundary=\"{$boundary}\"";
+
+  $message  = "--{$boundary}\r\n";
+  $message .= "Content-Type: text/plain; charset=\"utf-8\"\r\n";
+  $message .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
+  $message .= $bodyText . "\r\n\r\n";
+
+  $fileData = @file_get_contents($attachmentPath);
   if ($fileData === false) {
-    http_response_code(500);
-    echo json_encode(['ok' => false, 'message' => 'Could not read uploaded file.']);
-    exit;
+    @unlink($attachmentPath);
+    respond(500, false, 'Could not read uploaded file.');
   }
 
-  $boundary = '----sga-' . md5((string)microtime(true));
-  $headers[] = 'Content-Type: multipart/mixed; boundary="' . $boundary . '"';
+  $message .= "--{$boundary}\r\n";
+  $message .= "Content-Type: application/pdf; name=\"{$attachmentName}\"\r\n";
+  $message .= "Content-Transfer-Encoding: base64\r\n";
+  $message .= "Content-Disposition: attachment; filename=\"{$attachmentName}\"\r\n\r\n";
+  $message .= chunk_split(base64_encode($fileData)) . "\r\n";
+  $message .= "--{$boundary}--\r\n";
 
-  $body  = "--{$boundary}\r\n";
-  $body .= "Content-Type: text/plain; charset=utf-8\r\n";
-  $body .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
-  $body .= $textBody . "\r\n\r\n";
-
-  $body .= "--{$boundary}\r\n";
-  $body .= "Content-Type: application/pdf; name=\"" . addslashes($filename) . "\"\r\n";
-  $body .= "Content-Transfer-Encoding: base64\r\n";
-  $body .= "Content-Disposition: attachment; filename=\"" . addslashes($filename) . "\"\r\n\r\n";
-  $body .= chunk_split(base64_encode($fileData)) . "\r\n";
-  $body .= "--{$boundary}--";
-
-  $ok = @mail($to, $subject, $body, implode("\r\n", $headers));
-
+  $sent = @mail($TO_EMAIL, $subject, $message, implode("\r\n", $headers));
+  @unlink($attachmentPath);
 } else {
-  $headers[] = 'Content-Type: text/plain; charset=utf-8';
-  $ok = @mail($to, $subject, $textBody, implode("\r\n", $headers));
+  $headers[] = "Content-Type: text/plain; charset=\"utf-8\"";
+  $sent = @mail($TO_EMAIL, $subject, $bodyText, implode("\r\n", $headers));
 }
 
-if ($ok) {
-  echo json_encode(['ok' => true, 'message' => 'Thanks! Your submission was received.']);
-} else {
-  http_response_code(500);
-  echo json_encode(['ok' => false, 'message' => 'Mail failed to send. Please try again or contact us.']);
+if (!$sent) {
+  respond(500, false, 'Mail failed to send. Please contact us directly.');
 }
+
+respond(200, true, 'Submitted! We’ll get back to you soon.');
