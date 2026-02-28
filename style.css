@@ -216,6 +216,16 @@ nav .group > a {
   pointer-events: none;
   z-index: 3;
 }
+/* Desktop – refined glass highlight */
+@media (min-width: 901px) {
+  .video-shell::before {
+    opacity: 0.55;      /* balanced visibility */
+    left: -85px;        /* slightly visible but not dominating */
+    width: 120px;       /* enough presence without being thick */
+    filter: blur(2px);  /* smoother fade */
+  }
+}
+
 .video-shell::after {
   content: "";
   position: absolute;
@@ -308,7 +318,7 @@ nav .group > a {
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 90px) {
   .stripe-content {
     transform: translateX(-20px);
   }
@@ -321,7 +331,7 @@ nav .group > a {
     bottom: 0 !important;       /* stretch downward */
     transform: none !important; /* remove translateY(-50%) */
     height: auto !important;    /* let top/bottom control height */
-    width: clamp(480px, 38vw, 700px);
+    width: 518px;
   }
 
   .video-shell {
