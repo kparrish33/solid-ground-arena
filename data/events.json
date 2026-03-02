@@ -1,0 +1,17 @@
+{
+  "updatedAt": "2026-03-02T00:00:00Z",
+  "events": [
+    {
+      "id": "customer-appreciation",
+      "title": "Customer Appreciation Family Skate",
+      "dates": "April 4",
+      "description": "Entry-only or entry + skate rental.",
+      "category": "Upcoming Events",
+      "buttonText": "GET TICKETS",
+      "url": "https://solidgroundarena.ticketspice.com/customer-appreciation-night",
+      "featured": true,
+      "active": true,
+      "sort": 10
+    }
+  ]
+}
