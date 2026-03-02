@@ -1235,7 +1235,7 @@ if (toggleBirthdayBtn && birthdayOnlineWrap) {
       : `<p class="text-gray-600">No events listed yet.</p>`;
   }
 
-  fetch("/data/events.json", { cache: "no-store" })
+  fetch("/data/events.json?ts=" + Date.now(), { cache: "no-store" })
     .then((r) => {
       if (!r.ok) throw new Error("Failed to load /data/events.json");
       return r.json();
