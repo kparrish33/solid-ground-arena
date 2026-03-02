@@ -156,7 +156,7 @@ if ($editId !== '') {
         <h1 class="text-3xl font-bold">Events Admin</h1>
         <p class="text-gray-600 mt-1">Edits: <code class="bg-white px-2 py-1 rounded"><?= h($dataFile) ?></code></p>
       </div>
-      <a class="text-sm underline text-gray-700" href="../tickets.php" target="_blank" rel="noopener">Open Tickets Page</a>
+      <a class="text-sm underline text-gray-700" href="../tickets" target="_blank" rel="noopener">Open Tickets Page</a>
     </div>
 
     <?php if ($flash): ?>
