@@ -1185,264 +1185,78 @@ if (toggleBirthdayBtn && birthdayOnlineWrap) {
 /* ====== FACILITY RENTAL FORMS (PHP) END (REPLACEMENT) ====== */
 
 
-// =====================
-// TICKETS PAGE (HTML products + cart + mobile scroll)
-// Requirements:
-// - Tickets page has: #productsGrid, #cartPanel, #cartItems, #cartSubtotal, #cartCount, #checkoutBtn
-// - Each product card has: [data-product][data-id][data-title][data-session][data-description][data-price]
-// - Each product button calls: onclick="addToCartFromHtml(this)"
-// =====================
+// ===============================
+// TICKETS PAGE: Render Event Cards from /data/events.json
+// ===============================
 (function () {
-  // --- 0) Only run on Tickets page ---
-  const grid = document.getElementById("productsGrid");
-  if (!grid) return;
+  // Runs only if these containers exist on the page
+  const upcomingEl = document.getElementById("eventsUpcoming");
+  const leaguesEl = document.getElementById("eventsLeagues");
+  if (!upcomingEl || !leaguesEl) return;
 
-  // --- 1) Required cart UI elements ---
-  const cartPanelEl = document.getElementById("cartPanel");
-  const cartItemsEl = document.getElementById("cartItems");
-  const cartSubtotalEl = document.getElementById("cartSubtotal");
-  const cartCountEl = document.getElementById("cartCount");
-  const checkoutBtn = document.getElementById("checkoutBtn");
-  if (
-    !cartPanelEl ||
-    !cartItemsEl ||
-    !cartSubtotalEl ||
-    !cartCountEl ||
-    !checkoutBtn
-  )
-    return;
-
-  const STORAGE_KEY = "sga_cart_v1";
-  const cart = new Map(); // id -> { product, qty }
-  const fmt = (n) => `$${Number(n).toFixed(2)}`;
-
-  // --- 2) Helpers ---
-  function scrollToCartOnMobile() {
-    if (!window.matchMedia("(max-width: 1024px)").matches) return; // only mobile/tablet
-    cartPanelEl.scrollIntoView({ behavior: "smooth", block: "start" });
+  function esc(s) {
+    return String(s ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
   }
 
-  function productFromCard(card) {
-    if (!card) return null;
-    const id = (card.dataset.id || "").trim();
-    const title = (card.dataset.title || "").trim();
-    const session = (card.dataset.session || "").trim();
-    const description = (card.dataset.description || "").trim();
-    const price = Number(card.dataset.price || 0);
+  function cardHTML(e) {
+    const title = esc(e.title);
+    const dates = esc(e.dates || "");
+    const desc = esc(e.description || "");
+    const btn = esc(e.buttonText || "GET TICKETS");
+    const url = esc(e.url || "#");
 
-    if (!id || !title || !price) return null;
-    return { id, title, session, description, price };
-  }
-
-  function saveCart() {
-    const arr = Array.from(cart.values()).map(({ product, qty }) => ({
-      id: product.id,
-      title: product.title,
-      session: product.session,
-      description: product.description,
-      price: product.price,
-      qty,
-    }));
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
-  }
-
-  function loadCart() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return;
-      const arr = JSON.parse(raw);
-      if (!Array.isArray(arr)) return;
-
-      arr.forEach((i) => {
-        if (!i?.id || !i?.title || !i?.price || !i?.qty) return;
-        cart.set(i.id, {
-          product: {
-            id: i.id,
-            title: i.title,
-            session: i.session || "",
-            description: i.description || "",
-            price: Number(i.price),
-          },
-          qty: Number(i.qty),
-        });
-      });
-    } catch {
-      // ignore
-    }
-  }
-
-  // --- 3) Render cart UI (ONLY place this once) ---
-  function renderCart() {
-    const items = Array.from(cart.values());
-    const count = items.reduce((sum, i) => sum + i.qty, 0);
-    const subtotal = items.reduce((sum, i) => sum + i.qty * i.product.price, 0);
-
-    cartCountEl.textContent = `${count} ${count === 1 ? "item" : "items"}`;
-    cartSubtotalEl.textContent = fmt(subtotal);
-
-    if (items.length === 0) {
-      cartItemsEl.innerHTML = `<p class="text-gray-500">Your cart is empty.</p>`;
-      checkoutBtn.disabled = true;
-      return;
-    }
-
-    checkoutBtn.disabled = false;
-
-    cartItemsEl.innerHTML = items
-      .map(({ product, qty }) => {
-        const lineTotal = product.price * qty;
-
-        return `
-          <div class="border border-gray-200 rounded-2xl p-4">
-            <div class="flex justify-between items-start gap-3">
-              <div>
-                <p class="font-semibold text-gray-900">${product.title}</p>
-                <p class="text-sm text-gray-600">${product.session || ""}</p>
-              </div>
-              <p class="font-semibold">${fmt(lineTotal)}</p>
-            </div>
-
-            <div class="mt-3 flex items-center justify-between">
-              <div class="inline-flex items-center gap-2">
-                <button type="button"
-                  class="w-9 h-9 rounded-full border border-gray-300 hover:bg-gray-50"
-                  onclick="updateQty('${product.id}', -1)"
-                  aria-label="Decrease quantity">−</button>
-
-                <span class="min-w-[2ch] text-center font-semibold">${qty}</span>
-
-                <button type="button"
-                  class="w-9 h-9 rounded-full border border-gray-300 hover:bg-gray-50"
-                  onclick="updateQty('${product.id}', 1)"
-                  aria-label="Increase quantity">+</button>
-              </div>
-
-              <button type="button"
-                class="text-sm underline text-gray-600 hover:text-gray-900"
-                onclick="removeItem('${product.id}')">Remove</button>
-            </div>
+    return `
+      <div class="bg-white rounded-3xl shadow-lg p-6 flex flex-col">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <h4 class="font-bebas text-3xl leading-none">${title}</h4>
+            ${dates ? `<p class="text-sm text-gray-600 mt-2">${dates}</p>` : ""}
           </div>
-        `;
-      })
-      .join("");
+        </div>
+
+        ${desc ? `<p class="mt-4 text-gray-600">${desc}</p>` : ""}
+
+        <a href="${url}" target="_blank" rel="noopener"
+           class="mt-6 inline-flex items-center justify-center bg-black text-white px-6 py-3 rounded-full font-semibold hover:bg-gray-800 transition-colors">
+          ${btn}
+        </a>
+      </div>
+    `;
   }
 
-  // --- 4) Expose button handlers (inline onclick needs window.*) ---
-  window.addToCartFromHtml = function (btn) {
-    const card = btn?.closest?.("[data-product]");
-    const product = productFromCard(card);
-    if (!product) return;
-
-    const current = cart.get(product.id);
-    cart.set(product.id, { product, qty: current ? current.qty + 1 : 1 });
-
-    saveCart();
-    renderCart();
-    scrollToCartOnMobile(); // ✅ mobile: jump user to cart after add
-  };
-
-  window.updateQty = function (id, delta) {
-    const current = cart.get(id);
-    if (!current) return;
-
-    const next = current.qty + delta;
-    if (next <= 0) cart.delete(id);
-    else cart.set(id, { product: current.product, qty: next });
-
-    saveCart();
-    renderCart();
-  };
-
-  window.removeItem = function (id) {
-    cart.delete(id);
-    saveCart();
-    renderCart();
-  };
-
-  // --- 5) Auto-add from URL (?add=PRODUCT_ID) ---
-  function autoAddFromUrlOnce() {
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("add");
-    if (!id) return;
-
-    const card = document.querySelector(
-      `[data-product][data-id="${CSS.escape(id)}"]`,
-    );
-    const product = productFromCard(card);
-    if (!product) return;
-
-    const current = cart.get(product.id);
-    cart.set(product.id, { product, qty: current ? current.qty + 1 : 1 });
-
-    saveCart();
-    renderCart();
-    scrollToCartOnMobile(); // ✅ mobile: jump to cart on deep link too
-
-    // clean URL so refresh doesn't keep re-adding
-    params.delete("add");
-    const next = params.toString();
-    history.replaceState(
-      {},
-      "",
-      window.location.pathname + (next ? `?${next}` : ""),
-    );
+  function render(list, el) {
+    el.innerHTML = list.length
+      ? list.map(cardHTML).join("")
+      : `<p class="text-gray-600">No events listed yet.</p>`;
   }
 
-  // --- 6) Checkout button ---
-  checkoutBtn.addEventListener("click", async () => {
-  // persist cart (good for your records + future confirmation page)
-  saveCart();
+  fetch("/data/events.json", { cache: "no-store" })
+    .then((r) => {
+      if (!r.ok) throw new Error("Failed to load /data/events.json");
+      return r.json();
+    })
+    .then((data) => {
+      const events = (data.events || []).filter((e) => e && e.active);
 
-  // calculate total
-  const items = Array.from(cart.values());
-  if (!items.length) return;
+      events.sort((a, b) => {
+        const sa = Number(a.sort || 0);
+        const sb = Number(b.sort || 0);
+        if (sa !== sb) return sb - sa;
+        return String(a.title || "").localeCompare(String(b.title || ""));
+      });
 
-  const amount = items.reduce((sum, i) => sum + i.qty * i.product.price, 0);
-
-  checkoutBtn.disabled = true;
-  const originalText = checkoutBtn.textContent;
-  checkoutBtn.textContent = "LOADING...";
-
-  try {
-    // Ask your server (PHP) to create the Accept Hosted token
-    const r = await fetch("/api/anet_create_token.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount }),
+      render(events.filter((e) => e.category === "Upcoming Events"), upcomingEl);
+      render(events.filter((e) => e.category === "Leagues & Camps"), leaguesEl);
+    })
+    .catch((err) => {
+      console.error(err);
+      upcomingEl.innerHTML =
+        `<p class="text-gray-600">Unable to load events right now.</p>`;
+      leaguesEl.innerHTML = "";
     });
-
-    const out = await r.json();
-
-    if (!r.ok || !out.token) {
-      console.error("Token error:", out);
-      alert("Checkout is not ready yet. Please try again.");
-      return;
-    }
-
-    // Post token to Authorize.Net hosted payment page (SANDBOX)
-    const form = document.createElement("form");
-    form.method = "POST";
-    form.action = "https://test.authorize.net/payment/payment";
-
-    const inp = document.createElement("input");
-    inp.type = "hidden";
-    inp.name = "token";
-    inp.value = out.token;
-
-    form.appendChild(inp);
-    document.body.appendChild(form);
-    form.submit();
-  } catch (err) {
-    console.error(err);
-    alert("Checkout failed to start. Please try again.");
-  } finally {
-    checkoutBtn.disabled = false;
-    checkoutBtn.textContent = originalText;
-  }
-})
-
-  // --- 7) Start ---
-  loadCart();
-  renderCart();
-  autoAddFromUrlOnce();
 })();
