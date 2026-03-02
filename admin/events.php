@@ -272,7 +272,7 @@ if ($editId !== '') {
         <div class="bg-white rounded-2xl shadow p-5">
           <div class="flex items-center justify-between">
             <h2 class="text-xl font-semibold">Current Events</h2>
-            <a class="text-sm underline text-gray-600" href="../data/events.json" target="_blank" rel="noopener">View JSON</a>
+            <a class="text-sm underline text-gray-600" href="/data/events.json?ts=<?= time() ?>" target="_blank">View JSON</a>
           </div>
 
           <div class="mt-4 overflow-x-auto">
