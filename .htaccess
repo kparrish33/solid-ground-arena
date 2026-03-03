@@ -49,13 +49,31 @@ RewriteRule ^(.+?)/?$ $1.html [L]
 # ==================================================
 ErrorDocument 404 /404.html
 
-# ==================================================
-# Cache Control
-# =================================================
+# ==========================
+# Cache Control (STOP STUCK UPDATES)
+# Put this in /public_html/.htaccess
+# ==========================
 <IfModule mod_headers.c>
+
+  # 1) HTML + PHP: always revalidate (never serve stale pages)
   <FilesMatch "\.(html|htm|php)$">
     Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
     Header set Pragma "no-cache"
     Header set Expires "0"
   </FilesMatch>
+
+  # 2) Your main JS: never cache (so Tickets/Home update immediately)
+  <FilesMatch "^main\.js$">
+    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+
+  # 3) JSON data files: never cache (so admin-added events show immediately)
+  <FilesMatch "\.json$">
+    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+
 </IfModule>
