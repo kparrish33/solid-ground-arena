@@ -323,7 +323,7 @@ if ($editId !== '') {
               />
             </div>
             <div>
-              <label class="text-sm font-semibold">Homepage Order (1 = highest)</label>
+              <label class="text-sm font-semibold">Display Order (1 = first)</label>
               <input
                 name="sort"
                 type="number"
@@ -357,7 +357,7 @@ if ($editId !== '') {
           </div>
 
           <p class="text-xs text-gray-500">
-            Homepage shows exactly 5 cards. Featured events are used for the homepage.
+            Featured events are used for the homepage event cards (maximum 5).
           </p>
 
           <button class="w-full mt-2 bg-black text-white font-bold rounded-xl py-3 hover:bg-gray-800">
