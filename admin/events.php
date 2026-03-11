@@ -77,10 +77,25 @@ function countFeaturedEvents(array $events): int {
 $data = loadData($dataFile);
 $events = $data["events"];
 
-// ---------- actions ----------
+// ---------- ui state ----------
 $flash = '';
 $error = '';
+$formValues = [];
 
+// success messages after redirect
+if (isset($_GET['saved'])) {
+  if ($_GET['saved'] === 'updated') {
+    $flash = "Event updated.";
+  } elseif ($_GET['saved'] === 'added') {
+    $flash = "Event added.";
+  }
+}
+
+if (isset($_GET['deleted'])) {
+  $flash = "Event deleted.";
+}
+
+// ---------- actions ----------
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $action = $_POST['action'] ?? '';
 
@@ -164,7 +179,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       $data["events"] = $events;
       saveData($dataFile, $data);
-      $flash = $found ? "Event updated." : "Event added.";
+
+      if ($found) {
+        header("Location: events.php?saved=updated");
+      } else {
+        header("Location: events.php?saved=added");
+      }
+      exit;
     }
 
     if ($action === 'delete') {
@@ -172,16 +193,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $events = array_values(array_filter($events, fn($ev) => ($ev["id"] ?? '') !== $id));
       $data["events"] = $events;
       saveData($dataFile, $data);
-      $flash = "Event deleted.";
-    }
 
-    // reload after changes
-    $data = loadData($dataFile);
-    $events = $data["events"];
+      header("Location: events.php?deleted=1");
+      exit;
+    }
   } catch (Throwable $t) {
     $error = $t->getMessage();
+
+    $formValues = [
+      "id" => $id ?? '',
+      "title" => $title ?? '',
+      "dates" => $dates ?? '',
+      "description" => $description ?? '',
+      "category" => $category ?? 'Upcoming Events',
+      "buttonText" => $buttonText ?? 'GET TICKETS',
+      "url" => $url ?? '',
+      "featured" => $featured ?? false,
+      "active" => $active ?? true,
+      "sort" => $sort ?? 9999
+    ];
   }
 }
+
+// reload current data after any non-redirect path
+$data = loadData($dataFile);
+$events = $data["events"];
 
 // ---------- sort for display ----------
 usort($events, function ($a, $b) {
@@ -209,6 +245,9 @@ if ($editId !== '') {
     }
   }
 }
+
+// use posted values on error, otherwise use edit record, otherwise blank
+$formData = !empty($formValues) ? $formValues : ($editing ?? []);
 ?>
 <!doctype html>
 <html lang="en">
@@ -248,7 +287,7 @@ if ($editId !== '') {
             <label class="text-sm font-semibold">ID (auto)</label>
             <input
               name="id"
-              value="<?= h((string)($editing["id"] ?? '')) ?>"
+              value="<?= h((string)($formData["id"] ?? '')) ?>"
               class="mt-1 w-full rounded-xl border px-3 py-2"
               placeholder="leave blank to auto-generate"
             />
@@ -260,7 +299,7 @@ if ($editId !== '') {
             <input
               required
               name="title"
-              value="<?= h((string)($editing["title"] ?? '')) ?>"
+              value="<?= h((string)($formData["title"] ?? '')) ?>"
               class="mt-1 w-full rounded-xl border px-3 py-2"
               placeholder="e.g., St Patrick's Ironman Hockey Tournament"
             />
@@ -271,7 +310,7 @@ if ($editId !== '') {
             <input
               required
               name="dates"
-              value="<?= h((string)($editing["dates"] ?? '')) ?>"
+              value="<?= h((string)($formData["dates"] ?? '')) ?>"
               class="mt-1 w-full rounded-xl border px-3 py-2"
               placeholder="e.g., March 14 or March 21 · April 25 · May 30"
             />
@@ -285,7 +324,7 @@ if ($editId !== '') {
               rows="3"
               class="mt-1 w-full rounded-xl border px-3 py-2"
               placeholder="Short 1-sentence description."
-            ><?= h((string)($editing["description"] ?? '')) ?></textarea>
+            ><?= h((string)($formData["description"] ?? '')) ?></textarea>
           </div>
 
           <div>
@@ -293,7 +332,7 @@ if ($editId !== '') {
             <select name="category" class="mt-1 w-full rounded-xl border px-3 py-2">
               <?php
                 $cats = ["Upcoming Events", "Leagues & Camps"];
-                $current = (string)($editing["category"] ?? 'Upcoming Events');
+                $current = (string)($formData["category"] ?? 'Upcoming Events');
                 foreach ($cats as $c) {
                   $sel = ($c === $current) ? 'selected' : '';
                   echo "<option {$sel}>" . h($c) . "</option>";
@@ -307,7 +346,7 @@ if ($editId !== '') {
             <input
               required
               name="url"
-              value="<?= h((string)($editing["url"] ?? '')) ?>"
+              value="<?= h((string)($formData["url"] ?? '')) ?>"
               class="mt-1 w-full rounded-xl border px-3 py-2"
               placeholder="https://...ticketspice.com/your-page"
             />
@@ -318,16 +357,16 @@ if ($editId !== '') {
               <label class="text-sm font-semibold">Button Text</label>
               <input
                 name="buttonText"
-                value="<?= h((string)($editing["buttonText"] ?? 'GET TICKETS')) ?>"
+                value="<?= h((string)($formData["buttonText"] ?? 'GET TICKETS')) ?>"
                 class="mt-1 w-full rounded-xl border px-3 py-2"
               />
             </div>
             <div>
-              <label class="text-sm font-semibold">Display Order (1 = first)</label>
+              <label class="text-sm font-semibold">Display Order (1=first)</label>
               <input
                 name="sort"
                 type="number"
-                value="<?= h((string)($editing["sort"] ?? '9999')) ?>"
+                value="<?= h((string)($formData["sort"] ?? '9999')) ?>"
                 class="mt-1 w-full rounded-xl border px-3 py-2"
                 placeholder="1"
               />
@@ -340,7 +379,7 @@ if ($editId !== '') {
                 type="checkbox"
                 name="active"
                 value="1"
-                <?= (($editing["active"] ?? true) ? 'checked' : '') ?>
+                <?= (($formData["active"] ?? true) ? 'checked' : '') ?>
               />
               Active
             </label>
@@ -350,14 +389,14 @@ if ($editId !== '') {
                 type="checkbox"
                 name="featured"
                 value="1"
-                <?= (($editing["featured"] ?? false) ? 'checked' : '') ?>
+                <?= (($formData["featured"] ?? false) ? 'checked' : '') ?>
               />
               Featured
             </label>
           </div>
 
           <p class="text-xs text-gray-500">
-            Featured events are used for the homepage event cards (maximum 5).
+           Featured events are used for the homepage event cards (maximum 5)
           </p>
 
           <button class="w-full mt-2 bg-black text-white font-bold rounded-xl py-3 hover:bg-gray-800">
@@ -457,9 +496,6 @@ if ($editId !== '') {
           </div>
         </div>
 
-        <p class="text-xs text-gray-500 mt-4">
-          Tip: Protect <code>/admin</code> with cPanel “Directory Privacy” so only staff can access this page.
-        </p>
       </div>
     </div>
   </div>
