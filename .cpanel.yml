@@ -1,7 +1,7 @@
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/wlcjwpi80y8j/public_html/
-    - /bin/rsync -av --delete --exclude ".git/" --exclude ".github/" --exclude ".vscode/" --exclude ".cpanel.yml" --exclude "README.md" --exclude ".DS_Store" --exclude "node_modules/" --exclude "package.json" --exclude "package-lock.json" --exclude "yarn.lock" ./ $DEPLOYPATH
+    - export DEPLOYPATH=/home/wlcjwpi80y8j/public_html
+    - /bin/rsync -av --delete --exclude ".git/" --exclude ".github/" ./ $DEPLOYPATH
     - /bin/find $DEPLOYPATH -type d -exec chmod 755 {} \;
     - /bin/find $DEPLOYPATH -type f -exec chmod 644 {} \;
-    - /bin/find $DEPLOYPATH/api -type f -name "*.php" -exec chmod 644 {} \; || true
+    - /bin/find $DEPLOYPATH/api -type f -name "*.php" -exec chmod 644 {} \;
