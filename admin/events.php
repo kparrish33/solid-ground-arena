@@ -388,7 +388,7 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
           </div>
 
           <p class="text-xs text-gray-500">
-           Featured events are used for the homepage event cards (maximum 5)
+           Featured events are used for the homepage event cards. Skate night events are used for the neon page event cards.
           </p>
 
           <button class="w-full mt-2 bg-black text-white font-bold rounded-xl py-3 hover:bg-gray-800">
