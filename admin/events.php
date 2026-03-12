@@ -109,8 +109,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $buttonText = trim((string)($_POST['buttonText'] ?? 'GET TICKETS'));
       $url = trim((string)($_POST['url'] ?? ''));
       $featured = normalizeBool($_POST['featured'] ?? false);
-      $active = normalizeBool($_POST['active'] ?? true);
-      $sort = (int)($_POST['sort'] ?? 9999);
+      $active = normalizeBool($_POST['active'] ?? false);
+      $sort = (int)($_POST['sort'] ?? 99);
 
       if ($title === '') {
         throw new RuntimeException("Title is required.");
@@ -202,8 +202,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       "buttonText" => $buttonText ?? 'GET TICKETS',
       "url" => $url ?? '',
       "featured" => $featured ?? false,
-      "active" => $active ?? true,
-      "sort" => $sort ?? 9999
+      "active" => $active ?? false,
+      "sort" => $sort ?? 99
     ];
   }
 }
@@ -214,8 +214,8 @@ $events = $data["events"];
 
 // ---------- sort for display ----------
 usort($events, function ($a, $b) {
-  $sa = (int)($a["sort"] ?? 9999);
-  $sb = (int)($b["sort"] ?? 9999);
+  $sa = (int)($a["sort"] ?? 99);
+  $sb = (int)($b["sort"] ?? 99);
 
   if ($sa === $sb) {
     return strcmp((string)($a["title"] ?? ''), (string)($b["title"] ?? ''));
@@ -294,7 +294,7 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
               name="title"
               value="<?= h((string)($formData["title"] ?? '')) ?>"
               class="mt-1 w-full rounded-xl border px-3 py-2"
-              placeholder="e.g., St Patrick's Ironman Hockey Tournament"
+              placeholder="Themed Open Skate"
             />
           </div>
 
@@ -305,7 +305,7 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
               name="dates"
               value="<?= h((string)($formData["dates"] ?? '')) ?>"
               class="mt-1 w-full rounded-xl border px-3 py-2"
-              placeholder="e.g., March 14 or March 21 路 April 25 路 May 30"
+              placeholder="Saturday Mar 21"
             />
           </div>
 
@@ -335,7 +335,7 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
           </div>
 
           <div>
-            <label class="text-sm font-semibold">TicketSpice URL</label>
+            <label class="text-sm font-semibold">URL</label>
             <input
               name="url"
               value="<?= h((string)($formData["url"] ?? '')) ?>"
@@ -358,7 +358,7 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
               <input
                 name="sort"
                 type="number"
-                value="<?= h((string)($formData["sort"] ?? '9999')) ?>"
+                value="<?= h((string)($formData["sort"] ?? '99')) ?>"
                 class="mt-1 w-full rounded-xl border px-3 py-2"
                 placeholder="1"
               />
@@ -369,26 +369,26 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
             <label class="flex items-center gap-2 text-sm">
               <input
                 type="checkbox"
-                name="active"
-                value="1"
-                <?= (($formData["active"] ?? true) ? 'checked' : '') ?>
-              />
-              Active
-            </label>
-
-            <label class="flex items-center gap-2 text-sm">
-              <input
-                type="checkbox"
                 name="featured"
                 value="1"
                 <?= (($formData["featured"] ?? false) ? 'checked' : '') ?>
               />
               Featured
             </label>
+            
+            <label class="flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                name="active"
+                value="1"
+                <?= (($formData["active"] ?? false) ? 'checked' : '') ?>
+              />
+              Skate Night
+            </label>
           </div>
 
           <p class="text-xs text-gray-500">
-           Featured events are used for the homepage event cards (maximum 5)
+           Featured events are used for the homepage event cards. Skate night events are used for the neon page event cards.
           </p>
 
           <button class="w-full mt-2 bg-black text-white font-bold rounded-xl py-3 hover:bg-gray-800">
@@ -446,8 +446,8 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
                   <th class="py-2 pr-4">Title</th>
                   <th class="py-2 pr-4">Dates</th>
                   <th class="py-2 pr-4">Category</th>
-                  <th class="py-2 pr-4">Active</th>
                   <th class="py-2 pr-4">Featured</th>
+                  <th class="py-2 pr-4">Skate Night</th>
                   <th class="py-2 pr-4">Order</th>
                   <th class="py-2 pr-4">Actions</th>
                 </tr>
@@ -465,15 +465,15 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
                           target="_blank"
                           rel="noopener"
                         >
-                          TicketSpice Link
+                          Link
                         </a>
                       </div>
                     </td>
                     <td class="py-3 pr-4"><?= h((string)($ev["dates"] ?? '')) ?></td>
                     <td class="py-3 pr-4"><?= h((string)($ev["category"] ?? '')) ?></td>
-                    <td class="py-3 pr-4"><?= (($ev["active"] ?? false) ? 'Yes' : 'No') ?></td>
                     <td class="py-3 pr-4"><?= (($ev["featured"] ?? false) ? 'Yes' : 'No') ?></td>
-                    <td class="py-3 pr-4"><?= h((string)($ev["sort"] ?? 9999)) ?></td>
+                    <td class="py-3 pr-4"><?= (($ev["active"] ?? false) ? 'Yes' : 'No') ?></td>
+                    <td class="py-3 pr-4"><?= h((string)($ev["sort"] ?? 99)) ?></td>
                     <td class="py-3 pr-4">
                       <a class="underline" href="events.php?edit=<?= urlencode((string)($ev["id"] ?? '')) ?>">Edit</a>
                     </td>
