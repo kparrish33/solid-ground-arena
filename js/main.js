@@ -37,24 +37,6 @@ function flipLogo() {
   }, 500);
 }
 
-/* ---------------------------
-   2) Carousel Engine (shared)
-   Markup expected:
-
-   <div class="sga-carousel sga-carousel--home" data-carousel data-breakpoint="900" data-mobile-advance="4500" data-desktop-speed="0.45">
-     <div class="sga-viewport">
-       <div class="sga-track">
-         <a class="sga-card event-card" href="..." target="_blank" rel="noopener">...</a>
-         ...
-       </div>
-     </div>
-     <div class="sga-dots" aria-label="Carousel pagination"></div>
-   </div>
-
-   Notes:
-   - Desktop uses JS-driven infinite translate loop (no keyframes)
-   - Mobile uses native scroll + snap; JS only updates dots + active + auto-advance
---------------------------- */
 async function loadHomepageFeaturedEvents() {
   const track = document.getElementById("eventsTrack");
   const template = document.getElementById("homepageEventCardTemplate");
@@ -146,6 +128,24 @@ async function loadHomepageFeaturedEvents() {
   }
 }
 
+/* ---------------------------
+   2) Carousel Engine (shared)
+   Markup expected:
+
+   <div class="sga-carousel sga-carousel--home" data-carousel data-breakpoint="900" data-mobile-advance="4500" data-desktop-speed="0.45">
+     <div class="sga-viewport">
+       <div class="sga-track">
+         <a class="sga-card event-card" href="..." target="_blank" rel="noopener">...</a>
+         ...
+       </div>
+     </div>
+     <div class="sga-dots" aria-label="Carousel pagination"></div>
+   </div>
+
+   Notes:
+   - Desktop uses JS-driven infinite translate loop (no keyframes)
+   - Mobile uses native scroll + snap; JS only updates dots + active + auto-advance
+--------------------------- */
 async function loadSkateNightEvents() {
   const track = document.getElementById("skateNightTrack");
   const template = document.getElementById("skateNightCardTemplate");
@@ -1308,6 +1308,79 @@ if (toggleBirthdayBtn && birthdayOnlineWrap) {
 
 /* ====== FACILITY RENTAL FORMS (PHP) END (REPLACEMENT) ====== */
 
+
 // ===============================
 // TICKETS PAGE: Render Event Cards from /data/events.json
 // ===============================
+(function () {
+  // Runs only if these containers exist on the page
+  const upcomingEl = document.getElementById("eventsUpcoming");
+  const leaguesEl = document.getElementById("eventsLeagues");
+  if (!upcomingEl || !leaguesEl) return;
+
+  function esc(s) {
+    return String(s ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function cardHTML(e) {
+    const title = esc(e.title);
+    const dates = esc(e.dates || "");
+    const desc = esc(e.description || "");
+    const btn = esc(e.buttonText || "GET TICKETS");
+    const url = esc(e.url || "#");
+
+    return `
+      <div class="bg-white rounded-3xl shadow-lg p-6 flex flex-col">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <h4 class="font-bebas text-3xl leading-none">${title}</h4>
+            ${dates ? `<p class="text-sm text-gray-600 mt-2">${dates}</p>` : ""}
+          </div>
+        </div>
+
+        ${desc ? `<p class="mt-4 text-gray-600">${desc}</p>` : ""}
+
+        <a href="${url}" target="_blank" rel="noopener"
+           class="mt-6 inline-flex items-center justify-center bg-black text-white px-6 py-3 rounded-full font-semibold hover:bg-gray-800 transition-colors">
+          ${btn}
+        </a>
+      </div>
+    `;
+  }
+
+  function render(list, el) {
+    el.innerHTML = list.length
+      ? list.map(cardHTML).join("")
+      : `<p class="text-gray-600">No events listed yet.</p>`;
+  }
+
+  fetch("/data/events.json?ts=" + Date.now(), { cache: "no-store" })
+    .then((r) => {
+      if (!r.ok) throw new Error("Failed to load /data/events.json");
+      return r.json();
+    })
+    .then((data) => {
+      const events = (data.events || []).filter((e) => e && e.active);
+
+      events.sort((a, b) => {
+        const sa = Number(a.sort || 0);
+        const sb = Number(b.sort || 0);
+        if (sa !== sb) return sb - sa;
+        return String(a.title || "").localeCompare(String(b.title || ""));
+      });
+
+      render(events.filter((e) => e.category === "Upcoming Events"), upcomingEl);
+      render(events.filter((e) => e.category === "Leagues & Camps"), leaguesEl);
+    })
+    .catch((err) => {
+      console.error(err);
+      upcomingEl.innerHTML =
+        `<p class="text-gray-600">Unable to load events right now.</p>`;
+      leaguesEl.innerHTML = "";
+    });
+})();
