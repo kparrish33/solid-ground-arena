@@ -867,8 +867,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ✅ Init the unified carousels LAST (so layout is stable)
-  document.addEventListener("DOMContentLoaded", async () => {
-  await loadHomepageFeaturedEvents();
+  loadHomepageFeaturedEvents().then(() => {
   initCarousels();
 });
 
