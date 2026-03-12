@@ -37,6 +37,24 @@ function flipLogo() {
   }, 500);
 }
 
+/* ---------------------------
+   2) Carousel Engine (shared)
+   Markup expected:
+
+   <div class="sga-carousel sga-carousel--home" data-carousel data-breakpoint="900" data-mobile-advance="4500" data-desktop-speed="0.45">
+     <div class="sga-viewport">
+       <div class="sga-track">
+         <a class="sga-card event-card" href="..." target="_blank" rel="noopener">...</a>
+         ...
+       </div>
+     </div>
+     <div class="sga-dots" aria-label="Carousel pagination"></div>
+   </div>
+
+   Notes:
+   - Desktop uses JS-driven infinite translate loop (no keyframes)
+   - Mobile uses native scroll + snap; JS only updates dots + active + auto-advance
+--------------------------- */
 async function loadHomepageFeaturedEvents() {
   const track = document.getElementById("eventsTrack");
   const template = document.getElementById("homepageEventCardTemplate");
@@ -128,24 +146,6 @@ async function loadHomepageFeaturedEvents() {
   }
 }
 
-/* ---------------------------
-   2) Carousel Engine (shared)
-   Markup expected:
-
-   <div class="sga-carousel sga-carousel--home" data-carousel data-breakpoint="900" data-mobile-advance="4500" data-desktop-speed="0.45">
-     <div class="sga-viewport">
-       <div class="sga-track">
-         <a class="sga-card event-card" href="..." target="_blank" rel="noopener">...</a>
-         ...
-       </div>
-     </div>
-     <div class="sga-dots" aria-label="Carousel pagination"></div>
-   </div>
-
-   Notes:
-   - Desktop uses JS-driven infinite translate loop (no keyframes)
-   - Mobile uses native scroll + snap; JS only updates dots + active + auto-advance
---------------------------- */
 async function loadSkateNightEvents() {
   const track = document.getElementById("skateNightTrack");
   const template = document.getElementById("skateNightCardTemplate");

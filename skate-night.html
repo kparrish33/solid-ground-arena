@@ -267,39 +267,38 @@
       </p>
     </section>
 
-    <!-- Themed Nights Section -->
-    <section class="carousel-section mt-24 mb-24">
-      <h2 class="neon-heading neon-pink text-center text-4xl md:text-5xl mb-12">
-        🎉 Themed Nights
-      </h2>
+<!-- Themed Nights Section -->
+<section class="carousel-section mt-24 mb-24">
+  <h2 class="neon-heading neon-pink text-center text-4xl md:text-5xl mb-12">
+    🎉 Themed Nights
+  </h2>
 
-      <div
-        class="sga-carousel sga-carousel--neon"
-        data-carousel
-        data-breakpoint="900"
-        data-mobile-advance="0"
-        data-desktop-speed="0.50"
-      >
-        <!-- Viewport (keep carousel-container class if you're using it for fade/mask) -->
-        <div class="sga-viewport carousel-container">
-          <!-- Track (keep carousel-track class if you want your existing neon animation hooks) -->
-          <div class="sga-track carousel-track" id="skateNightTrack">
-          <!-- Dots (JS fills these) -->
-        <div class="sga-dots" aria-label="Themed nights pagination"></div>
-
-            <!-- Card Template -->
-            <template id="skateNightCardTemplate">
-              <a class="sga-card theme-card" href="#" data-skate-link>
-                <div class="theme-content">
-                  <h3 data-skate-title></h3>
-                  <p class="theme-date" data-skate-date></p>
-                  <p data-skate-description></p>
-                </div>
-              </a>
-            </template>
-
+  <div
+    class="sga-carousel sga-carousel--neon"
+    data-carousel
+    data-breakpoint="900"
+    data-mobile-advance="0"
+    data-desktop-speed="0.50"
+  >
+    <div class="sga-viewport carousel-container">
+      <div class="sga-track carousel-track" id="skateNightTrack">
+        <!-- JS injects skate night cards here -->
       </div>
-    </section>
+    </div>
+
+    <div class="sga-dots" aria-label="Themed nights pagination"></div>
+  </div>
+
+  <template id="skateNightCardTemplate">
+    <a class="sga-card theme-card" href="#" data-skate-link>
+      <div class="theme-content">
+        <h3 data-skate-title></h3>
+        <p class="theme-date" data-skate-date></p>
+        <p data-skate-description></p>
+      </div>
+    </a>
+  </template>
+</section>
 
     <!-- Photo Gallery -->
     <section class="mt-24 mb-24 text-center">
