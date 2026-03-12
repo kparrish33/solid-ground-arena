@@ -340,8 +340,7 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
               name="url"
               value="<?= h((string)($formData["url"] ?? '')) ?>"
               class="mt-1 w-full rounded-xl border px-3 py-2"
-              placeholder="https://
-              ticketspice.com/your-page"
+              placeholder="https://ticketspice.com/your-page"
             />
           </div>
 
