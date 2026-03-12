@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $buttonText = trim((string)($_POST['buttonText'] ?? 'GET TICKETS'));
       $url = trim((string)($_POST['url'] ?? ''));
       $featured = normalizeBool($_POST['featured'] ?? false);
-      $active = normalizeBool($_POST['active'] ?? true);
+      $active = normalizeBool($_POST['active'] ?? false);
       $sort = (int)($_POST['sort'] ?? 99);
 
       if ($title === '') {
