@@ -312,104 +312,47 @@
   </div>
 </section>
 
-<!-- Features Section -->
-<section class="pt-20 pb-8 bg-white">
-  <h2 class="font-bebas text-5xl text-center mb-12">UPCOMING EVENTS</h2>
+      <!-- Features Section -->
+      <section class="pt-20 pb-8 bg-white">
+        <h2 class="font-bebas text-5xl text-center mb-12">UPCOMING EVENTS</h2>
 
-  <div class="relative mx-auto px-8">
-    <div
-      class="sga-carousel sga-carousel--home"
-      data-carousel
-      data-breakpoint="900"
-      data-mobile-advance="0"
-      data-desktop-speed="0.55"
-    >
-      <div class="sga-viewport" id="eventsViewport">
-        <div class="sga-track" id="eventsTrack">
-          <!-- CARD 1 -->
-          <a
-            class="sga-card event-card w-[360px] shrink-0 bg-white rounded-3xl p-10 text-center shadow-xl"
-            href="https://solidgroundarena.ticketspice.com/-st-patricks-ironman-hockey-tournament"
-            target="_blank"
-            rel="noopener"
+        <div class="relative mx-auto px-8">
+          <div
+            class="sga-carousel sga-carousel--home"
+            data-carousel
+            data-breakpoint="900"
+            data-mobile-advance="0"
+            data-desktop-speed="0.55"
           >
-            <h3 class="text-2xl font-bold">🍀 St Patrick's Ironman Hockey Tournament</h3>
-            <p class="text-gray-600 mt-2">
-              Tournament info and ticketing.
-            </p>
-            <p class="text-[#5fbcff] font-semibold mt-3">Saturday, Mar 14 · 4:00 PM</p>
-            <p class="text-yellow-400 text-lg font-bold mt-1 inline-flex items-center gap-1">
-              Buy Ticket <i data-feather="arrow-right" class="ml-1"></i>
-            </p>
-          </a>
+            <div class="sga-viewport" id="eventsViewport">
+              <div class="sga-track" id="eventsTrack">
+                <!-- JS injects exactly 5 featured cards here -->
+              </div>
+            </div>
 
-          <!-- CARD 2 -->
-          <a
-            class="sga-card event-card w-[360px] shrink-0 bg-white rounded-3xl p-10 text-center shadow-xl"
-            href="https://solidgroundarena.ticketspice.com/-roller-derby-bout"
-            target="_blank"
-            rel="noopener"
-          >
-            <h3 class="text-2xl font-bold">🛼 Roller Derby Bout</h3>
-            <p class="text-gray-600 mt-2">Choose a bout date and purchase admission.</p>
-            <p class="text-[#5fbcff] font-semibold mt-3">Saturday, Mar 21 · 8:00 PM</p>
-            <p class="text-yellow-400 text-lg font-bold mt-1 inline-flex items-center gap-1">
-              Buy Ticket <i data-feather="arrow-right" class="ml-1"></i>
-            </p>
-          </a>
-
-          <!-- CARD 3 -->
-          <a
-            class="sga-card event-card w-[360px] shrink-0 bg-white rounded-3xl p-10 text-center shadow-xl"
-            href="https://solidgroundarena.ticketspice.com/-inline-hockey-association-arizona-ihaaz"
-            target="_blank"
-            rel="noopener"
-          >
-            <h3 class="text-2xl font-bold">🏒 Inline Hockey Association Arizona (IHAAZ)</h3>
-            <p class="text-gray-600 mt-2">Event details and ticketing.</p>
-            <p class="text-[#5fbcff] font-semibold mt-3">Friday, Mar 27 - 29 · 5:00 PM</p>
-            <p class="text-yellow-400 text-lg font-bold mt-1 inline-flex items-center gap-1">
-              Buy Ticket <i data-feather="arrow-right" class="ml-1"></i>
-            </p>
-          </a>
-
-          <!-- CARD 4 -->
-          <a
-            class="sga-card event-card w-[360px] shrink-0 bg-white rounded-3xl p-10 text-center shadow-xl"
-            href="https://solidgroundarena.ticketspice.com/customer-appreciation-nightt"
-            target="_blank"
-            rel="noopener"
-          >
-            <h3 class="text-2xl font-bold">💙 Customer Appreciation Family Skate</h3>
-            <p class="text-gray-600 mt-2">Music, lights, and skating all evening long</p>
-            <p class="text-[#5fbcff] font-semibold mt-3">April, 11 · 7:30 PM</p>
-            <p class="text-yellow-400 text-lg font-bold mt-1 inline-flex items-center gap-1">
-              Buy Ticket <i data-feather="arrow-right" class="ml-1"></i>
-            </p>
-          </a>
-
-          <!-- CARD 5 -->
-          <a
-            class="sga-card event-card w-[360px] shrink-0 bg-white rounded-3xl p-10 text-center shadow-xl"
-            href="https://solidgroundarena.ticketspice.com/-youth-box-lacrosse-league"
-            target="_blank"
-            rel="noopener"
-          >
-            <h3 class="text-2xl font-bold">🥍 Youth Box Lacrosse League</h3>
-            <p class="text-gray-600 mt-2">League registration and details.</p>
-            <p class="text-[#5fbcff] font-semibold mt-3">Begins Jun 6</p>
-            <p class="text-yellow-400 text-lg font-bold mt-1 inline-flex items-center gap-1">
-              Buy Ticket <i data-feather="arrow-right" class="ml-1"></i>
-            </p>
-          </a>
+            <!-- Dots (JS fills this; mobile only) -->
+            <div class="sga-dots" aria-label="Upcoming events pagination"></div>
+          </div>
         </div>
-      </div>
 
-      <!-- Dots (JS fills this; mobile only) -->
-      <div class="sga-dots" aria-label="Upcoming events pagination"></div>
-    </div>
-  </div>
-</section>
+        <template id="homepageEventCardTemplate">
+          <a
+            class="sga-card event-card w-[360px] shrink-0 bg-white rounded-3xl p-10 text-center shadow-xl"
+            href="#"
+            target="_blank"
+            rel="noopener"
+            data-event-link
+          >
+            <h3 class="text-2xl font-bold" data-event-title></h3>
+            <p class="text-gray-600 mt-2" data-event-description></p>
+            <p class="text-[#5fbcff] font-semibold mt-3" data-event-dates></p>
+            <p class="text-yellow-400 text-lg font-bold mt-1 inline-flex items-center gap-1">
+              <span data-event-button>Buy Ticket</span>
+              <i data-feather="arrow-right" class="ml-1"></i>
+            </p>
+          </a>
+        </template>
+      </section>
 
                 <!-- Can-Do Kitchen – Coming Soon Banner -->
                 <div class="full-bleed overflow-hidden pt-10 my-10">

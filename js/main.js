@@ -55,6 +55,86 @@ function flipLogo() {
    - Desktop uses JS-driven infinite translate loop (no keyframes)
    - Mobile uses native scroll + snap; JS only updates dots + active + auto-advance
 --------------------------- */
+async function loadHomepageFeaturedEvents() {
+  const track = document.getElementById("eventsTrack");
+  const template = document.getElementById("homepageEventCardTemplate");
+
+  if (!track || !template) return;
+
+  try {
+    const res = await fetch(`/data/events.json?ts=${Date.now()}`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to load events.json");
+    }
+
+    const data = await res.json();
+    const allEvents = Array.isArray(data.events) ? data.events : [];
+
+    // Only active + featured
+    let featuredEvents = allEvents.filter(
+      (event) => event.active && event.featured,
+    );
+
+    // Sort so 1 = highest
+    featuredEvents.sort((a, b) => {
+      const aSort = Number.isFinite(Number(a.sort)) ? Number(a.sort) : 9999;
+      const bSort = Number.isFinite(Number(b.sort)) ? Number(b.sort) : 9999;
+      return aSort - bSort;
+    });
+
+    // Keep only top 5
+    featuredEvents = featuredEvents.slice(0, 5);
+
+    // If fewer than 5, repeat until exactly 5
+    if (featuredEvents.length > 0 && featuredEvents.length < 5) {
+      const filledEvents = [];
+      let i = 0;
+
+      while (filledEvents.length < 5) {
+        filledEvents.push(featuredEvents[i % featuredEvents.length]);
+        i++;
+      }
+
+      featuredEvents = filledEvents;
+    }
+
+    // If somehow none are featured, leave empty
+    if (featuredEvents.length === 0) {
+      track.innerHTML = "";
+      return;
+    }
+
+    track.innerHTML = "";
+
+    featuredEvents.forEach((event) => {
+      const clone = template.content.cloneNode(true);
+
+      const linkEl = clone.querySelector("[data-event-link]");
+      const titleEl = clone.querySelector("[data-event-title]");
+      const descEl = clone.querySelector("[data-event-description]");
+      const datesEl = clone.querySelector("[data-event-dates]");
+      const buttonEl = clone.querySelector("[data-event-button]");
+
+      if (linkEl) linkEl.href = event.url || "#";
+      if (titleEl) titleEl.textContent = event.title || "";
+      if (descEl) descEl.textContent = event.description || "";
+      if (datesEl) datesEl.textContent = event.dates || "";
+      if (buttonEl) buttonEl.textContent = event.buttonText || "Buy Ticket";
+
+      track.appendChild(clone);
+    });
+
+    if (window.feather) {
+      feather.replace();
+    }
+  } catch (err) {
+    console.error("Failed to load homepage featured events:", err);
+  }
+}
+
 function initCarousels() {
   const carousels = qsa("[data-carousel]");
   if (!carousels.length) return;
@@ -787,7 +867,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ✅ Init the unified carousels LAST (so layout is stable)
+  document.addEventListener("DOMContentLoaded", async () => {
+  await loadHomepageFeaturedEvents();
   initCarousels();
+});
 
   // ✅ DOTS CLICK (horizontal-only) — works with duplicated cards, no scrollIntoView
   (function wireCarouselDotsHorizontalOnly() {
