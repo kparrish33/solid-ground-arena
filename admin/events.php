@@ -335,7 +335,7 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
           </div>
 
           <div>
-            <label class="text-sm font-semibold">TicketSpice URL</label>
+            <label class="text-sm font-semibold">URL</label>
             <input
               name="url"
               value="<?= h((string)($formData["url"] ?? '')) ?>"
@@ -465,7 +465,7 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
                           target="_blank"
                           rel="noopener"
                         >
-                          TicketSpice Link
+                          Link
                         </a>
                       </div>
                     </td>
