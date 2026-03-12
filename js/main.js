@@ -1,4 +1,3 @@
-console.log("MAIN JS LOADED — TEST");
 /* ---------------------------
    0) Small utilities
 --------------------------- */
