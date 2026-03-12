@@ -121,10 +121,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if ($description === '') {
         throw new RuntimeException("Description is required.");
       }
-      if (!preg_match('#^https?://#i', $url)) {
-        throw new RuntimeException("URL must start with http:// or https://");
-      }
-
       if ($id === '') {
         $id = slugify($title);
       }
@@ -344,7 +340,8 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
               name="url"
               value="<?= h((string)($formData["url"] ?? '')) ?>"
               class="mt-1 w-full rounded-xl border px-3 py-2"
-              placeholder="https://...ticketspice.com/your-page"
+              placeholder="https://
+              ticketspice.com/your-page"
             />
           </div>
 
