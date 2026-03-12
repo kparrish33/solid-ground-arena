@@ -202,7 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       "buttonText" => $buttonText ?? 'GET TICKETS',
       "url" => $url ?? '',
       "featured" => $featured ?? false,
-      "active" => $active ?? true,
+      "active" => $active ?? false,
       "sort" => $sort ?? 99
     ];
   }
