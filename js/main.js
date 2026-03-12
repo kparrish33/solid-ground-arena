@@ -118,11 +118,19 @@ async function loadHomepageFeaturedEvents() {
       const datesEl = clone.querySelector("[data-event-dates]");
       const buttonEl = clone.querySelector("[data-event-button]");
 
-      if (linkEl) linkEl.href = event.url || "#";
-      if (titleEl) titleEl.textContent = event.title || "";
-      if (descEl) descEl.textContent = event.description || "";
-      if (datesEl) datesEl.textContent = event.dates || "";
+    if (titleEl) titleEl.textContent = event.title || "";
+    if (descEl) descEl.textContent = event.description || "";
+    if (datesEl) datesEl.textContent = event.dates || "";
+
+    // Handle ticket link / button
+    if (event.url) {
+      if (linkEl) linkEl.href = event.url;
       if (buttonEl) buttonEl.textContent = event.buttonText || "Buy Ticket";
+    } else {
+      // informational event (no ticket link)
+      if (linkEl) linkEl.removeAttribute("href");
+      if (buttonEl) buttonEl.style.display = "none";
+    }
 
       track.appendChild(clone);
     });
