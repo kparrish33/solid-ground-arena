@@ -369,21 +369,21 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
             <label class="flex items-center gap-2 text-sm">
               <input
                 type="checkbox"
-                name="active"
-                value="1"
-                <?= (($formData["active"] ?? true) ? 'checked' : '') ?>
-              />
-              Active
-            </label>
-
-            <label class="flex items-center gap-2 text-sm">
-              <input
-                type="checkbox"
                 name="featured"
                 value="1"
                 <?= (($formData["featured"] ?? false) ? 'checked' : '') ?>
               />
               Featured
+            </label>
+            
+            <label class="flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                name="active"
+                value="1"
+                <?= (($formData["active"] ?? false) ? 'checked' : '') ?>
+              />
+              Skate Night
             </label>
           </div>
 
@@ -446,8 +446,8 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
                   <th class="py-2 pr-4">Title</th>
                   <th class="py-2 pr-4">Dates</th>
                   <th class="py-2 pr-4">Category</th>
-                  <th class="py-2 pr-4">Active</th>
                   <th class="py-2 pr-4">Featured</th>
+                  <th class="py-2 pr-4">Skate Night</th>
                   <th class="py-2 pr-4">Order</th>
                   <th class="py-2 pr-4">Actions</th>
                 </tr>
@@ -471,8 +471,8 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
                     </td>
                     <td class="py-3 pr-4"><?= h((string)($ev["dates"] ?? '')) ?></td>
                     <td class="py-3 pr-4"><?= h((string)($ev["category"] ?? '')) ?></td>
-                    <td class="py-3 pr-4"><?= (($ev["active"] ?? false) ? 'Yes' : 'No') ?></td>
                     <td class="py-3 pr-4"><?= (($ev["featured"] ?? false) ? 'Yes' : 'No') ?></td>
+                    <td class="py-3 pr-4"><?= (($ev["active"] ?? false) ? 'Yes' : 'No') ?></td>
                     <td class="py-3 pr-4"><?= h((string)($ev["sort"] ?? 99)) ?></td>
                     <td class="py-3 pr-4">
                       <a class="underline" href="events.php?edit=<?= urlencode((string)($ev["id"] ?? '')) ?>">Edit</a>
