@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $url = trim((string)($_POST['url'] ?? ''));
       $featured = normalizeBool($_POST['featured'] ?? false);
       $active = normalizeBool($_POST['active'] ?? true);
-      $sort = (int)($_POST['sort'] ?? 9999);
+      $sort = (int)($_POST['sort'] ?? 99);
 
       if ($title === '') {
         throw new RuntimeException("Title is required.");
@@ -203,7 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       "url" => $url ?? '',
       "featured" => $featured ?? false,
       "active" => $active ?? true,
-      "sort" => $sort ?? 9999
+      "sort" => $sort ?? 99
     ];
   }
 }
@@ -214,8 +214,8 @@ $events = $data["events"];
 
 // ---------- sort for display ----------
 usort($events, function ($a, $b) {
-  $sa = (int)($a["sort"] ?? 9999);
-  $sb = (int)($b["sort"] ?? 9999);
+  $sa = (int)($a["sort"] ?? 99);
+  $sb = (int)($b["sort"] ?? 99);
 
   if ($sa === $sb) {
     return strcmp((string)($a["title"] ?? ''), (string)($b["title"] ?? ''));
@@ -358,7 +358,7 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
               <input
                 name="sort"
                 type="number"
-                value="<?= h((string)($formData["sort"] ?? '20')) ?>"
+                value="<?= h((string)($formData["sort"] ?? '99')) ?>"
                 class="mt-1 w-full rounded-xl border px-3 py-2"
                 placeholder="1"
               />
@@ -473,7 +473,7 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
                     <td class="py-3 pr-4"><?= h((string)($ev["category"] ?? '')) ?></td>
                     <td class="py-3 pr-4"><?= (($ev["active"] ?? false) ? 'Yes' : 'No') ?></td>
                     <td class="py-3 pr-4"><?= (($ev["featured"] ?? false) ? 'Yes' : 'No') ?></td>
-                    <td class="py-3 pr-4"><?= h((string)($ev["sort"] ?? 9999)) ?></td>
+                    <td class="py-3 pr-4"><?= h((string)($ev["sort"] ?? 99)) ?></td>
                     <td class="py-3 pr-4">
                       <a class="underline" href="events.php?edit=<?= urlencode((string)($ev["id"] ?? '')) ?>">Edit</a>
                     </td>
