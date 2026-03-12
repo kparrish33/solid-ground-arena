@@ -294,7 +294,7 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
               name="title"
               value="<?= h((string)($formData["title"] ?? '')) ?>"
               class="mt-1 w-full rounded-xl border px-3 py-2"
-              placeholder="e.g., St Patrick's Ironman Hockey Tournament"
+              placeholder="Themed Open Skate"
             />
           </div>
 
@@ -305,7 +305,7 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
               name="dates"
               value="<?= h((string)($formData["dates"] ?? '')) ?>"
               class="mt-1 w-full rounded-xl border px-3 py-2"
-              placeholder="e.g., March 14 or March 21 路 April 25 路 May 30"
+              placeholder="Saturday Mar 21"
             />
           </div>
 
@@ -358,7 +358,7 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
               <input
                 name="sort"
                 type="number"
-                value="<?= h((string)($formData["sort"] ?? '9999')) ?>"
+                value="<?= h((string)($formData["sort"] ?? '20')) ?>"
                 class="mt-1 w-full rounded-xl border px-3 py-2"
                 placeholder="1"
               />
