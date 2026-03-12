@@ -283,58 +283,21 @@
         <!-- Viewport (keep carousel-container class if you're using it for fade/mask) -->
         <div class="sga-viewport carousel-container">
           <!-- Track (keep carousel-track class if you want your existing neon animation hooks) -->
-          <div class="sga-track carousel-track">
-            <!-- Card 1 -->
-            <a class="sga-card theme-card" href="tickets?add=theme-2026-03-07">
-              <div class="theme-content">
-                <h3>🌈 Glow Party</h3>
-                <p class="theme-date">Saturday, Mar 7 | 8:00 PM – 12:00 AM</p>
-                <p>
-                  Lights, glow sticks, and UV-active gear! Shine bright all
-                  night long.
-                </p>
-              </div>
-            </a>
-
-            <!-- Card 2 -->
-            <a class="sga-card theme-card" href="tickets?add=theme-2026-03-13">
-              <div class="theme-content">
-                <h3>🎸 Rock & Roll</h3>
-                <p class="theme-date">Friday, Mar 13 | 7:00 PM – 11:00 PM</p>
-                <p>
-                  Skate to the greatest rock anthems and headbang on wheels.
-                </p>
-              </div>
-            </a>
-
-            <!-- Card 3 -->
-            <a class="sga-card theme-card" href="tickets?add=theme-2026-03-20">
-              <div class="theme-content">
-                <h3>⭐ Disco Fever</h3>
-                <p class="theme-date">Friday, Mar 20 | 7:00 PM – 11:00 PM</p>
-                <p>
-                  Bell bottoms, platform shoes, and mirror balls! Boogie all
-                  night long.
-                </p>
-              </div>
-            </a>
-
-            <!-- Card 4 -->
-            <a class="sga-card theme-card" href="tickets?add=theme-2026-03-28">
-              <div class="theme-content">
-                <h3>🕺 Retro Vibes</h3>
-                <p class="theme-date">Saturday, Mar 28 | 6:00 PM – 10:00 PM</p>
-                <p>
-                  Throwback classics from the 70s–90s. Bring your best retro
-                  outfit!
-                </p>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <!-- Dots (JS fills these) -->
+          <div class="sga-track carousel-track" id="skateNightTrack">
+          <!-- Dots (JS fills these) -->
         <div class="sga-dots" aria-label="Themed nights pagination"></div>
+
+            <!-- Card Template -->
+            <template id="skateNightCardTemplate">
+              <a class="sga-card theme-card" href="#" data-skate-link>
+                <div class="theme-content">
+                  <h3 data-skate-title></h3>
+                  <p class="theme-date" data-skate-date></p>
+                  <p data-skate-description></p>
+                </div>
+              </a>
+            </template>
+
       </div>
     </section>
 

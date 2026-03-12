@@ -37,24 +37,6 @@ function flipLogo() {
   }, 500);
 }
 
-/* ---------------------------
-   2) Carousel Engine (shared)
-   Markup expected:
-
-   <div class="sga-carousel sga-carousel--home" data-carousel data-breakpoint="900" data-mobile-advance="4500" data-desktop-speed="0.45">
-     <div class="sga-viewport">
-       <div class="sga-track">
-         <a class="sga-card event-card" href="..." target="_blank" rel="noopener">...</a>
-         ...
-       </div>
-     </div>
-     <div class="sga-dots" aria-label="Carousel pagination"></div>
-   </div>
-
-   Notes:
-   - Desktop uses JS-driven infinite translate loop (no keyframes)
-   - Mobile uses native scroll + snap; JS only updates dots + active + auto-advance
---------------------------- */
 async function loadHomepageFeaturedEvents() {
   const track = document.getElementById("eventsTrack");
   const template = document.getElementById("homepageEventCardTemplate");
@@ -73,15 +55,13 @@ async function loadHomepageFeaturedEvents() {
     const data = await res.json();
     const allEvents = Array.isArray(data.events) ? data.events : [];
 
-    // Only active + featured
-    let featuredEvents = allEvents.filter(
-      (event) => event.active && event.featured,
-    );
+    // Homepage = Featured only
+    let featuredEvents = allEvents.filter((event) => event.featured);
 
     // Sort so 1 = highest
     featuredEvents.sort((a, b) => {
-      const aSort = Number.isFinite(Number(a.sort)) ? Number(a.sort) : 9999;
-      const bSort = Number.isFinite(Number(b.sort)) ? Number(b.sort) : 9999;
+      const aSort = Number.isFinite(Number(a.sort)) ? Number(a.sort) : 99;
+      const bSort = Number.isFinite(Number(b.sort)) ? Number(b.sort) : 99;
       return aSort - bSort;
     });
 
@@ -101,7 +81,7 @@ async function loadHomepageFeaturedEvents() {
       featuredEvents = filledEvents;
     }
 
-    // If somehow none are featured, leave empty
+    // If none are featured, leave empty
     if (featuredEvents.length === 0) {
       track.innerHTML = "";
       return;
@@ -118,19 +98,24 @@ async function loadHomepageFeaturedEvents() {
       const datesEl = clone.querySelector("[data-event-dates]");
       const buttonEl = clone.querySelector("[data-event-button]");
 
-    if (titleEl) titleEl.textContent = event.title || "";
-    if (descEl) descEl.textContent = event.description || "";
-    if (datesEl) datesEl.textContent = event.dates || "";
+      if (titleEl) titleEl.textContent = event.title || "";
+      if (descEl) descEl.textContent = event.description || "";
+      if (datesEl) datesEl.textContent = event.dates || "";
 
-    // Handle ticket link / button
-    if (event.url) {
-      if (linkEl) linkEl.href = event.url;
-      if (buttonEl) buttonEl.textContent = event.buttonText || "Buy Ticket";
-    } else {
-      // informational event (no ticket link)
-      if (linkEl) linkEl.removeAttribute("href");
-      if (buttonEl) buttonEl.style.display = "none";
-    }
+      if (event.url && event.url.trim() !== "") {
+        if (linkEl) linkEl.href = event.url;
+
+        if (buttonEl) {
+          buttonEl.textContent =
+            event.buttonText && event.buttonText.trim() !== ""
+              ? event.buttonText
+              : "GET TICKETS";
+          buttonEl.style.display = "";
+        }
+      } else {
+        if (linkEl) linkEl.removeAttribute("href");
+        if (buttonEl) buttonEl.style.display = "none";
+      }
 
       track.appendChild(clone);
     });
@@ -140,6 +125,83 @@ async function loadHomepageFeaturedEvents() {
     }
   } catch (err) {
     console.error("Failed to load homepage featured events:", err);
+  }
+}
+
+/* ---------------------------
+   2) Carousel Engine (shared)
+   Markup expected:
+
+   <div class="sga-carousel sga-carousel--home" data-carousel data-breakpoint="900" data-mobile-advance="4500" data-desktop-speed="0.45">
+     <div class="sga-viewport">
+       <div class="sga-track">
+         <a class="sga-card event-card" href="..." target="_blank" rel="noopener">...</a>
+         ...
+       </div>
+     </div>
+     <div class="sga-dots" aria-label="Carousel pagination"></div>
+   </div>
+
+   Notes:
+   - Desktop uses JS-driven infinite translate loop (no keyframes)
+   - Mobile uses native scroll + snap; JS only updates dots + active + auto-advance
+--------------------------- */
+async function loadSkateNightEvents() {
+  const track = document.getElementById("skateNightTrack");
+  const template = document.getElementById("skateNightCardTemplate");
+
+  if (!track || !template) return;
+
+  try {
+    const res = await fetch(`/data/events.json?ts=${Date.now()}`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to load events.json");
+    }
+
+    const data = await res.json();
+    const allEvents = Array.isArray(data.events) ? data.events : [];
+
+    // Skate Night page = Skate Night checkbox
+    let skateNightEvents = allEvents.filter((event) => event.active);
+
+    // Sort so 1 = first
+    skateNightEvents.sort((a, b) => {
+      const aSort = Number.isFinite(Number(a.sort)) ? Number(a.sort) : 99;
+      const bSort = Number.isFinite(Number(b.sort)) ? Number(b.sort) : 99;
+      return aSort - bSort;
+    });
+
+    track.innerHTML = "";
+
+    skateNightEvents.forEach((event) => {
+      const clone = template.content.cloneNode(true);
+
+      const linkEl = clone.querySelector("[data-skate-link]");
+      const titleEl = clone.querySelector("[data-skate-title]");
+      const dateEl = clone.querySelector("[data-skate-date]");
+      const descEl = clone.querySelector("[data-skate-description]");
+
+      if (titleEl) titleEl.textContent = event.title || "";
+      if (dateEl) dateEl.textContent = event.dates || "";
+      if (descEl) descEl.textContent = event.description || "";
+
+      if (event.url && event.url.trim() !== "") {
+        if (linkEl) {
+          linkEl.href = event.url;
+        }
+      } else {
+        if (linkEl) {
+          linkEl.removeAttribute("href");
+        }
+      }
+
+      track.appendChild(clone);
+    });
+  } catch (err) {
+    console.error("Failed to load skate night events:", err);
   }
 }
 
@@ -158,14 +220,11 @@ function initCarousels() {
       carousel.dataset.mobileAdvance || "4500",
       10,
     );
-    const desktopSpeed = parseFloat(carousel.dataset.desktopSpeed || "0.45"); // px per frame-ish scaled below
+    const desktopSpeed = parseFloat(carousel.dataset.desktopSpeed || "0.45");
 
-    // Original (real) cards are those present at load
     const originalCards = qsa(".sga-card", track);
     const originalCount = originalCards.length;
 
-    // Make sure cards are anchors (whole-card clickable requirement)
-    // If someone accidentally uses divs later, this prevents silent failures.
     originalCards.forEach((card) => {
       if (card.tagName !== "A") {
         console.warn(
@@ -175,21 +234,17 @@ function initCarousels() {
       }
     });
 
-    // State
-    let mode = null; // "desktop" | "mobile"
+    let mode = null;
     let paused = false;
 
-    // Desktop loop state
     let x = 0;
     let rafId = null;
     let loopWidth = 0;
 
-    // Mobile state
     let mobileTimer = null;
     let touchActive = false;
     let lastActiveIndex = 0;
 
-    /* ---------- Dots ---------- */
     function buildDots() {
       if (!dots) return;
       dots.innerHTML = "";
@@ -202,6 +257,7 @@ function initCarousels() {
         b.addEventListener("click", () => scrollToIndex(i));
         dots.appendChild(b);
       }
+
       setActiveDot(0);
     }
 
@@ -209,17 +265,6 @@ function initCarousels() {
       if (!dots) return;
       const btns = qsa(".sga-dot", dots);
       btns.forEach((b, i) => b.classList.toggle("is-active", i === idx));
-    }
-
-    /* ---------- Mobile helpers ---------- */
-    function getCardWidthStep() {
-      const cards = qsa(".sga-card", track);
-      if (cards.length < 2) return cards[0]?.getBoundingClientRect().width || 0;
-
-      const r0 = cards[0].getBoundingClientRect();
-      const r1 = cards[1].getBoundingClientRect();
-      const diff = r1.left - r0.left;
-      return diff > 0 ? diff : r0.width;
     }
 
     function getNearestIndexToCenter() {
@@ -242,7 +287,6 @@ function initCarousels() {
         }
       });
 
-      // Convert from duplicated list index -> original index
       return bestI % originalCount;
     }
 
@@ -253,7 +297,6 @@ function initCarousels() {
       const activeOriginalIndex = getNearestIndexToCenter();
       lastActiveIndex = activeOriginalIndex;
 
-      // Visual emphasis: only centered card emphasized (mobile only)
       cards.forEach((card) => {
         const idx = parseInt(card.dataset.originalIndex || "0", 10);
         card.classList.toggle("is-active", idx === activeOriginalIndex);
@@ -264,14 +307,12 @@ function initCarousels() {
     }
 
     function scrollToIndex(originalIdx) {
-      // Find the first matching card in the current DOM (works even if we duplicated)
       const cards = qsa(".sga-card", track);
       const target = cards.find(
         (c) => parseInt(c.dataset.originalIndex || "0", 10) === originalIdx,
       );
       if (!target) return;
 
-      // Center it
       const left =
         target.offsetLeft - (viewport.clientWidth - target.clientWidth) / 2;
 
@@ -295,37 +336,30 @@ function initCarousels() {
       mobileTimer = null;
     }
 
-    /* ---------------------------
-    3) Desktop Helpers
-  --------------------------- */
     function ensureDesktopLoop() {
-      // Build duplicates ONCE so we can loop seamlessly
-      // Desktop loop uses transform translateX; duplicates are necessary.
-      // We'll rebuild from originals every time we enter desktop to avoid drift.
       track.innerHTML = "";
-      originalCards.forEach((card, i) => {
-        const c = card.cloneNode(true);
-        c.dataset.originalIndex = String(i);
-        track.appendChild(c);
-      });
+
       originalCards.forEach((card, i) => {
         const c = card.cloneNode(true);
         c.dataset.originalIndex = String(i);
         track.appendChild(c);
       });
 
-      // Measure width of first set (loop length)
-      // Must wait a frame to ensure layout is ready.
+      originalCards.forEach((card, i) => {
+        const c = card.cloneNode(true);
+        c.dataset.originalIndex = String(i);
+        track.appendChild(c);
+      });
+
       requestAnimationFrame(() => {
         const cards = qsa(".sga-card", track);
         const firstSet = cards.slice(0, originalCount);
+
         loopWidth = firstSet.reduce(
           (sum, el) => sum + el.getBoundingClientRect().width,
           0,
         );
 
-        // Include gap between cards (flex gap)
-        // Easiest reliable method: measure offset between first two cards
         if (firstSet.length >= 2) {
           const a = firstSet[0].getBoundingClientRect();
           const b = firstSet[1].getBoundingClientRect();
@@ -333,7 +367,6 @@ function initCarousels() {
           loopWidth += gap * (originalCount - 1);
         }
 
-        // Reset translate
         x = 0;
         track.style.transform = "translate3d(0,0,0)";
       });
@@ -343,18 +376,22 @@ function initCarousels() {
       stopDesktopLoop();
       paused = false;
 
-      const speedPxPerFrame = desktopSpeed; // tuned via data-desktop-speed
+      const speedPxPerFrame = desktopSpeed;
+
       const step = () => {
         if (!paused) {
           x -= speedPxPerFrame;
+
           if (Math.abs(x) >= loopWidth && loopWidth > 0) {
-            // Wrap back seamlessly
             x += loopWidth;
           }
+
           track.style.transform = `translate3d(${x}px, 0, 0)`;
         }
+
         rafId = requestAnimationFrame(step);
       };
+
       rafId = requestAnimationFrame(step);
     }
 
@@ -364,17 +401,13 @@ function initCarousels() {
       rafId = null;
     }
 
-    /* ---------- Mode switch ---------- */
     function enterMobile() {
       if (mode === "mobile") return;
       mode = "mobile";
 
-      // Stop desktop loop
       stopDesktopLoop();
       track.style.transform = "none";
 
-      // Mobile should be native scroll; no duplicates needed, but we DO want looping feel.
-      // We keep a 3x list so user can swipe a bit without "end", and auto-advance stays smooth.
       track.innerHTML = "";
       for (let rep = 0; rep < 3; rep++) {
         originalCards.forEach((card, i) => {
@@ -384,21 +417,19 @@ function initCarousels() {
         });
       }
 
-      // Build dots once
       buildDots();
 
-      // Set up scroll listener to update active + dots
       viewport.addEventListener(
         "scroll",
         rafThrottle(() => updateMobileActive()),
         { passive: true },
       );
 
-      // Touch / pointer pause
       const onTouchStart = () => {
         touchActive = true;
         stopMobileAutoAdvance();
       };
+
       const onTouchEnd = () => {
         touchActive = false;
         startMobileAutoAdvance();
@@ -410,7 +441,6 @@ function initCarousels() {
       viewport.addEventListener("pointerup", onTouchEnd, { passive: true });
       viewport.addEventListener("pointercancel", onTouchEnd, { passive: true });
 
-      // Center the first card nicely
       requestAnimationFrame(() => {
         scrollToIndex(0);
         updateMobileActive();
@@ -425,26 +455,27 @@ function initCarousels() {
       stopMobileAutoAdvance();
       touchActive = false;
 
-      // Desktop uses overflow hidden and transforms
       ensureDesktopLoop();
       startDesktopLoop();
 
-      // Pause on hover (desktop only)
       carousel.addEventListener("mouseenter", () => (paused = true));
       carousel.addEventListener("mouseleave", () => (paused = false));
     }
 
     function setModeFromWidth() {
       const w = window.innerWidth;
-      if (w < breakpoint) enterMobile();
-      else enterDesktop();
+      if (w < breakpoint) {
+        enterMobile();
+      } else {
+        enterDesktop();
+      }
     }
 
-    // Init with mode + rebuild on resize
     setModeFromWidth();
     window.addEventListener("resize", rafThrottle(setModeFromWidth));
   });
 }
+
 
 /* ---------------------------
    4) Main DOM Ready
@@ -874,8 +905,11 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(() => delayedCTA.classList.add("show-cta"), 2500);
   }
 
-  // ✅ Init the unified carousels LAST (so layout is stable)
-  loadHomepageFeaturedEvents().then(() => {
+// ✅ Init the unified carousels LAST (so layout is stable)
+Promise.all([
+  loadHomepageFeaturedEvents(), 
+  loadSkateNightEvents()
+]).then(() => {
   initCarousels();
 });
 
