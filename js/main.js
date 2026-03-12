@@ -1,3 +1,4 @@
+console.log("MAIN JS LOADED — TEST");
 /* ---------------------------
    0) Small utilities
 --------------------------- */
@@ -1313,7 +1314,6 @@ if (toggleBirthdayBtn && birthdayOnlineWrap) {
 // TICKETS PAGE: Render Event Cards from /data/events.json
 // ===============================
 (function () {
-  // Runs only if these containers exist on the page
   const upcomingEl = document.getElementById("eventsUpcoming");
   const leaguesEl = document.getElementById("eventsLeagues");
   if (!upcomingEl || !leaguesEl) return;
@@ -1332,7 +1332,16 @@ if (toggleBirthdayBtn && birthdayOnlineWrap) {
     const dates = esc(e.dates || "");
     const desc = esc(e.description || "");
     const btn = esc(e.buttonText || "GET TICKETS");
-    const url = esc(e.url || "#");
+    const url = esc(e.url || "");
+
+    const buttonHTML = url
+      ? `
+        <a href="${url}" target="_blank" rel="noopener"
+           class="mt-6 inline-flex items-center justify-center bg-black text-white px-6 py-3 rounded-full font-semibold hover:bg-gray-800 transition-colors">
+          ${btn}
+        </a>
+      `
+      : "";
 
     return `
       <div class="bg-white rounded-3xl shadow-lg p-6 flex flex-col">
@@ -1345,10 +1354,7 @@ if (toggleBirthdayBtn && birthdayOnlineWrap) {
 
         ${desc ? `<p class="mt-4 text-gray-600">${desc}</p>` : ""}
 
-        <a href="${url}" target="_blank" rel="noopener"
-           class="mt-6 inline-flex items-center justify-center bg-black text-white px-6 py-3 rounded-full font-semibold hover:bg-gray-800 transition-colors">
-          ${btn}
-        </a>
+        ${buttonHTML}
       </div>
     `;
   }
@@ -1365,12 +1371,12 @@ if (toggleBirthdayBtn && birthdayOnlineWrap) {
       return r.json();
     })
     .then((data) => {
-      const events = (data.events || []).filter((e) => e && e.active);
+      const events = (data.events || []).filter((e) => e);
 
       events.sort((a, b) => {
-        const sa = Number(a.sort || 0);
-        const sb = Number(b.sort || 0);
-        if (sa !== sb) return sb - sa;
+        const sa = Number.isFinite(Number(a.sort)) ? Number(a.sort) : 99;
+        const sb = Number.isFinite(Number(b.sort)) ? Number(b.sort) : 99;
+        if (sa !== sb) return sa - sb;
         return String(a.title || "").localeCompare(String(b.title || ""));
       });
 
