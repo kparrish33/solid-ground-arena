@@ -121,9 +121,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if ($description === '') {
         throw new RuntimeException("Description is required.");
       }
-      if ($url === '') {
-        throw new RuntimeException("TicketSpice URL is required.");
-      }
       if (!preg_match('#^https?://#i', $url)) {
         throw new RuntimeException("URL must start with http:// or https://");
       }
@@ -312,7 +309,7 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
               name="dates"
               value="<?= h((string)($formData["dates"] ?? '')) ?>"
               class="mt-1 w-full rounded-xl border px-3 py-2"
-              placeholder="e.g., March 14 or March 21 · April 25 · May 30"
+              placeholder="e.g., March 14 or March 21 路 April 25 路 May 30"
             />
           </div>
 
@@ -342,9 +339,8 @@ $formData = !empty($formValues) ? $formValues : ($editing ?? []);
           </div>
 
           <div>
-            <label class="text-sm font-semibold">TicketSpice URL *</label>
+            <label class="text-sm font-semibold">TicketSpice URL</label>
             <input
-              required
               name="url"
               value="<?= h((string)($formData["url"] ?? '')) ?>"
               class="mt-1 w-full rounded-xl border px-3 py-2"
